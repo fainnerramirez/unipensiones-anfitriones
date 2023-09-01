@@ -69,7 +69,7 @@ const HeroHost = () => {
                 right={'-125px'}
                 top={'-15px'}
                 transform={'rotate(10deg)'}>
-                Desde $25.000
+                Desde $25.000 pesos
               </Text>
             </Box>
           </Stack>
