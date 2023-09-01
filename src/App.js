@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
 import { PATHS } from "./utils/PathsRouter";
 import HomeHost from "./components/HomeHost.component";
 import ErrorPage from "./components/ErrorPage.component";
 import Layout from "./Layout/Layout";
+//librarys
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
   {
