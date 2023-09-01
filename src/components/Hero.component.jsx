@@ -46,7 +46,7 @@ const HeroHost = () => {
               rounded={'full'}
               px={6}
               _hover={{
-                bg: 'green.500',
+                bg: 'pink.600',
               }}>
               Comienza ahora
             </Button>
@@ -69,7 +69,7 @@ const HeroHost = () => {
                 right={'-125px'}
                 top={'-15px'}
                 transform={'rotate(10deg)'}>
-                Desde $25.000 pesos
+                Desde $25.000
               </Text>
             </Box>
           </Stack>
