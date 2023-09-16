@@ -28,7 +28,7 @@ const HeroHost = () => {
               Comparte Tu Espacio con Estudiantes
             </Text>
           </Heading>
-          <Text color={'gray.500'}>
+          <Text color={'gray.500'} fontSize={{ base: '2xl', sm: '2xl', md: '2xl' }}>
             En Unipensiones, creemos que cada hogar
             puede ser un espacio de aprendizaje. Únete como anfitrión y ofrece tu pensión
             a estudiantes que buscan un lugar inspirador para vivir mientras persiguen
@@ -51,7 +51,7 @@ const HeroHost = () => {
               Comienza ahora
             </Button>
             <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
-              Aprender más
+              Ir a página principal
             </Button>
             <Box>
               <Icon
