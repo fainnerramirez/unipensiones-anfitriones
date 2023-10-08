@@ -9,6 +9,7 @@ import {
   useColorModeValue,
   createIcon,
 } from '@chakra-ui/react'
+import Register from './Register.component'
 
 const HeroHost = () => {
   return (
@@ -40,16 +41,7 @@ const HeroHost = () => {
             align={'center'}
             alignSelf={'center'}
             position={'relative'}>
-            <Button
-              colorScheme={'green'}
-              bg={'pink.500'}
-              rounded={'full'}
-              px={6}
-              _hover={{
-                bg: 'pink.600',
-              }}>
-              Comienza ahora
-            </Button>
+            <Register />
             <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
               Ir a página principal
             </Button>
