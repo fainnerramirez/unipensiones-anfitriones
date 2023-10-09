@@ -12,18 +12,45 @@ import {
     InputGroup,
     InputLeftElement,
     Input,
-    InputRightElement
+    InputRightElement,
+    HStack,
+    Box,
+    Image,
+    Flex
 } from '@chakra-ui/react'
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+
+import UserNotFound from "../assets/userNotFound.png"
+
 import { BiUser } from "react-icons/bi"
 import { MdPassword } from "react-icons/md";
-import {BsCalendarDate} from "react-icons/bs";
-import {AiOutlineEyeInvisible, AiOutlineEye} from "react-icons/ai"
+import { BsCalendarDate } from "react-icons/bs";
+import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai"
+import { TbEdit } from "react-icons/tb"
 
 function Register() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [show, setShow] = useState(false)
+    const [selectedImage, setSelectedImage] = useState(UserNotFound);
     const handleClick = () => setShow(!show)
+
+    const fileInputRef = useRef(null);
+
+    const handleButtonEditPhotoUser = () => {
+        fileInputRef.current.click();
+    };
+
+    const handleFileChange = (event) => {
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setSelectedImage(e.target.result);
+            };
+            reader.readAsDataURL(selectedFile);
+        }
+    };
+
     return (
         <>
             <Button
@@ -44,20 +71,40 @@ function Register() {
                     <ModalCloseButton />
                     <ModalBody>
                         <Stack spacing={4}>
-                            <InputGroup width={'50%'}>
-                                <InputLeftElement pointerEvents='none'>
-                                    <BiUser color='gray.300' />
-                                </InputLeftElement>
-                                <Input type='text' placeholder='Nombres' />
-                            </InputGroup>
+                            <Flex justifyContent={'center'} alignItems={'end'}>
+                                <Image
+                                    borderRadius='full'
+                                    objectFit={'cover'}
+                                    boxSize='150px'
+                                    src={selectedImage}
+                                    alt='Foto del usuario'
+                                />
+                                <Button onClick={handleButtonEditPhotoUser}>
+                                    <TbEdit />
+                                </Button>
+                                <Input
+                                    type="file"
+                                    ref={fileInputRef}
+                                    style={{ display: 'none' }}
+                                    onChange={handleFileChange}
+                                />
+                            </Flex>
+                            <HStack spacing={'5px'}>
+                                <InputGroup width={'50%'}>
+                                    <InputLeftElement pointerEvents='none'>
+                                        <BiUser color='gray.300' />
+                                    </InputLeftElement>
+                                    <Input type='text' placeholder='Nombres' />
+                                </InputGroup>
 
-                            <InputGroup width={'50%'}>
-                                <InputLeftElement pointerEvents='none'>
-                                    <BiUser color='gray.300' />
-                                </InputLeftElement>
-                                <Input type='text' placeholder='Apellidos' />
-                            </InputGroup>
+                                <InputGroup width={'50%'}>
+                                    <InputLeftElement pointerEvents='none'>
+                                        <BiUser color='gray.300' />
+                                    </InputLeftElement>
+                                    <Input type='text' placeholder='Apellidos' />
+                                </InputGroup>
 
+                            </HStack>
                             <InputGroup>
                                 <InputLeftElement pointerEvents='none'>
                                     <BsCalendarDate color='gray.300' />
@@ -80,7 +127,7 @@ function Register() {
                                 <Input type={show ? 'text' : 'password'} placeholder='Ingresa contraseña' />
                                 <InputRightElement width='4.5rem'>
                                     <Button h='1.75rem' size='sm' onClick={handleClick}>
-                                        {show ? <AiOutlineEyeInvisible/> : <AiOutlineEye />}
+                                        {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
                                     </Button>
                                 </InputRightElement>
                             </InputGroup>
@@ -93,14 +140,20 @@ function Register() {
                                 <Input type={show ? 'text' : 'password'} placeholder='Confirma tu contraseña' />
                                 <InputRightElement width='4.5rem'>
                                     <Button h='1.75rem' size='sm' onClick={handleClick}>
-                                    {show ?  <AiOutlineEyeInvisible/> : <AiOutlineEye />}
+                                        {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
                                     </Button>
                                 </InputRightElement>
                             </InputGroup>
                         </Stack>
                     </ModalBody>
                     <ModalFooter>
-                        <Button colorScheme='blue' mt={3} variant='ghost'>Registrarme</Button>
+                        <Button
+                            colorScheme='blue'
+                            color={'blue.800'}
+                            variant={'outline'}
+                            mt={3}
+                            _hover={{ backgroundColor: 'blue.800', color: "white" }}
+                        >Registrarme</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
