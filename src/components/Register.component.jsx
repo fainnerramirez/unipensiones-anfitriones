@@ -16,7 +16,11 @@ import {
     HStack,
     Box,
     Image,
-    Flex
+    Flex,
+    FormControl,
+    FormLabel,
+    FormErrorMessage,
+    FormHelperText
 } from '@chakra-ui/react'
 import { useState, useRef } from 'react';
 
@@ -27,6 +31,8 @@ import { MdPassword } from "react-icons/md";
 import { BsCalendarDate } from "react-icons/bs";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai"
 import { TbEdit } from "react-icons/tb"
+
+import { Form, Field, Formik } from 'formik';
 
 function Register() {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -51,6 +57,17 @@ function Register() {
         }
     };
 
+    function validateName(value) {
+        let error
+        if (!value) {
+            error = 'Name is required'
+        } else if (value.toLowerCase() !== 'naruto') {
+            error = "Jeez! You're not a fan 😱"
+        }
+        return error
+    }
+
+
     return (
         <>
             <Button
@@ -70,81 +87,107 @@ function Register() {
                     <ModalHeader>Registro de anfitrión</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Stack spacing={4}>
-                            <Flex justifyContent={'center'} alignItems={'end'}>
-                                <Image
-                                    borderRadius='full'
-                                    objectFit={'cover'}
-                                    boxSize='150px'
-                                    src={selectedImage}
-                                    alt='Foto del usuario'
-                                />
-                                <Button onClick={handleButtonEditPhotoUser}>
-                                    <TbEdit />
-                                </Button>
-                                <Input
-                                    type="file"
-                                    ref={fileInputRef}
-                                    style={{ display: 'none' }}
-                                    onChange={handleFileChange}
-                                />
-                            </Flex>
-                            <HStack spacing={'5px'}>
-                                <InputGroup width={'50%'}>
-                                    <InputLeftElement pointerEvents='none'>
-                                        <BiUser color='gray.300' />
-                                    </InputLeftElement>
-                                    <Input type='text' placeholder='Nombres' />
-                                </InputGroup>
+                        <Formik
+                            initialValues={{ name: 'Sasuke' }}
+                            onSubmit={(values, actions) => {
+                                setTimeout(() => {
+                                    alert(JSON.stringify(values, null, 2))
+                                    actions.setSubmitting(false)
+                                }, 1000)
+                            }}
+                        >
+                            <Form>
+                                <Stack spacing={4}>
+                                    <Flex justifyContent={'center'} alignItems={'end'}>
+                                        <Image
+                                            borderRadius='full'
+                                            objectFit={'cover'}
+                                            boxSize='150px'
+                                            src={selectedImage}
+                                            alt='Foto del usuario'
+                                        />
+                                        <Button onClick={handleButtonEditPhotoUser}>
+                                            <TbEdit />
+                                        </Button>
+                                        <Input
+                                            type="file"
+                                            ref={fileInputRef}
+                                            style={{ display: 'none' }}
+                                            onChange={handleFileChange}
+                                        />
+                                    </Flex>
+                                    <HStack spacing={'5px'} mt={'10px'}>
+                                        <FormControl width={'50%'}>
+                                            <InputGroup>
+                                                <InputLeftElement pointerEvents='none'>
+                                                    <BiUser color='gray.300' />
+                                                </InputLeftElement>
+                                                <Input type='text' placeholder='Nombres' />
+                                            </InputGroup>
+                                            <FormErrorMessage>example error</FormErrorMessage>
+                                        </FormControl>
 
-                                <InputGroup width={'50%'}>
-                                    <InputLeftElement pointerEvents='none'>
-                                        <BiUser color='gray.300' />
-                                    </InputLeftElement>
-                                    <Input type='text' placeholder='Apellidos' />
-                                </InputGroup>
+                                        <InputGroup width={'50%'}>
+                                            <InputLeftElement pointerEvents='none'>
+                                                <BiUser color='gray.300' />
+                                            </InputLeftElement>
+                                            <Input type='text' placeholder='Apellidos' />
+                                        </InputGroup>
+                                    </HStack>
+                                    <HStack spacing={'5px'}>
+                                        <InputGroup>
+                                            <InputLeftElement pointerEvents='none'>
+                                                <BsCalendarDate color='gray.300' />
+                                            </InputLeftElement>
+                                            <Input type='date' placeholder='Fecha de nacimiento' />
+                                        </InputGroup>
 
-                            </HStack>
-                            <InputGroup>
-                                <InputLeftElement pointerEvents='none'>
-                                    <BsCalendarDate color='gray.300' />
-                                </InputLeftElement>
-                                <Input type='date' placeholder='Fecha de nacimiento' />
-                            </InputGroup>
-
-                            <InputGroup>
-                                <InputLeftElement pointerEvents='none'>
-                                    <BiUser color='gray.300' />
-                                </InputLeftElement>
-                                <Input type='text' placeholder='Nombre de usuario' />
-                            </InputGroup>
-                            <InputGroup>
-                                <InputLeftElement
-                                    pointerEvents='none'
-                                >
-                                    <MdPassword color='green.500' />
-                                </InputLeftElement>
-                                <Input type={show ? 'text' : 'password'} placeholder='Ingresa contraseña' />
-                                <InputRightElement width='4.5rem'>
-                                    <Button h='1.75rem' size='sm' onClick={handleClick}>
-                                        {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-                                    </Button>
-                                </InputRightElement>
-                            </InputGroup>
-                            <InputGroup>
-                                <InputLeftElement
-                                    pointerEvents='none'
-                                >
-                                    <MdPassword color='green.500' />
-                                </InputLeftElement>
-                                <Input type={show ? 'text' : 'password'} placeholder='Confirma tu contraseña' />
-                                <InputRightElement width='4.5rem'>
-                                    <Button h='1.75rem' size='sm' onClick={handleClick}>
-                                        {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-                                    </Button>
-                                </InputRightElement>
-                            </InputGroup>
-                        </Stack>
+                                        <InputGroup>
+                                            <InputLeftElement pointerEvents='none'>
+                                                <BiUser color='gray.300' />
+                                            </InputLeftElement>
+                                            <Input type='text' placeholder='Nombre de usuario' />
+                                        </InputGroup>
+                                    </HStack>
+                                    <FormControl>
+                                        <InputGroup>
+                                            <InputLeftElement
+                                                pointerEvents='none'
+                                            >
+                                                <MdPassword color='green.500' />
+                                            </InputLeftElement>
+                                            <Input type={show ? 'text' : 'password'} placeholder='Ingresa contraseña' />
+                                            <InputRightElement width='4.5rem'>
+                                                <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                                    {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                                                </Button>
+                                            </InputRightElement>
+                                        </InputGroup>
+                                        <FormHelperText>
+                                            Debe ser igual o mayor a 7 caractéres.
+                                        </FormHelperText>
+                                    </FormControl>
+                                    <FormControl>
+                                        <InputGroup>
+                                            <InputLeftElement
+                                                pointerEvents='none'
+                                            >
+                                                <MdPassword color='green.500' />
+                                            </InputLeftElement>
+                                            <Input type={show ? 'text' : 'password'} placeholder='Confirma tu contraseña' />
+                                            <InputRightElement width='4.5rem'>
+                                                <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                                    {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                                                </Button>
+                                            </InputRightElement>
+                                        </InputGroup>
+                                        <FormHelperText>
+                                            Debe ser igual o mayor a 7 caractéres.
+                                        </FormHelperText>
+                                    </FormControl>
+                                </Stack>
+                            </Form>
+                        </Formik>
                     </ModalBody>
                     <ModalFooter>
                         <Button
