@@ -55,13 +55,13 @@ const HeroHost = () => {
                 top={'10px'}
               />
               <Text
-                fontSize={'lg'}
+                fontSize={'xl'}
                 fontFamily={'Caveat'}
                 position={'absolute'}
-                right={'-125px'}
-                top={'-15px'}
-                transform={'rotate(10deg)'}>
-                Desde $25.000
+                right={'-160px'}
+                top={'-10px'}
+                transform={'rotate(20deg)'}>
+                ¡Totalmente Gratis!
               </Text>
             </Box>
           </Stack>

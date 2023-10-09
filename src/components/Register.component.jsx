@@ -7,11 +7,23 @@ import {
     ModalBody,
     ModalCloseButton,
     Button,
-    useDisclosure
+    useDisclosure,
+    Stack,
+    InputGroup,
+    InputLeftElement,
+    Input,
+    InputRightElement
 } from '@chakra-ui/react'
+import { useState } from 'react';
+import { BiUser } from "react-icons/bi"
+import { MdPassword } from "react-icons/md";
+import {BsCalendarDate} from "react-icons/bs";
+import {AiOutlineEyeInvisible, AiOutlineEye} from "react-icons/ai"
 
 function Register() {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [show, setShow] = useState(false)
+    const handleClick = () => setShow(!show)
     return (
         <>
             <Button
@@ -25,23 +37,70 @@ function Register() {
                 onClick={onOpen}>
                 Comienza Ahora
             </Button>
-            <Modal isOpen={isOpen} onClose={onClose}>
+            <Modal isOpen={isOpen} size={'xl'} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Modal Title</ModalHeader>
+                    <ModalHeader>Registro de anfitrión</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Animi aliquam, deleniti libero corporis a facilis fuga
-                        eveniet accusantium reprehenderit molestiae voluptas mollitia
-                        consequuntur! Aliquid, veritatis!
+                        <Stack spacing={4}>
+                            <InputGroup width={'50%'}>
+                                <InputLeftElement pointerEvents='none'>
+                                    <BiUser color='gray.300' />
+                                </InputLeftElement>
+                                <Input type='text' placeholder='Nombres' />
+                            </InputGroup>
+
+                            <InputGroup width={'50%'}>
+                                <InputLeftElement pointerEvents='none'>
+                                    <BiUser color='gray.300' />
+                                </InputLeftElement>
+                                <Input type='text' placeholder='Apellidos' />
+                            </InputGroup>
+
+                            <InputGroup>
+                                <InputLeftElement pointerEvents='none'>
+                                    <BsCalendarDate color='gray.300' />
+                                </InputLeftElement>
+                                <Input type='date' placeholder='Fecha de nacimiento' />
+                            </InputGroup>
+
+                            <InputGroup>
+                                <InputLeftElement pointerEvents='none'>
+                                    <BiUser color='gray.300' />
+                                </InputLeftElement>
+                                <Input type='text' placeholder='Nombre de usuario' />
+                            </InputGroup>
+                            <InputGroup>
+                                <InputLeftElement
+                                    pointerEvents='none'
+                                >
+                                    <MdPassword color='green.500' />
+                                </InputLeftElement>
+                                <Input type={show ? 'text' : 'password'} placeholder='Ingresa contraseña' />
+                                <InputRightElement width='4.5rem'>
+                                    <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                        {show ? <AiOutlineEyeInvisible/> : <AiOutlineEye />}
+                                    </Button>
+                                </InputRightElement>
+                            </InputGroup>
+                            <InputGroup>
+                                <InputLeftElement
+                                    pointerEvents='none'
+                                >
+                                    <MdPassword color='green.500' />
+                                </InputLeftElement>
+                                <Input type={show ? 'text' : 'password'} placeholder='Confirma tu contraseña' />
+                                <InputRightElement width='4.5rem'>
+                                    <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                    {show ?  <AiOutlineEyeInvisible/> : <AiOutlineEye />}
+                                    </Button>
+                                </InputRightElement>
+                            </InputGroup>
+                        </Stack>
                     </ModalBody>
                     <ModalFooter>
-                        <Button
-                            colorScheme='blue' mr={3} onClick={onClose}>
-                            Close
-                        </Button>
-                        <Button variant='ghost'>Secondary Action</Button>
+                        <Button colorScheme='blue' mt={3} variant='ghost'>Registrarme</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
