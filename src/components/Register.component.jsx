@@ -24,6 +24,7 @@ import {
 } from '@chakra-ui/react'
 import { useState, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from "react-router-dom"
 
 //toast
 import { ToastContainer, toast } from 'react-toastify';
@@ -49,24 +50,22 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 
 function Register() {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    let navigate = useNavigate();
+
+    const { isOpen, onOpen, onClose} = useDisclosure()
     const [show, setShow] = useState(false)
     const [selectedImage, setSelectedImage] = useState(UserNotFound);
     const [selectedFileProfile, setSelectedFileProfile] = useState(null);
-
-    const handleClick = () => setShow(!show)
-
-    //sets variables form
     const [username, setUsername] = useState("")
     const [userlastname, setUserlastname] = useState("")
     const [day, setDay] = useState("")
-    const [usernameApp, setUsernameApp] = useState(false)
-    const [userEmail, setUserEmail] = useState(false)
-    //paswword
-    const [userPassword, setUserPassword] = useState(false)
-    const [userPasswordTwo, setUserPasswordTwo] = useState(false)
-
+    const [usernameApp, setUsernameApp] = useState("")
+    const [userEmail, setUserEmail] = useState("")
+    const [userPassword, setUserPassword] = useState("")
+    const [userPasswordTwo, setUserPasswordTwo] = useState("")
     const fileInputRef = useRef(null);
+    
+    const handleClick = () => setShow(!show)
 
     const handleButtonEditPhotoUser = () => {
         fileInputRef.current.click();
@@ -152,6 +151,8 @@ function Register() {
                         if(selectedFileProfile){
                             LoadFileProfileUser(selectedFileProfile);
                         }
+
+                        navigate("aviso"); //+ el id del usuario
                     }
                     catch (e) {
                         console.log(e)
@@ -194,6 +195,7 @@ function Register() {
                 Comienza Ahora
             </Button>
             <Modal isOpen={isOpen} size={'xl'} onClose={onClose}>
+                {console.log("On close: ", onClose)}
                 <ModalOverlay />
 
                 <ModalContent>
