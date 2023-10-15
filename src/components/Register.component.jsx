@@ -31,6 +31,7 @@ import { MdPassword } from "react-icons/md";
 import { BsCalendarDate } from "react-icons/bs";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai"
 import { TbEdit } from "react-icons/tb"
+import {HiOutlineMail} from "react-icons/hi";
 
 function Register() {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -138,6 +139,19 @@ function Register() {
                                         </InputGroup>
                                     </FormControl>
                                 </HStack>
+                                <FormControl>
+                                    <InputGroup>
+                                        <InputLeftElement
+                                            pointerEvents='none'
+                                        >
+                                            <HiOutlineMail color='green.500' />
+                                        </InputLeftElement>
+                                        <Input type='email' placeholder='Correo electrónico' />
+                                    </InputGroup>
+                                    <FormHelperText>
+                                        Escribe un correo válido. Deberás validar tu correo electrónico
+                                    </FormHelperText>
+                                </FormControl>
                                 <FormControl>
                                     <InputGroup>
                                         <InputLeftElement
