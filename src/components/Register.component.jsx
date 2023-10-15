@@ -70,7 +70,7 @@ function Register() {
         fileInputRef.current.click();
     };
 
-    const handleFileChange = (event) => {
+    const handleFileProfileChange = (event) => {
         const selectedFile = event.target.files[0];
 
         if (selectedFile) {
@@ -102,45 +102,33 @@ function Register() {
             return;
         }
 
-        //creando usuario auth
-        createUserWithEmailAndPassword(auth, userEmail, userPassword)
-            .then(async (userCredential) => {
-                const user = userCredential.user;
-                try {
-                    //agregando documento a la coleccion de usuarios
-                    await addDoc(collection(db, "users"), {
-                        userId: user.uid,
-                        username: username,
-                        lastname: userlastname,
-                        birthday: day,
-                        usernameApp: usernameApp,
-                        userEmail: userEmail,
-                    });
-
-                    if (selectedFileProfile) {
-                        LoadFileProfileUser(selectedFileProfile);
-                    }
-
-                    toast.success("Haz sido autenticado como " + user.email, {
-                        theme: "colored",
-                        position: "top-center"
-                    })
-
-                    setTimeout(function () {
-                        navigate("aviso"); //+ el id del usuario para buscar los datos relacionados a ese usuario: fotos y datos basicos
-                    }, 3000);
-                }
-                catch (e) {
-                    console.log("Ha ocurrido un error: ", e)
-                }
-            })
-            .catch((error) => {
-
-                const errorCode = error.code;
-                const errorMessage = error.message;
-
-                console.log("Ha ocurrido un error: ", errorCode + "|" + errorMessage)
+        try {
+            const { user } = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
+            await addDoc(collection(db, "users"), {
+                userId: user.uid,
+                username: username,
+                lastname: userlastname,
+                birthday: day,
+                usernameApp: usernameApp,
+                userEmail: userEmail,
             });
+
+            if (selectedFileProfile) {
+                LoadFileProfileUser(selectedFileProfile);
+            }
+
+            toast.success("Haz sido autenticado como " + user.email, {
+                theme: "colored",
+                position: "top-center"
+            })
+
+            setTimeout(function () {
+                navigate("aviso"); //+ el id del usuario para buscar los datos relacionados a ese usuario: fotos y datos basicos
+            }, 3000);
+        }
+        catch (e) {
+            console.log("Ha ocurrido un error: ", e)
+        }
     }
 
     return (
@@ -180,7 +168,7 @@ function Register() {
                                         type="file"
                                         ref={fileInputRef}
                                         style={{ display: 'none' }}
-                                        onChange={handleFileChange}
+                                        onChange={handleFileProfileChange}
                                     />
                                 </Flex>
                                 <HStack spacing={'5px'} mt={'10px'}>
