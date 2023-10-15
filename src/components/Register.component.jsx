@@ -46,13 +46,12 @@ import { LoadFileProfileUser } from "../firebase/references/users/profiles";
 
 //auth
 import { auth } from "../firebase/authentication/auth";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 function Register() {
     let navigate = useNavigate();
 
-    const { isOpen, onOpen, onClose} = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const [show, setShow] = useState(false)
     const [selectedImage, setSelectedImage] = useState(UserNotFound);
     const [selectedFileProfile, setSelectedFileProfile] = useState(null);
@@ -64,7 +63,7 @@ function Register() {
     const [userPassword, setUserPassword] = useState("")
     const [userPasswordTwo, setUserPasswordTwo] = useState("")
     const fileInputRef = useRef(null);
-    
+
     const handleClick = () => setShow(!show)
 
     const handleButtonEditPhotoUser = () => {
@@ -76,9 +75,6 @@ function Register() {
 
         if (selectedFile) {
             setSelectedFileProfile(selectedFile);
-            //subiendo archivo de perfil de usuario en firestore
-            //LoadFileProfileUser(selectedFile);
-            //mostrando archivo en la vista
             const reader = new FileReader();
             reader.onload = (e) => {
                 setSelectedImage(e.target.result);
@@ -106,79 +102,45 @@ function Register() {
             return;
         }
 
-        try {
-            //creando usuario auth
-            createUserWithEmailAndPassword(auth, userEmail, userPassword)
-                .then(async (userCredential) => {
-                    // Signed in 
-                    const user = userCredential.user;
+        //creando usuario auth
+        createUserWithEmailAndPassword(auth, userEmail, userPassword)
+            .then(async (userCredential) => {
+                const user = userCredential.user;
+                try {
+                    //agregando documento a la coleccion de usuarios
+                    await addDoc(collection(db, "users"), {
+                        userId: user.uid,
+                        username: username,
+                        lastname: userlastname,
+                        birthday: day,
+                        usernameApp: usernameApp,
+                        userEmail: userEmail,
+                    });
 
-                    toast.success("Usuario autenticado correctamente", {
+                    if (selectedFileProfile) {
+                        LoadFileProfileUser(selectedFileProfile);
+                    }
+
+                    toast.success("Haz sido autenticado como " + user.email, {
                         theme: "colored",
                         position: "top-center"
                     })
 
-                    try {
-                        //agregando documento a la coleccion de usuarios
-                        const docRef = await addDoc(collection(db, "users"), {
-                            userId: user.uid,
-                            username: username,
-                            lastname: userlastname,
-                            birthday: day,
-                            usernameApp: usernameApp,
-                            userEmail: userEmail,
-                        });
-
-                        toast.success("Usuario registrado correctamente: " + docRef.id, {
-                            theme: "colored",
-                            position: "top-center"
-                        })
-
-                        updateProfile(user, {
-                            displayName: username + userlastname
-                        }).then(() => {
-                            toast.success("Usuario ACTUALIZADO: " + docRef.id, {
-                                theme: "colored",
-                                position: "top-center"
-                            })
-                        }).catch((error) => {
-                            toast.error("error al actualizar el Usuario: " + docRef.id, {
-                                theme: "colored",
-                                position: "top-center"
-                            })
-                        });
-
-                        if(selectedFileProfile){
-                            LoadFileProfileUser(selectedFileProfile);
-                        }
-
-                        navigate("aviso"); //+ el id del usuario
-                    }
-                    catch (e) {
-                        console.log(e)
-                        toast.error("Error al crear el documento: " + e, {
-                            theme: "colored",
-                            position: "top-center"
-                        })
-                    }
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-
-                    toast.error("Error: " + errorMessage, {
-                        theme: "colored",
-                        position: "top-center"
-                    })
-                });
-
-        } catch (e) {
-            console.error("Error al crear el usuario: auth: ", e);
-            toast.error("Error: " + e, {
-                theme: "colored",
-                position: "top-center"
+                    setTimeout(function () {
+                        navigate("aviso"); //+ el id del usuario para buscar los datos relacionados a ese usuario: fotos y datos basicos
+                    }, 3000);
+                }
+                catch (e) {
+                    console.log("Ha ocurrido un error: ", e)
+                }
             })
-        }
+            .catch((error) => {
+
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                console.log("Ha ocurrido un error: ", errorCode + "|" + errorMessage)
+            });
     }
 
     return (
@@ -195,9 +157,7 @@ function Register() {
                 Comienza Ahora
             </Button>
             <Modal isOpen={isOpen} size={'xl'} onClose={onClose}>
-                {console.log("On close: ", onClose)}
                 <ModalOverlay />
-
                 <ModalContent>
                     <form onSubmit={handleSubmitForm}>
                         <ModalHeader>Registro de anfitrión</ModalHeader>
