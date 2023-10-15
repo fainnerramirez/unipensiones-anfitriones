@@ -1,6 +1,5 @@
 import React from 'react'
 import CardAviso from '../components/CardAviso.component';
-import { uploadBytes } from "firebase/storage";
 import { LoadFilePension } from "../firebase/references/images/pensions";
 
 const AvisoPage = () => {
