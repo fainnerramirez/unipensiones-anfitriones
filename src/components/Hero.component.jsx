@@ -10,6 +10,8 @@ import {
   createIcon,
 } from '@chakra-ui/react'
 import Register from './Register.component'
+import { Link } from 'react-router-dom'
+import { PATHS } from "../utils/PathsRouter";
 
 const HeroHost = () => {
   return (
@@ -43,7 +45,7 @@ const HeroHost = () => {
             position={'relative'}>
             <Register />
             <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
-              Ir a página principal
+              <Link to={PATHS.AVISO}>Ir a página principal</Link>
             </Button>
             <Box>
               <Icon
