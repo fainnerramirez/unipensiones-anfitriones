@@ -52,6 +52,8 @@ function Register() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [show, setShow] = useState(false)
     const [selectedImage, setSelectedImage] = useState(UserNotFound);
+    const [selectedFileProfile, setSelectedFileProfile] = useState(null);
+
     const handleClick = () => setShow(!show)
 
     //sets variables form
@@ -74,8 +76,9 @@ function Register() {
         const selectedFile = event.target.files[0];
 
         if (selectedFile) {
+            setSelectedFileProfile(selectedFile);
             //subiendo archivo de perfil de usuario en firestore
-            LoadFileProfileUser(selectedFile);
+            //LoadFileProfileUser(selectedFile);
             //mostrando archivo en la vista
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -90,14 +93,16 @@ function Register() {
 
         if (userPassword.lenght < 7 || userPasswordTwo.lenght < 7) {
             toast.error("Las contraseñas deben tener por lo menos 7 caracteres", {
-                theme: "colored"
+                theme: "colored",
+                position: "top-center"
             })
             return;
         }
 
         if (userPassword !== userPasswordTwo) {
             toast.error("Las contraseñas no coinciden...Vuelve a validar", {
-                theme: "colored"
+                theme: "colored",
+                position: "top-center"
             })
             return;
         }
@@ -108,10 +113,10 @@ function Register() {
                 .then(async (userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
-                    console.log("Users: ", user);
 
                     toast.success("Usuario autenticado correctamente", {
-                        theme: "colored"
+                        theme: "colored",
+                        position: "top-center"
                     })
 
                     try {
@@ -125,33 +130,34 @@ function Register() {
                             userEmail: userEmail,
                         });
 
-                        console.log("documento: ", docRef);
-                        console.log("Documento user guardado: ", docRef.id);
-
                         toast.success("Usuario registrado correctamente: " + docRef.id, {
-                            theme: "colored"
+                            theme: "colored",
+                            position: "top-center"
                         })
 
                         updateProfile(user, {
                             displayName: username + userlastname
                         }).then(() => {
-                            // Profile updated!
-                            // ...
                             toast.success("Usuario ACTUALIZADO: " + docRef.id, {
-                                theme: "colored"
+                                theme: "colored",
+                                position: "top-center"
                             })
                         }).catch((error) => {
-                            // An error occurred
-                            // ...
                             toast.error("error al actualizar el Usuario: " + docRef.id, {
-                                theme: "colored"
+                                theme: "colored",
+                                position: "top-center"
                             })
                         });
+
+                        if(selectedFileProfile){
+                            LoadFileProfileUser(selectedFileProfile);
+                        }
                     }
                     catch (e) {
                         console.log(e)
                         toast.error("Error al crear el documento: " + e, {
-                            theme: "colored"
+                            theme: "colored",
+                            position: "top-center"
                         })
                     }
                 })
@@ -160,15 +166,16 @@ function Register() {
                     const errorMessage = error.message;
 
                     toast.error("Error: " + errorMessage, {
-                        theme: "colored"
+                        theme: "colored",
+                        position: "top-center"
                     })
-                    // ..
                 });
 
         } catch (e) {
             console.error("Error al crear el usuario: auth: ", e);
             toast.error("Error: " + e, {
-                theme: "colored"
+                theme: "colored",
+                position: "top-center"
             })
         }
     }
