@@ -1,4 +1,4 @@
-import { storageRef, storage } from "../../storage/storage";
+import { storageRef } from "../../storage/storage";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth, updateProfile } from "firebase/auth";
 

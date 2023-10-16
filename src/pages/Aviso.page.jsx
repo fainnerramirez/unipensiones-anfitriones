@@ -17,22 +17,6 @@ const AvisoPage = () => {
 
     console.log("user context: ", userAuth)
 
-    useEffect(() => {
-        const userDocRef = doc(db, "users", userId);
-        const querySnapshot = async () => {
-            const docSnap = await getDoc(userDocRef);
-
-            if (docSnap.exists()) {
-                //setUser(docSnap.data())
-                console.log("User query exit!")
-            } else {
-                console.log("document not found!");
-            }
-        }
-
-        querySnapshot()
-    }, [userId])
-
     const handleChangeFile = (e) => {
         const file = e.target.files[0];
 

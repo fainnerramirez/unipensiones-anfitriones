@@ -7,6 +7,7 @@ import AvisoPage from "./pages/Aviso.page";
 //librarys
 import 'react-toastify/dist/ReactToastify.css';
 import Root from "./pages/Root";
+import ProfileUser from "./pages/ProfileUser.page";
 
 // const router2 = createBrowserRouter([
 //   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<Root />}>
       <Route index element={<HeroHost />} />
       <Route path="user/:userId" element={<AvisoPage />} />
+      <Route path="user/:userId/profile" element={<ProfileUser />} />
     </Route>
   )
 );

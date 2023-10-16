@@ -20,15 +20,18 @@ import {
     Heading,
     Image
 } from "@chakra-ui/react";
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { CgMenu } from "react-icons/cg";
 import { AuthContext } from "../context/authContext";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const Sidebar = () => {
+
+    const navigate = useNavigate();
+
     const { isOpen, onOpen, onClose } = useDisclosure()
     const firstField = useRef()
     const { userAuth } = useContext(AuthContext);
-    
     console.log("UserAuth:  ", userAuth);
 
     return (
@@ -55,12 +58,17 @@ const Sidebar = () => {
                                 boxSize='100px'
                                 objectFit='cover'
                                 src={userAuth?.photoURL}
-                                alt='Dan Abramov'
+                                alt={userAuth?.username}
                             />
+                        </Box>
+                        <Box display={'flex'} justifyContent={'center'}>
+                            <Heading size="sm">{userAuth?.displayName}</Heading>
                         </Box>
                         <Stack spacing='24px' marginTop={'30px'}>
                             <Box>
-                                <Button width={'full'}>Mi Perfil</Button>
+                                <Button width={'full'} onClick={() => navigate("profile", {replace: true})}>
+                                    Mi Perfil
+                                </Button>
                             </Box>
                             <Box>
                                 <Button width={'full'}>Mis Anuncios</Button>
