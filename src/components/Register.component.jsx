@@ -276,10 +276,10 @@ function Register() {
                                 isLoading={isLoading}
                                 colorScheme='blue'
                                 loadingText='Cargando'
-                                color={'blue.800'}
+                                color={'teal.800'}
                                 variant={'outline'}
                                 mt={3}
-                                _hover={{ backgroundColor: 'blue.800', color: "white" }}
+                                _hover={{ backgroundColor: 'teal.800', color: "white" }}
                                 type='submit'
                             >Registrarme</Button>
                         </ModalFooter>
