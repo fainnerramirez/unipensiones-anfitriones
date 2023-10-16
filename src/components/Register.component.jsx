@@ -61,6 +61,7 @@ function Register() {
     const [userEmail, setUserEmail] = useState("")
     const [userPassword, setUserPassword] = useState("")
     const [userPasswordTwo, setUserPasswordTwo] = useState("")
+    const [isLoading, setIsLoading] = useState(false);
     const fileInputRef = useRef(null);
 
     const handleClick = () => setShow(!show)
@@ -84,6 +85,7 @@ function Register() {
 
     const handleSubmitForm = async (event) => {
         event.preventDefault();
+        setIsLoading(true)
 
         if (userPassword.lenght < 7 || userPasswordTwo.lenght < 7) {
             toast.error("Las contraseñas deben tener por lo menos 7 caracteres", {
@@ -125,6 +127,7 @@ function Register() {
                 position: "top-center"
             })
 
+            setIsLoading(false)
             setTimeout(function () {
                 navigate("user/" + doc?.id, {replace: true}); //+ el id del usuario para buscar los datos relacionados a ese usuario: fotos y datos basicos
                 navigate(0)
@@ -266,7 +269,9 @@ function Register() {
                         </ModalBody>
                         <ModalFooter>
                             <Button
+                                isLoading={isLoading}
                                 colorScheme='blue'
+                                loadingText='Cargando'
                                 color={'blue.800'}
                                 variant={'outline'}
                                 mt={3}
