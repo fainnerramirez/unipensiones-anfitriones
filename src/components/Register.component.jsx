@@ -23,7 +23,6 @@ import {
     FormHelperText
 } from '@chakra-ui/react'
 import { useState, useRef } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from "react-router-dom"
 
 //toast
@@ -103,8 +102,12 @@ function Register() {
         }
 
         try {
+            
             const { user } = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
-            await addDoc(collection(db, "users"), {
+
+            console.log("User: ", user)
+            
+            let doc = await addDoc(collection(db, "users"), {
                 userId: user.uid,
                 username: username,
                 lastname: userlastname,
@@ -123,7 +126,8 @@ function Register() {
             })
 
             setTimeout(function () {
-                navigate("aviso"); //+ el id del usuario para buscar los datos relacionados a ese usuario: fotos y datos basicos
+                navigate("user/" + doc?.id, {replace: true}); //+ el id del usuario para buscar los datos relacionados a ese usuario: fotos y datos basicos
+                navigate(0)
             }, 3000);
         }
         catch (e) {
