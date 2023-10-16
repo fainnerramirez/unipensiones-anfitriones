@@ -38,7 +38,7 @@ import UserNotFound from "../assets/userNotFound.png"
 import { LoadFileProfileUser } from "../firebase/references/users/profiles";
 //auth
 import { auth } from "../firebase/authentication/auth";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { addUser } from '../firebase/collections/users';
 import { AuthContext } from '../context/authContext';
 
@@ -114,6 +114,11 @@ function Register() {
             }
 
             const doc = await addUser(options);
+
+            await updateProfile(auth.currentUser, {
+                displayName: username + " " + userlastname,
+                //agregar la url de la foto de perfil
+            });
 
             if (selectedFileProfile) {
                 await LoadFileProfileUser(selectedFileProfile);

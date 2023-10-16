@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 //firebase
 import { doc, getDoc, getDocs, collection } from "firebase/firestore"
 import { db } from '../firebase/firestore/database';
-
+//context
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 
@@ -49,7 +49,7 @@ const AvisoPage = () => {
             </div>
 
             <div>
-                {userAuth && <h1>Bienvenido de nuevo {userAuth.email} !</h1>}
+                {userAuth && <h1>Bienvenido de nuevo {userAuth.displayName} !</h1>}
             </div>
         </div>
     )
