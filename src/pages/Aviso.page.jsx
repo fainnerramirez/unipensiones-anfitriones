@@ -7,17 +7,23 @@ import { useParams } from 'react-router-dom';
 import { doc, getDoc, getDocs, collection } from "firebase/firestore"
 import { db } from '../firebase/firestore/database';
 
+import { useContext } from 'react';
+import { AuthContext } from '../context/authContext';
+
 const AvisoPage = () => {
     const { userId } = useParams();
-    const [user, setUser] = useState();
+    const { userAuth } = useContext(AuthContext);
+
+    console.log("user context: ", userAuth)
 
     useEffect(() => {
         const userDocRef = doc(db, "users", userId);
         const querySnapshot = async () => {
             const docSnap = await getDoc(userDocRef);
-           
+
             if (docSnap.exists()) {
-                setUser(docSnap.data())
+                //setUser(docSnap.data())
+                console.log("User query exit!")
             } else {
                 console.log("document not found!");
             }
@@ -27,7 +33,7 @@ const AvisoPage = () => {
     }, [userId])
 
     const handleChangeFile = (e) => {
-        const file = e.target.files[0]; 
+        const file = e.target.files[0];
 
         if (file) {
             LoadFilePension(file);
@@ -43,7 +49,7 @@ const AvisoPage = () => {
             </div>
 
             <div>
-                {user && <h1>Bienvenido de nuevo {user.username} !</h1>}
+                {userAuth && <h1>Bienvenido de nuevo {userAuth.email} !</h1>}
             </div>
         </div>
     )

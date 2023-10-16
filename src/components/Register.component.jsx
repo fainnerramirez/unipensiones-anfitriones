@@ -22,31 +22,25 @@ import {
     FormErrorMessage,
     FormHelperText
 } from '@chakra-ui/react'
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import { useNavigate } from "react-router-dom"
-
 //toast
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import UserNotFound from "../assets/userNotFound.png"
-
 import { BiUser } from "react-icons/bi"
 import { MdPassword } from "react-icons/md";
 import { BsCalendarDate } from "react-icons/bs";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai"
 import { TbEdit } from "react-icons/tb"
 import { HiOutlineMail } from "react-icons/hi";
-
+import UserNotFound from "../assets/userNotFound.png"
 //firebase
-import { db } from "../firebase/firestore/database";
-import { addDoc, collection } from "firebase/firestore";
 import { LoadFileProfileUser } from "../firebase/references/users/profiles";
-
 //auth
 import { auth } from "../firebase/authentication/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addUser } from '../firebase/collections/users';
+import { AuthContext } from '../context/authContext';
 
 function Register() {
     let navigate = useNavigate();
