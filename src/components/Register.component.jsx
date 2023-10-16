@@ -46,6 +46,7 @@ import { LoadFileProfileUser } from "../firebase/references/users/profiles";
 //auth
 import { auth } from "../firebase/authentication/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { addUser } from '../firebase/collections/users';
 
 function Register() {
     let navigate = useNavigate();
@@ -87,7 +88,8 @@ function Register() {
         event.preventDefault();
         setIsLoading(true)
 
-        if (userPassword.lenght < 7 || userPasswordTwo.lenght < 7) {
+        if (userPassword.length < 7 || userPasswordTwo.length < 7) {
+            setIsLoading(false)
             toast.error("Las contraseñas deben tener por lo menos 7 caracteres", {
                 theme: "colored",
                 position: "top-center"
@@ -96,6 +98,7 @@ function Register() {
         }
 
         if (userPassword !== userPasswordTwo) {
+            setIsLoading(false)
             toast.error("Las contraseñas no coinciden...Vuelve a validar", {
                 theme: "colored",
                 position: "top-center"
@@ -107,34 +110,36 @@ function Register() {
             
             const { user } = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
 
-            console.log("User: ", user)
-            
-            let doc = await addDoc(collection(db, "users"), {
+            const options = {
                 userId: user.uid,
                 username: username,
                 lastname: userlastname,
                 birthday: day,
                 usernameApp: usernameApp,
                 userEmail: userEmail,
-            });
+            }
+
+            let doc = await addUser(options);
 
             if (selectedFileProfile) {
                 LoadFileProfileUser(selectedFileProfile);
             }
 
-            toast.success("Haz sido autenticado como " + user.email, {
+            toast.success("Haz sido autenticado como " + user?.email, {
                 theme: "colored",
                 position: "top-center"
             })
 
             setIsLoading(false)
             setTimeout(function () {
-                navigate("user/" + doc?.id, {replace: true}); //+ el id del usuario para buscar los datos relacionados a ese usuario: fotos y datos basicos
+                navigate("user/" + doc?.id, { replace: true }); //+ el id del usuario para buscar los datos relacionados a ese usuario: fotos y datos basicos
                 navigate(0)
             }, 3000);
         }
         catch (e) {
+            setIsLoading(false)
             console.log("Ha ocurrido un error: ", e)
+
         }
     }
 
