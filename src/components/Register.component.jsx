@@ -121,7 +121,7 @@ function Register() {
             });
 
             if (selectedFileProfile) {
-                await LoadFileProfileUser(selectedFileProfile);
+                await LoadFileProfileUser(selectedFileProfile, doc?.id);
             }
 
             toast.success("Haz sido autenticado como " + user?.email, {
@@ -269,7 +269,6 @@ function Register() {
                                     </FormHelperText>
                                 </FormControl>
                             </Stack>
-
                         </ModalBody>
                         <ModalFooter>
                             <Button

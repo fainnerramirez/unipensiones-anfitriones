@@ -9,6 +9,7 @@ import { db } from '../firebase/firestore/database';
 //context
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
+import Sidebar from '../components/Sidebar.component';
 
 const AvisoPage = () => {
     const { userId } = useParams();
@@ -42,12 +43,12 @@ const AvisoPage = () => {
 
     return (
         <div>
+            <Sidebar />
             <div style={{ marginTop: "200px", display: "flex", justifyContent: "center" }}>
                 <div>
                     <input type="file" onChange={(e) => handleChangeFile(e)} />
                 </div>
             </div>
-
             <div>
                 {userAuth && <h1>Bienvenido de nuevo {userAuth.displayName} !</h1>}
             </div>

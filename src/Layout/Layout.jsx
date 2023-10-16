@@ -7,10 +7,10 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 const Layout = ({ children }) => {
 
+  const auth = getAuth();
   const [userAuth, SetUserAuth] = useState(null);
 
   useEffect(() => {
-    const auth = getAuth();
 
     onAuthStateChanged(auth, (userCredentials) => {
       if (userCredentials) {
@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
   }, [userAuth])
 
   return (
-    <AuthContext.Provider value={{ userAuth, SetUserAuth }}>
+    <AuthContext.Provider value={{ auth, userAuth, SetUserAuth }}>
       <Navbar />
       <Box height={'86vh'}>
         {children}
