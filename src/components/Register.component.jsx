@@ -39,7 +39,7 @@ import { LoadFileProfileUser } from "../firebase/references/users/profiles";
 //auth
 import { auth } from "../firebase/authentication/auth";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { addUser } from '../firebase/collections/users';
+import { addDocUser } from '../firebase/collections/users';
 import { AuthContext } from '../context/authContext';
 
 function Register() {
@@ -113,7 +113,7 @@ function Register() {
                 userEmail: userEmail,
             }
 
-            const doc = await addUser(options);
+            const doc = await addDocUser(options);
 
             await updateProfile(auth.currentUser, {
                 displayName: username + " " + userlastname,
@@ -146,11 +146,11 @@ function Register() {
         <>
             <Button
                 colorScheme={'green'}
-                bg={'pink.500'}
+                bg={'teal.500'}
                 rounded={'full'}
                 px={6}
                 _hover={{
-                    bg: 'pink.600',
+                    bg: 'teal.600',
                 }}
                 onClick={onOpen}>
                 Comienza Ahora
