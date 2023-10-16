@@ -107,7 +107,7 @@ function Register() {
         }
 
         try {
-            
+
             const { user } = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
 
             const options = {
@@ -119,10 +119,10 @@ function Register() {
                 userEmail: userEmail,
             }
 
-            let doc = await addUser(options);
+            const doc = await addUser(options);
 
             if (selectedFileProfile) {
-                LoadFileProfileUser(selectedFileProfile);
+                await LoadFileProfileUser(selectedFileProfile);
             }
 
             toast.success("Haz sido autenticado como " + user?.email, {
