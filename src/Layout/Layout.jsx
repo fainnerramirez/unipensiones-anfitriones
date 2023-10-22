@@ -19,6 +19,8 @@ const Layout = ({ children }) => {
         SetUserAuth(null)
       }
     });
+
+    console.log("Use state: ", userAuth)
   }, [userAuth])
 
   return (

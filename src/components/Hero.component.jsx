@@ -10,10 +10,17 @@ import {
   createIcon,
 } from '@chakra-ui/react'
 import Register from './Register.component'
-import { Link } from 'react-router-dom'
+import { Link, redirect } from 'react-router-dom'
 import { PATHS } from "../utils/PathsRouter";
+import { useContext } from 'react';
+import { AuthContext } from '../context/authContext';
 
 const HeroHost = () => {
+
+  const { userAuth, auth } = useContext(AuthContext);
+
+  const user = auth.currentUser;
+
   return (
     <>
       <Container maxW={'3xl'}>
@@ -50,7 +57,7 @@ const HeroHost = () => {
             <Box>
               <Icon
                 as={Arrow}
-                color={useColorModeValue('gray.800', 'gray.300')}
+                color={'gray.800'}
                 w={71}
                 position={'absolute'}
                 right={-71}
