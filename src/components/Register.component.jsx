@@ -159,8 +159,8 @@ function Register() {
                 <ModalOverlay />
                 <ModalContent>
                     <form onSubmit={handleSubmitForm}>
-                        <ModalHeader>Registro de anfitrión</ModalHeader>
-                        <ModalCloseButton />
+                        <ModalHeader bg={'teal.500'} color={'whiteAlpha.900'}>Registro de anfitrión</ModalHeader>
+                        <ModalCloseButton color={'whiteAlpha.900'}/>
                         <ModalBody>
 
                             <Stack spacing={4}>
