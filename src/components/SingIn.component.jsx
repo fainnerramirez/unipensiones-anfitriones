@@ -28,6 +28,7 @@ import { BiUser } from "react-icons/bi";
 import { MdPassword } from "react-icons/md";
 import { ToastContainer, toast } from 'react-toastify';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { errorManagment } from '../firebase/errors/errorManagmentUser';
 
 const SingInUser = () => {
 
@@ -35,26 +36,6 @@ const SingInUser = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
-
-    const errorManagment = (error) => {
-        switch(error){
-            case 'auth/invalid-login-credentials': 
-            toast.error("Credenciales Incorrectas. ¡Verifica nuevamente!", {
-                theme: "colored",
-                position: "top-center"
-            })
-            break;
-
-            case 'auth/invalid-email': 
-            toast.error("Correo Inválido. Escribe un correo válido", {
-                theme: "colored",
-                position: "top-center"
-            })
-            break;
-            default: break;
-        }
-    }
 
     const handleSubmitForm = (event) => {
         event.preventDefault();

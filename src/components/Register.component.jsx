@@ -41,6 +41,7 @@ import { auth } from "../firebase/authentication/auth";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { addDocUser } from '../firebase/collections/users';
 import { AuthContext } from '../context/authContext';
+import { errorManagment } from '../firebase/errors/errorManagmentUser';
 
 function Register() {
     let navigate = useNavigate();
@@ -131,14 +132,14 @@ function Register() {
 
             setIsLoading(false)
             setTimeout(function () {
-                navigate("user/" + doc?.id, { replace: true }); //+ el id del usuario para buscar los datos relacionados a ese usuario: fotos y datos basicos
+                navigate("user/" + doc?.id, { replace: true });
                 navigate(0)
             }, 3000);
         }
-        catch (e) {
+        catch (error) {
             setIsLoading(false)
-            console.log("Ha ocurrido un error: ", e)
-
+            const errorCode = error.code;
+            errorManagment(errorCode);
         }
     }
 
