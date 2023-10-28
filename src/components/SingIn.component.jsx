@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
     Modal,
     ModalOverlay,
@@ -29,9 +29,13 @@ import { MdPassword } from "react-icons/md";
 import { ToastContainer, toast } from 'react-toastify';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { errorManagment } from '../firebase/errors/errorManagmentUser';
+import { db } from '../firebase/firestore/database';
+import { Collections } from "../firebase/collections/names.config"
+import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
 
 const SingInUser = () => {
 
+    //let navigate = useNavigate();
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState("");
@@ -42,11 +46,36 @@ const SingInUser = () => {
         const auth = getAuth();
 
         signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
+            .then(async (userCredential) => {
+                setIsLoading(false);
                 const user = userCredential.user;
-                console.log("user autenticated: ", user);
-            })
-            .catch((error) => {
+                console.log("user autenticated: ", user.uid);
+                const q = query(collection(db, 'anfitriones'), where('userId', '==', user.uid), limit(1));
+
+                getDocs(q)
+                    .then((querySnapshot) => {
+                        if (!querySnapshot.empty) {
+                            const doc = querySnapshot.docs[0]; // Obtiene el primer documento
+                            setIsLoading(false)
+
+                            toast.success("Accediendo a tu perfil " + (user.displayName.split()[0] ?? user.email), {
+                                theme: "colored",
+                                position: "top-center"
+                            })
+
+                            setTimeout(function () {
+                                window.location.href = "user/" + doc?.id;
+                            }, 3000);
+                        } else {
+                            console.log('Documento no encontrado.');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error al buscar el usuario:', error);
+                    });
+
+            }).catch((error) => {
+                setIsLoading(false);
                 const errorCode = error.code;
                 errorManagment(errorCode);
             });

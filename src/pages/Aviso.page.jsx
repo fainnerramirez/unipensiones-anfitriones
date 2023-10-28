@@ -2,10 +2,6 @@ import React, { useEffect, useState } from 'react'
 import CardAviso from '../components/CardAviso.component';
 import { LoadFilePension } from "../firebase/references/images/pensions";
 import { useParams } from 'react-router-dom';
-
-//firebase
-import { doc, getDoc, getDocs, collection } from "firebase/firestore"
-import { db } from '../firebase/firestore/database';
 //context
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
