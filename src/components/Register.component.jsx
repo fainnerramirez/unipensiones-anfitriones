@@ -160,7 +160,7 @@ function Register() {
                 <ModalContent>
                     <form onSubmit={handleSubmitForm}>
                         <ModalHeader bg={'teal.500'} color={'whiteAlpha.900'}>Registro de anfitrión</ModalHeader>
-                        <ModalCloseButton color={'whiteAlpha.900'}/>
+                        <ModalCloseButton color={'whiteAlpha.900'} />
                         <ModalBody>
 
                             <Stack spacing={4}>

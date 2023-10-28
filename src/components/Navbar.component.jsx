@@ -21,6 +21,7 @@ import {
 } from '@chakra-ui/react'
 import React, { useContext } from 'react'
 import { AuthContext } from '../context/authContext'
+import SingInUser from './SingIn.component'
 
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure()
@@ -68,7 +69,7 @@ const Navbar = () => {
               ?
               <Button ml={'5'} colorScheme='teal' onClick={handleLogout}>Salir</Button>
               :
-              <Button ml={'5'} colorScheme='teal'>Iniciar Sesión</Button>
+              <SingInUser />
             }
           </Flex>
         </Flex>
