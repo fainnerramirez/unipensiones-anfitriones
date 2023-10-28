@@ -33,6 +33,7 @@ import { db } from '../firebase/firestore/database';
 import { Collections } from "../firebase/collections/names.config"
 import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { Link } from "react-router-dom";
 
 const SingInUser = () => {
 
@@ -60,7 +61,7 @@ const SingInUser = () => {
                         if (!querySnapshot.empty) {
                             const doc = querySnapshot.docs[0]; // Obtiene el primer documento
                             setIsLoading(false)
-                           
+
                             toast.success("Accediendo a tu perfil " + (user.displayName ?? user.email), {
                                 theme: "colored",
                                 position: "top-center"
@@ -120,14 +121,17 @@ const SingInUser = () => {
                                             <InputLeftElement pointerEvents='none'>
                                                 <MdPassword color='gray.300' />
                                             </InputLeftElement>
-                                            <Input type={show ? 'text': 'password'} placeholder='Contraseña' size='lg' onChange={(e) => setPassword(e.target.value)} />
+                                            <Input type={show ? 'text' : 'password'} placeholder='Contraseña' size='lg' onChange={(e) => setPassword(e.target.value)} />
                                             <InputRightElement width='4.5rem'>
-                                            <Button h='1.75rem' size='md' mt={'1.5'} onClick={handleClick}>
-                                                {show ? <AiOutlineEyeInvisible size={'md'}/> : <AiOutlineEye size={'md'}/>}
-                                            </Button>
-                                        </InputRightElement>
+                                                <Button h='1.75rem' size='md' mt={'1.5'} onClick={handleClick}>
+                                                    {show ? <AiOutlineEyeInvisible size={'md'} /> : <AiOutlineEye size={'md'} />}
+                                                </Button>
+                                            </InputRightElement>
                                         </InputGroup>
                                     </FormControl>
+                                    <Box color={'teal.600'}>
+                                        <a href="/resetpassword">Restablecer mi contraseña</a>
+                                    </Box>
                                 </VStack>
                             </Stack>
                         </ModalBody>

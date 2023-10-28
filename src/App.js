@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Root from "./pages/Root";
 import ProfileUser from "./pages/ProfileUser.page";
 import SingInUser from "./components/SingIn.component";
+import ResetPassword from "./components/ResetPassword.component";
 
 // const router2 = createBrowserRouter([
 //   {
@@ -29,7 +30,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
       <Route index element={<HeroHost />} />
-      <Route path="user/singin" element={<SingInUser />} />
+      <Route path="resetpassword" element={<ResetPassword />} />
       <Route path="user/:userId" element={<AvisoPage />} />
       <Route path="user/:userId/profile" element={<ProfileUser />} />
     </Route>

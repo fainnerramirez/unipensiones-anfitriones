@@ -28,7 +28,7 @@ const Navbar = () => {
   const { auth } = useContext(AuthContext);
 
   const user = auth.currentUser;
-
+  
   const handleLogout = () => {
     auth.signOut();
     window.location.href = "/";
