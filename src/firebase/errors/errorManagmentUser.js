@@ -22,6 +22,11 @@ export const errorManagment = (error) => {
                 position: "top-center"
             })
             break;
-        default: break;
+        default:
+            toast.error("Ha ocurrido un error desconocido. Comunicate con el equipo de Uninpensiones", {
+                theme: "colored",
+                position: "top-center"
+            })
+            break;
     }
 }
