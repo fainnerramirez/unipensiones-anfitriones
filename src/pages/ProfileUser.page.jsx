@@ -2,7 +2,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { db } from '../firebase/firestore/database';
-import { Box, Heading, Image, VStack, Text } from '@chakra-ui/react';
+import { Box, Heading, Image, VStack, Text, CircularProgress } from '@chakra-ui/react';
 import { AuthContext } from '../context/authContext';
 
 const ProfileUser = () => {
@@ -10,21 +10,9 @@ const ProfileUser = () => {
   const [userDoc, setUserDoc] = useState(null);
   const [anfitrion, setAnfitrion] = useState("Soy Anfitrión");
   const { userAuth } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const userDocRef = doc(db, "anfitriones", userId);
-    const querySnapshot = async () => {
-      const docSnap = await getDoc(userDocRef);
-
-      if (docSnap.exists()) {
-        setUserDoc(docSnap.data())
-      } else {
-        console.log("document not found!");
-      }
-    }
-
-    querySnapshot()
-  }, [userId])
+  console.log("userAuth: ", userAuth)
 
   return (
     <VStack align={'center'}>
@@ -34,11 +22,11 @@ const ProfileUser = () => {
           boxSize='350px'
           objectFit='cover'
           src={userAuth?.photoURL}
-          alt={userAuth?.username}
+          alt={userAuth?.displayName}
         />
       </Box>
       <Box>
-        <Heading as="h2">{userDoc?.username + " " + userDoc?.lastname}</Heading>
+        <Heading as="h2">{userAuth?.displayName}</Heading>
       </Box>
       <Box>
         <Text>{anfitrion}</Text>

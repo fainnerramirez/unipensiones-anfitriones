@@ -31,6 +31,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     auth.signOut();
+    window.location.href = "/";
   }
 
   return (

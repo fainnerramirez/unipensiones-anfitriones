@@ -32,14 +32,17 @@ import { errorManagment } from '../firebase/errors/errorManagmentUser';
 import { db } from '../firebase/firestore/database';
 import { Collections } from "../firebase/collections/names.config"
 import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 const SingInUser = () => {
 
-    //let navigate = useNavigate();
+    const [show, setShow] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const handleClick = () => setShow(!show)
 
     const handleSubmitForm = (event) => {
         event.preventDefault();
@@ -57,8 +60,8 @@ const SingInUser = () => {
                         if (!querySnapshot.empty) {
                             const doc = querySnapshot.docs[0]; // Obtiene el primer documento
                             setIsLoading(false)
-
-                            toast.success("Accediendo a tu perfil " + (user.displayName.split()[0] ?? user.email), {
+                           
+                            toast.success("Accediendo a tu perfil " + (user.displayName ?? user.email), {
                                 theme: "colored",
                                 position: "top-center"
                             })
@@ -88,7 +91,6 @@ const SingInUser = () => {
                 colorScheme={'green'}
                 bg={'teal.500'}
                 rounded={'md'}
-                px={6}
                 _hover={{
                     bg: 'teal.600',
                 }}
@@ -109,7 +111,7 @@ const SingInUser = () => {
                                             <InputLeftElement pointerEvents='none'>
                                                 <BiUser color='gray.300' />
                                             </InputLeftElement>
-                                            <Input type='text' placeholder='Correo electrónico' size='lg' onChange={(e) => setEmail(e.target.value)} />
+                                            <Input type='email' placeholder='Correo electrónico' size='lg' onChange={(e) => setEmail(e.target.value)} />
                                         </InputGroup>
                                     </FormControl>
 
@@ -118,7 +120,12 @@ const SingInUser = () => {
                                             <InputLeftElement pointerEvents='none'>
                                                 <MdPassword color='gray.300' />
                                             </InputLeftElement>
-                                            <Input type='text' placeholder='Contraseña' size='lg' onChange={(e) => setPassword(e.target.value)} />
+                                            <Input type={show ? 'text': 'password'} placeholder='Contraseña' size='lg' onChange={(e) => setPassword(e.target.value)} />
+                                            <InputRightElement width='4.5rem'>
+                                            <Button h='1.75rem' size='md' mt={'1.5'} onClick={handleClick}>
+                                                {show ? <AiOutlineEyeInvisible size={'md'}/> : <AiOutlineEye size={'md'}/>}
+                                            </Button>
+                                        </InputRightElement>
                                         </InputGroup>
                                     </FormControl>
                                 </VStack>
