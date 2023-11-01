@@ -26,9 +26,7 @@ import { AuthContext } from "../context/authContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 const Sidebar = () => {
-
     const navigate = useNavigate();
-
     const { isOpen, onOpen, onClose } = useDisclosure()
     const firstField = useRef()
     const { userAuth } = useContext(AuthContext);
