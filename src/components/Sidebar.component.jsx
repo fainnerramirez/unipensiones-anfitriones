@@ -60,7 +60,7 @@ const Sidebar = () => {
                             />
                         </Box>
                         <Box display={'flex'} justifyContent={'center'}>
-                            <Heading size="sm">{userAuth?.displayName}</Heading>
+                            <Heading size="sm" textTransform={'capitalize'}>{userAuth?.displayName}</Heading>
                         </Box>
                         <Stack spacing='24px' marginTop={'30px'}>
                             <Box>

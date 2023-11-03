@@ -6,12 +6,11 @@ import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import Sidebar from '../components/Sidebar.component';
-import {BsFillPlusSquareFill} from "react-icons/bs";
-
+import { BsFillPlusSquareFill } from "react-icons/bs";
 import { Box, Button, Heading, Text } from "@chakra-ui/react";
 
 const AvisoPage = () => {
-    const { userId } = useParams();
+    const { userId } = useParams(); //para buscar las fotos
     const { userAuth } = useContext(AuthContext);
 
     console.log("user context: ", userAuth)
@@ -28,7 +27,7 @@ const AvisoPage = () => {
         <>
             <Sidebar />
             <Box width={'full'} height={'150px'} bg="teal.600" display={'flex'} justifyContent={'center'} alignItems={'center'}>
-                <Heading as="h2" size={'lg'} color={'white'}>{userAuth &&userAuth?.displayName?.toUpperCase()}</Heading>
+                <Heading as="h2" size={'lg'} color={'white'} textTransform={'capitalize'}>Bienvenido de nuevo {userAuth && userAuth?.displayName}</Heading>
             </Box>
             <Box style={{ marginTop: "200px", display: "flex", justifyContent: "center" }}>
                 <Button colorScheme='teal' rightIcon={<BsFillPlusSquareFill />}>Subir anuncio</Button>

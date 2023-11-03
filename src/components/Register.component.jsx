@@ -30,6 +30,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BiUser } from "react-icons/bi"
 import { MdPassword } from "react-icons/md";
 import { BsCalendarDate } from "react-icons/bs";
+import {AiFillPhone} from "react-icons/ai";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai"
 import { TbEdit } from "react-icons/tb"
 import { HiOutlineMail } from "react-icons/hi";
@@ -53,7 +54,8 @@ function Register() {
     const [username, setUsername] = useState("")
     const [userlastname, setUserlastname] = useState("")
     const [day, setDay] = useState("")
-    const [usernameApp, setUsernameApp] = useState("")
+    const [phone, setPhone] = useState("")
+    const [isValidPhone, setIsValidPhone] = useState(true);
     const [userEmail, setUserEmail] = useState("")
     const [userPassword, setUserPassword] = useState("")
     const [userPasswordTwo, setUserPasswordTwo] = useState("")
@@ -110,7 +112,7 @@ function Register() {
                 username: username,
                 lastname: userlastname,
                 birthday: day,
-                usernameApp: usernameApp,
+                phone: phone,
                 userEmail: userEmail,
             }
 
@@ -192,7 +194,6 @@ function Register() {
                                             <Input type='text' placeholder='Nombres' onChange={(e) => setUsername(e.target.value)} />
                                         </InputGroup>
                                     </FormControl>
-
                                     <FormControl width={'50%'} isRequired>
                                         <InputGroup >
                                             <InputLeftElement pointerEvents='none'>
@@ -211,12 +212,12 @@ function Register() {
                                             <Input type='date' placeholder='Fecha de nacimiento' onChange={(e) => setDay(e.target.value)} />
                                         </InputGroup>
                                     </FormControl>
-                                    <FormControl isRequired>
+                                    <FormControl isRequired display={'flex'} flexDir={'column'}>
                                         <InputGroup>
                                             <InputLeftElement pointerEvents='none'>
-                                                <BiUser color='gray.300' />
+                                                <AiFillPhone color='gray.300' />
                                             </InputLeftElement>
-                                            <Input type='text' placeholder='Nombre de usuario' onChange={(e) => setUsernameApp(e.target.value)} />
+                                            <Input type='number' placeholder='Teléfono o Celular' onChange={(e) => setPhone(e.target.value)} />
                                         </InputGroup>
                                     </FormControl>
                                 </HStack>
@@ -230,7 +231,7 @@ function Register() {
                                         <Input type='email' placeholder='Correo electrónico' onChange={(e) => setUserEmail(e.target.value)} />
                                     </InputGroup>
                                     <FormHelperText>
-                                        Escribe un correo válido. Deberás validar tu correo electrónico
+                                        Escribe un correo válido. Deberás validar tu correo electrónico después
                                     </FormHelperText>
                                 </FormControl>
                                 <FormControl>

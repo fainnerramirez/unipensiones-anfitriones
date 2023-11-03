@@ -26,7 +26,7 @@ const ProfileUser = () => {
         />
       </Box>
       <Box>
-        <Heading as="h2">{userAuth?.displayName}</Heading>
+        <Heading as="h2" textTransform={'capitalize'}>{userAuth?.displayName}</Heading>
       </Box>
       <Box>
         <Text>{anfitrion}</Text>
