@@ -30,7 +30,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BiUser } from "react-icons/bi"
 import { MdPassword } from "react-icons/md";
 import { BsCalendarDate } from "react-icons/bs";
-import {AiFillPhone} from "react-icons/ai";
+import { AiFillPhone } from "react-icons/ai";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai"
 import { TbEdit } from "react-icons/tb"
 import { HiOutlineMail } from "react-icons/hi";
@@ -39,7 +39,7 @@ import UserNotFound from "../assets/userNotFound.png"
 import { LoadFileProfileUser } from "../firebase/references/users/profiles";
 //auth
 import { auth } from "../firebase/authentication/auth";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import { addDocUser } from '../firebase/collections/users';
 import { AuthContext } from '../context/authContext';
 import { errorManagment } from '../firebase/errors/errorManagmentUser';
@@ -120,23 +120,28 @@ function Register() {
 
             await updateProfile(auth.currentUser, {
                 displayName: username + " " + userlastname,
-                //agregar la url de la foto de perfil
             });
-
+            
             if (selectedFileProfile) {
                 await LoadFileProfileUser(selectedFileProfile, doc?.id);
             }
 
-            toast.success("Haz sido autenticado como " + user?.email, {
-                theme: "colored",
-                position: "top-center"
-            })
+            //enviando email de verficación
+            sendEmailVerification(auth.currentUser)
+            .then(() => {
+                toast.success("Revisa tu correo electrónico " + user?.email + " para activar tu cuenta en UP. !Ya casi estas dentro!", {
+                    theme: "colored",
+                    position: "top-center"
+                })
+            });
 
             setIsLoading(false)
-            setTimeout(function () {
-                navigate("user/" + doc?.id, { replace: true });
-                navigate(0)
-            }, 3000);
+            // setTimeout(function () {
+            //     navigate("user/" + doc?.id, { replace: true });
+            //     navigate(0)
+            // }, 3000);
+
+            auth.signOut();
         }
         catch (error) {
             setIsLoading(false)

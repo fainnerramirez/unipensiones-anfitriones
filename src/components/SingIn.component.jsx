@@ -48,18 +48,29 @@ const SingInUser = () => {
     const handleSubmitForm = (event) => {
         event.preventDefault();
         const auth = getAuth();
+        console.log("Auth iniciar sesión: ", auth)
 
         signInWithEmailAndPassword(auth, email, password)
             .then(async (userCredential) => {
                 setIsLoading(false);
                 const user = userCredential.user;
                 console.log("user autenticated: ", user.uid);
+                
+                if (!auth.currentUser?.emailVerified) {
+                    toast.error("Aún no has verificado tu corrreo electrónico para activar tu cuenta UP", {
+                        theme: "colored",
+                        position: "top-center"
+                    })
+                    auth.signOut();
+                    return;
+                }
+
                 const q = query(collection(db, 'anfitriones'), where('userId', '==', user.uid), limit(1));
 
                 getDocs(q)
                     .then((querySnapshot) => {
                         if (!querySnapshot.empty) {
-                            const doc = querySnapshot.docs[0]; // Obtiene el primer documento
+                            const doc = querySnapshot.docs[0];
                             setIsLoading(false)
 
                             toast.success("Accediendo a tu perfil " + (user.displayName ?? user.email), {
@@ -83,6 +94,7 @@ const SingInUser = () => {
                 const errorCode = error.code;
                 errorManagment(errorCode);
             });
+
     }
 
     return (
