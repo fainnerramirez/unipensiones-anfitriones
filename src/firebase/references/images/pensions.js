@@ -1,12 +1,27 @@
 import { storageRef } from "../../storage/storage";
-import { ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-export const LoadFilePension = (file, userId) => {
-    if (file) {
-        const fileName = file.name;
-        const imagesRef = ref(storageRef, `images/pensions/${userId}`);
-        uploadBytes(imagesRef, file).then((snapshot) => {
-            console.log('Uploaded a blob or file!: ', snapshot);
+export const getDownloadURLPension = (imagesPensionRef) => {
+    let urlGet = getDownloadURL(imagesPensionRef)
+        .then((url) => {
+            console.log("Url pension: ", url);
+            return url;
+        })
+        .catch((error) => {
+            console.log("Error url pension: ", error);
         });
+
+    return urlGet;
+}
+
+export const LoadFilePension = async (file, userId) => {
+
+    if (file) {
+        const imagesRef = ref(storageRef, `images/pensions/${userId}`);
+        await uploadBytes(imagesRef, file).then((snapshot) => {
+            console.log('Archivo cargado: ', snapshot);
+        });
+        let urlGet = getDownloadURLPension(imagesRef);
+        return urlGet;
     }
 }
