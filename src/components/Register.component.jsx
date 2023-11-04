@@ -133,15 +133,10 @@ function Register() {
                     theme: "colored",
                     position: "top-center"
                 })
+                auth.signOut();
             });
 
             setIsLoading(false)
-            // setTimeout(function () {
-            //     navigate("user/" + doc?.id, { replace: true });
-            //     navigate(0)
-            // }, 3000);
-
-            auth.signOut();
         }
         catch (error) {
             setIsLoading(false)

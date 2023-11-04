@@ -10,10 +10,8 @@ import { BsFillPlusSquareFill } from "react-icons/bs";
 import { Box, Button, Heading, Input, Text } from "@chakra-ui/react";
 
 const AvisoPage = () => {
-    const { userId } = useParams(); //para buscar las fotos
     const { userAuth } = useContext(AuthContext);
     const fileInputRef = useRef(null);
-    console.log("user context fainner 5: ", userAuth)
     
     const handleFileAnuncio = () => {
         fileInputRef.current.click();
@@ -21,8 +19,6 @@ const AvisoPage = () => {
     
     const handleChangeFile = (e) => {
         const file = e.target.files[0];
-        console.log("file pension fainner: ", file)
-        
         if (file) {
             LoadFilePension(file, userAuth?.uid);
         }
