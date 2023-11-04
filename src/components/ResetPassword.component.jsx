@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { Box, Button, FormControl, FormHelperText, Heading, Input, InputGroup, InputLeftElement, VStack } from '@chakra-ui/react';
-import { MdPassword } from 'react-icons/md';
+import { MdPasswor, MdEmail } from 'react-icons/md';
 import {toast, ToastContainer} from "react-toastify";
 
 const ResetPassword = () => {
@@ -17,6 +17,10 @@ const ResetPassword = () => {
             await sendPasswordResetEmail(auth, email);
             setIsLoading(false);
             console.log("correo enviado")
+            toast.success("El correo para restablecer tu contraseña ha sido enviado", {
+                theme: "colored",
+                position: "top-center"
+            });
         } catch (error) {
             console.error(error.code);
             console.error(error.message);
@@ -37,7 +41,7 @@ const ResetPassword = () => {
                         <FormControl width={'100%'} isRequired>
                             <InputGroup >
                                 <InputLeftElement pointerEvents='none'>
-                                    <MdPassword color='gray.300' />
+                                    <MdEmail color='gray.300' />
                                 </InputLeftElement>
                                 <Input type='email' placeholder='Ingresa tu correo' size='lg' onChange={(e) => setEmail(e.target.value)} />
                             </InputGroup>

@@ -84,7 +84,6 @@ const SingInUser = () => {
     const handleSubmitForm = (event) => {
         event.preventDefault();
         const auth = getAuth();
-        console.log("Auth iniciar sesión: ", auth)
 
         signInWithEmailAndPassword(auth, email, password)
             .then(async (userCredential) => {
