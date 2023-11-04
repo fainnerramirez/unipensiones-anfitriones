@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import CardAviso from '../components/CardAviso.component';
 import { LoadFilePension } from "../firebase/references/images/pensions";
 import { useParams } from 'react-router-dom';
@@ -7,19 +7,24 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import Sidebar from '../components/Sidebar.component';
 import { BsFillPlusSquareFill } from "react-icons/bs";
-import { Box, Button, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Heading, Input, Text } from "@chakra-ui/react";
 
 const AvisoPage = () => {
     const { userId } = useParams(); //para buscar las fotos
     const { userAuth } = useContext(AuthContext);
-
-    console.log("user context: ", userAuth)
-
+    const fileInputRef = useRef(null);
+    console.log("user context fainner 5: ", userAuth)
+    
+    const handleFileAnuncio = () => {
+        fileInputRef.current.click();
+    };
+    
     const handleChangeFile = (e) => {
         const file = e.target.files[0];
-
+        console.log("file pension fainner: ", file)
+        
         if (file) {
-            LoadFilePension(file);
+            LoadFilePension(file, userAuth?.uid);
         }
     }
 
@@ -30,10 +35,10 @@ const AvisoPage = () => {
                 <Heading as="h2" size={'lg'} color={'white'} textTransform={'capitalize'}>Bienvenido de nuevo {userAuth && userAuth?.displayName}</Heading>
             </Box>
             <Box style={{ marginTop: "200px", display: "flex", justifyContent: "center" }}>
-                <Button colorScheme='teal' rightIcon={<BsFillPlusSquareFill />}>Subir anuncio</Button>
-                <div>
-                    <input type="file" onChange={(e) => handleChangeFile(e)} />
-                </div>
+                <Button colorScheme='teal' rightIcon={<BsFillPlusSquareFill />} onClick={handleFileAnuncio}>Subir anuncio</Button>
+                <Box>
+                    <Input type="file" ref={fileInputRef} onChange={(e) => handleChangeFile(e)} display={'none'}/>
+                </Box>
             </Box>
         </>
     )
