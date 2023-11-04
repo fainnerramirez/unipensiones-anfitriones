@@ -8,12 +8,14 @@ import { BsFillPlusSquareFill } from "react-icons/bs";
 import { Box, Button, Divider, Heading, Input, Text } from "@chakra-ui/react";
 import { ref } from 'firebase/storage';
 import { storageRef } from '../firebase/storage/storage';
+import ModalAnuncio from '../components/ModalAnuncio';
 
 const AvisoPage = () => {
     const [image, setImage] = useState("");
     const { userAuth } = useContext(AuthContext);
     const fileInputRef = useRef(null);
     const [errorNotFoundImage, setErrorNotFoundImage] = useState("storage/object-not-found");
+    console.log("userAuth aviso card: ", userAuth)
 
     useEffect(() => {
         const getImagesPension = async () => {
@@ -43,8 +45,9 @@ const AvisoPage = () => {
                     <Sidebar />
                     <Heading as="h2" size={'lg'} marginLeft={10} textTransform={'capitalize'}>Bienvenido de nuevo {userAuth && userAuth?.displayName}</Heading>
                 </Box>
-                <Button colorScheme='teal' rightIcon={<BsFillPlusSquareFill />} onClick={handleFileAnuncio}>Subir anuncio</Button>
-                <Input type="file" ref={fileInputRef} onChange={(e) => handleChangeFile(e)} display={'none'} />
+                <Box>
+                    <ModalAnuncio />
+                </Box>
             </Box>
             <Divider color={'teal.900'} height={2} bg={'teal.400'} borderRadius={35} />
             {image != "" ?
