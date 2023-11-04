@@ -9,6 +9,7 @@ export const getDownloadURLPension = (imagesPensionRef) => {
         })
         .catch((error) => {
             console.log("Error url pension: ", error);
+            return error.code;
         });
 
     return urlGet;
