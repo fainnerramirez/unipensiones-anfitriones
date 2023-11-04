@@ -22,18 +22,19 @@ import {
     FormLabel,
     FormErrorMessage,
     FormHelperText,
-    VStack
+    VStack,
+    Text,
+    Divider
 } from '@chakra-ui/react'
 import { BiUser } from "react-icons/bi";
 import { MdPassword } from "react-icons/md";
+import { FcGoogle } from "react-icons/fc";
 import { ToastContainer, toast } from 'react-toastify';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 import { errorManagment } from '../firebase/errors/errorManagmentUser';
 import { db } from '../firebase/firestore/database';
-import { Collections } from "../firebase/collections/names.config"
 import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { Link } from "react-router-dom";
 
 const SingInUser = () => {
 
@@ -45,6 +46,41 @@ const SingInUser = () => {
 
     const handleClick = () => setShow(!show)
 
+    const handleClickGooglePopup = () => {
+        const provider = new GoogleAuthProvider();
+        const auth = getAuth();
+
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const user = result.user;
+                const q = query(collection(db, 'anfitriones'), where('userId', '==', user.uid), limit(1));
+
+                getDocs(q)
+                    .then((querySnapshot) => {
+                        if (!querySnapshot.empty) {
+                            const doc = querySnapshot.docs[0];
+                            setIsLoading(false)
+
+                            toast.success("Accediendo a tu perfil " + (user.displayName ?? user.email), {
+                                theme: "colored",
+                                position: "top-center"
+                            })
+
+                            setTimeout(function () {
+                                window.location.href = "user/" + doc?.id;
+                            }, 3000);
+                        } else {
+                            console.log('Documento no encontrado.');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error al buscar el usuario:', error);
+                    });
+            }).catch((error) => {
+                errorManagment(error.code);
+            });
+    }
+
     const handleSubmitForm = (event) => {
         event.preventDefault();
         const auth = getAuth();
@@ -55,7 +91,7 @@ const SingInUser = () => {
                 setIsLoading(false);
                 const user = userCredential.user;
                 console.log("user autenticated: ", user.uid);
-                
+
                 if (!auth.currentUser?.emailVerified) {
                     toast.error("Aún no has verificado tu corrreo electrónico para activar tu cuenta UP", {
                         theme: "colored",
@@ -147,7 +183,7 @@ const SingInUser = () => {
                                 </VStack>
                             </Stack>
                         </ModalBody>
-                        <ModalFooter display={'flex'} justifyContent={'center'} alignItems={'center'}>
+                        <ModalFooter display={'flex'} justifyContent={'center'} alignItems={'center'} flexDir={'column'}>
                             <Button
                                 isLoading={isLoading}
                                 colorScheme='blue'
@@ -158,6 +194,17 @@ const SingInUser = () => {
                                 _hover={{ backgroundColor: 'teal.800', color: "white" }}
                                 type='submit'
                             >Ingresar</Button>
+                            <Divider mt="5" />
+                            <Box>
+                                <Box mt="5">
+                                    <Text textAlign={'center'}>ó inicia sesión con</Text>
+                                </Box>
+                                <Box mt="5" display={'flex'} justifyContent={'center'}>
+                                    <Button rightIcon={<FcGoogle />} colorScheme='teal' variant={'outline'} onClick={handleClickGooglePopup}>
+                                        Google
+                                    </Button>
+                                </Box>
+                            </Box>
                         </ModalFooter>
                     </form>
                 </ModalContent>
