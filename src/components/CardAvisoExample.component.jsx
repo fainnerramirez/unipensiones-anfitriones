@@ -18,10 +18,8 @@ import {
 } from "@chakra-ui/react"
 import { AuthContext } from '../context/authContext'
 
-const CardAvisoExample = ({ image }) => {
-
+const CardAvisoExample = ({ image, ciudad, pais }) => {
     const { userAuth } = useContext(AuthContext);
-
     return (
         <Card maxW='md'>
             <CardBody>
@@ -38,8 +36,11 @@ const CardAvisoExample = ({ image }) => {
                             <HStack spacing={5}>
                                 <Image boxSize='50px'
                                     objectFit='cover'
-                                    alt='Dan Abramov' src={userAuth?.photoURL} borderRadius={'50%'} />
-                                <Text>{userAuth?.displayName}</Text>
+                                    alt={userAuth?.displayName} src={userAuth?.photoURL} borderRadius={'50%'} />
+                                <Box>
+                                    <Text>{userAuth?.displayName}</Text>
+                                    <Text fontWeight={'bold'} textTransform={'capitalize'}>{ciudad}, {pais}</Text>
+                                </Box>
                             </HStack>
                             :
                             <SkeletonCircle size='10' />

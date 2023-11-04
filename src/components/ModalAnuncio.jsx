@@ -26,7 +26,8 @@ import {
     NumberInputField,
     NumberInputStepper,
     NumberIncrementStepper,
-    NumberDecrementStepper
+    NumberDecrementStepper,
+    Divider
 } from '@chakra-ui/react'
 import { useState, useRef, useContext } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
@@ -38,6 +39,7 @@ import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai"
 import { FiUpload } from "react-icons/fi"
 import { GrDirections } from "react-icons/gr";
 import { HiOutlineMail } from "react-icons/hi";
+import { CiLocationOn } from "react-icons/ci";
 import { LuSubtitles } from "react-icons/lu";
 import UserNotFound from "../assets/userNotFound.png"
 import { LoadFileProfileUser } from "../firebase/references/users/profiles";
@@ -72,6 +74,8 @@ const ModalAnuncio = () => {
     const { userAuth } = useContext(AuthContext);
     const [valueSelect, setValueSelect] = useState([])
     const [valuePrice, setValuePrice] = useState('')
+    const [pais, setPais] = useState("")
+    const [ciudad, setCiudad] = useState("")
 
     const format = (val) => `$` + val
     const parse = (val) => val.replace(/^\$/, '')
@@ -177,6 +181,32 @@ const ModalAnuncio = () => {
                                             </InputGroup>
                                         </FormControl>
                                     </HStack>
+                                    <HStack spacing={'5px'} mt={'10px'}>
+                                        <FormControl isRequired>
+                                            <InputGroup>
+                                                <InputLeftElement pointerEvents='none'>
+                                                    <CiLocationOn color='gray.300' />
+                                                </InputLeftElement>
+                                                <Input type='text' placeholder='País' onChange={(e) => setPais(e.target.value)} />
+                                            </InputGroup>
+                                        </FormControl>
+                                        <FormControl isRequired>
+                                            <InputGroup>
+                                                <InputLeftElement pointerEvents='none'>
+                                                    <CiLocationOn color='gray.300' />
+                                                </InputLeftElement>
+                                                <Input type='text' placeholder='Ciudad' onChange={(e) => setCiudad(e.target.value)} />
+                                            </InputGroup>
+                                        </FormControl>
+                                        <FormControl isRequired>
+                                            <InputGroup>
+                                                <InputLeftElement pointerEvents='none'>
+                                                    <CiLocationOn color='gray.300' />
+                                                </InputLeftElement>
+                                                <Input type='text' placeholder='Barrio' />
+                                            </InputGroup>
+                                        </FormControl>
+                                    </HStack>
                                     <HStack spacing={'5px'}>
                                         <FormControl isRequired>
                                             <InputGroup>
@@ -232,7 +262,8 @@ const ModalAnuncio = () => {
                         </form>
                         <Box marginTop={20}>
                             <Text textAlign={'center'}>Vista previa de tu anuncio</Text>
-                            <CardAvisoExample image={image} />
+                            <Divider color={'teal.900'} />
+                            <CardAvisoExample image={image} ciudad={ciudad} pais={pais} />
                         </Box>
                     </HStack>
                 </ModalContent>
