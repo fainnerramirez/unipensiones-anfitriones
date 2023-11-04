@@ -30,7 +30,7 @@ import { BiUser } from "react-icons/bi";
 import { MdPassword } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import { ToastContainer, toast } from 'react-toastify';
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { errorManagment } from '../firebase/errors/errorManagmentUser';
 import { db } from '../firebase/firestore/database';
 import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
@@ -171,7 +171,7 @@ const SingInUser = () => {
                                             <Input type={show ? 'text' : 'password'} placeholder='Contraseña' size='lg' onChange={(e) => setPassword(e.target.value)} />
                                             <InputRightElement width='4.5rem'>
                                                 <Button h='1.75rem' size='md' mt={'1.5'} onClick={handleClick}>
-                                                    {show ? <AiOutlineEyeInvisible size={'md'} /> : <AiOutlineEye size={'md'} />}
+                                                    {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
                                                 </Button>
                                             </InputRightElement>
                                         </InputGroup>
