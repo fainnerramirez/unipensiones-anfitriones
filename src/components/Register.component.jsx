@@ -14,19 +14,13 @@ import {
     Input,
     InputRightElement,
     HStack,
-    Box,
     Image,
     Flex,
     FormControl,
-    FormLabel,
-    FormErrorMessage,
     FormHelperText
 } from '@chakra-ui/react'
 import { useState, useRef, useContext } from 'react';
-import { useNavigate } from "react-router-dom"
-//toast
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { BiUser } from "react-icons/bi"
 import { MdPassword } from "react-icons/md";
 import { BsCalendarDate } from "react-icons/bs";
@@ -35,17 +29,14 @@ import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai"
 import { TbEdit } from "react-icons/tb"
 import { HiOutlineMail } from "react-icons/hi";
 import UserNotFound from "../assets/userNotFound.png"
-//firebase
 import { LoadFileProfileUser } from "../firebase/references/users/profiles";
-//auth
 import { auth } from "../firebase/authentication/auth";
 import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import { addDocUser } from '../firebase/collections/users';
-import { AuthContext } from '../context/authContext';
 import { errorManagment } from '../firebase/errors/errorManagmentUser';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
-    let navigate = useNavigate();
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [show, setShow] = useState(false)
@@ -55,7 +46,6 @@ function Register() {
     const [userlastname, setUserlastname] = useState("")
     const [day, setDay] = useState("")
     const [phone, setPhone] = useState("")
-    const [isValidPhone, setIsValidPhone] = useState(true);
     const [userEmail, setUserEmail] = useState("")
     const [userPassword, setUserPassword] = useState("")
     const [userPasswordTwo, setUserPasswordTwo] = useState("")
