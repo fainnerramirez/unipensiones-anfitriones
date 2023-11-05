@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
     Card,
     CardBody,
@@ -17,9 +17,32 @@ import {
     HStack
 } from "@chakra-ui/react"
 import { AuthContext } from '../context/authContext'
+import moment from 'moment';
+import 'moment/locale/es'
 
-const CardAvisoExample = ({ image, ciudad, pais }) => {
+const CardAvisoPreview = ({ image, ciudad, pais, precio }) => {
+    moment.locale('es');
+    let dateUpdate = moment().format();
+    console.log("data moment: ", dateUpdate);
+    console.log("lenguaje de moment: ", new Date().getDay())
+    const [precioConvert, setPrecioConvert] = useState("");
+
+    useEffect(() => {
+        const handleInputChange = (e) => {
+            const inputValue = precio;
+            // Elimina los puntos y comas existentes del valor ingresado
+            const formattedValue = inputValue.replace(/[\.,]/g, '');
+            // Aplica el formato con puntos como separadores de miles
+            const formattedNumber = new Intl.NumberFormat('es-ES').format(formattedValue);
+            setPrecioConvert(formattedNumber);
+        };
+        
+        handleInputChange();
+
+    }, [precio]);
+
     const { userAuth } = useContext(AuthContext);
+
     return (
         <Card maxW='md'>
             <CardBody>
@@ -45,11 +68,19 @@ const CardAvisoExample = ({ image, ciudad, pais }) => {
                             :
                             <SkeletonCircle size='10' />
                     }
-                    <SkeletonText mt='4' noOfLines={7} spacing='4' skeletonHeight='2' />
+                    <Box marginTop={2}>
+                        <Text>Agregado el {moment().format('LL')}</Text>
+                    </Box>
+                    {
+                        precio ?
+                            <Text marginTop={3} textAlign={'left'} fontWeight={'bolder'}>$ {precioConvert} <span style={{fontWeight: 'normal'}}>mes</span></Text>
+                            :
+                            <SkeletonText mt='4' noOfLines={7} spacing='4' skeletonHeight='2' />
+                    }
                 </Box>
             </CardBody>
         </Card>
     )
 }
 
-export default CardAvisoExample
+export default CardAvisoPreview

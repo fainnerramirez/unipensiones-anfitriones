@@ -10,21 +10,10 @@ import Root from "./pages/Root";
 import ProfileUser from "./pages/ProfileUser.page";
 import SingInUser from "./components/SingIn.component";
 import ResetPassword from "./components/ResetPassword.component";
+import moment from 'moment';
+import 'moment/locale/es'
 
-// const router2 = createBrowserRouter([
-//   {
-//     path: PATHS.HOME,
-//     element: <HeroHost />,
-//     errorElement: <ErrorPage/>,
-//     children: [
-//       {
-
-//         path: "user/:userId",
-//         element: <AvisoPage />,
-//       },
-//     ],
-//   }
-// ]);
+moment.locale('es');
 
 const router = createBrowserRouter(
   createRoutesFromElements(
