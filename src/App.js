@@ -12,7 +12,7 @@ import SingInUser from "./components/SingIn.component";
 import ResetPassword from "./components/ResetPassword.component";
 import moment from 'moment';
 import 'moment/locale/es'
-
+import './styles/global.css';
 moment.locale('es');
 
 const router = createBrowserRouter(

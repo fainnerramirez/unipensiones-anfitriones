@@ -24,7 +24,7 @@ const AvisoPage = () => {
             setImage(urlImage !== errorNotFoundImage ? urlImage : "");
         }
         getImagesPension();
-    }, [image])
+    }, [image, userAuth])
 
     const handleFileAnuncio = () => {
         fileInputRef.current.click();

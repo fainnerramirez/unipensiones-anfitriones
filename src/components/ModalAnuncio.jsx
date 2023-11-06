@@ -39,6 +39,7 @@ import { AuthContext } from '../context/authContext';
 import { MultiSelect } from 'chakra-multiselect';
 import CardAvisoPreview from './CardAvisoPreview.component';
 import 'react-toastify/dist/ReactToastify.css';
+import { crearAnuncioPorUsuario } from '../firebase/collections/users';
 
 const ModalAnuncio = () => {
 
@@ -46,28 +47,21 @@ const ModalAnuncio = () => {
     const fileInputUpdaloadRef = useRef(null);
     const [image, setImage] = useState("");
     const { userAuth } = useContext(AuthContext);
-    const [valueSelect, setValueSelect] = useState([])
+
+    const [valueSelectService, setValueSelect] = useState([])
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
+    const [barrio, setBarrio] = useState("");
+    const [tipoEspacio, setTipoEspacio] = useState("");
+    const [tipoAlojamiento, setTipoAlojamiento] = useState("");
+    const [tipoCupo, setTipoCupo] = useState("");
     const [pais, setPais] = useState("")
     const [ciudad, setCiudad] = useState("")
+    const [direccion, setDireccion] = useState("")
     const [precio, setPrecio] = useState("")
 
     const format = (val) => `$` + val
     const parse = (val) => val.replace(/^\$/, '')
-
-    const handleFileAnuncio = () => {
-        fileInputUpdaloadRef.current.click();
-    };
-
-    const handleFilePensionChange = async (e) => {
-        setImage("")
-        const file = e.target.files[0];
-        console.log("Files anucnio construcción: ", file);
-        if (file) {
-            const url = await LoadFilePension(file, userAuth?.uid);
-            setImage(url);
-        }
-    }
-
     const optionsMultiService = [
         { value: '1', label: 'Wifi' },
         { value: '2', label: 'TV' },
@@ -81,6 +75,39 @@ const ModalAnuncio = () => {
         { value: '10', label: 'Terraza' },
     ]
 
+    const handleFileAnuncio = () => {
+        fileInputUpdaloadRef.current.click();
+    };
+
+    const handleFilePensionChange = async (e) => {
+        setImage("")
+        const file = e.target.files[0];
+        if (file) {
+            const url = await LoadFilePension(file, userAuth?.uid);
+            setImage(url);
+        }
+    }
+
+    const handleSubmitPublicForm = async (event) => {
+        event.preventDefault();
+        const nuevoAnuncio = {
+            urlFotoAnuncio: image,
+            titulo: title,
+            descripcion: desc,
+            pais: pais,
+            ciudad: ciudad,
+            barrio: barrio,
+            direccion: direccion,
+            tipoEspacio: tipoEspacio,
+            tipoAlojamiento: tipoAlojamiento,
+            tipoCupo: tipoCupo
+        }; 
+
+        console.log("Options submit anuncio: ", nuevoAnuncio);
+        let response = await crearAnuncioPorUsuario(userAuth?.uid, nuevoAnuncio);
+        console.log("Response al nuevo anuncio: ", response);
+    }
+
     return (
         <>
             <Button
@@ -93,7 +120,7 @@ const ModalAnuncio = () => {
                 <ModalOverlay />
                 <ModalContent>
                     <HStack spacing={10} display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
-                        <form style={{ width: "50%" }}>
+                        <form style={{ width: "50%" }} onSubmit={handleSubmitPublicForm}>
                             <ModalHeader>Publicación de anuncio</ModalHeader>
                             <ModalCloseButton color={'teal.900'} />
                             <ModalBody>
@@ -117,40 +144,43 @@ const ModalAnuncio = () => {
                                                 </InputLeftElement>
                                                 <Input
                                                     type='text'
-                                                    placeholder='Agrega un titulo llamativo al anuncio. Ej: Un ambiente acogedor para estudiantes: Tu mejor opción' />
+                                                    placeholder='Agrega un titulo llamativo al anuncio. 
+                                                    Ej: Un ambiente acogedor para estudiantes: Tu mejor opción'
+                                                    onChange={(e) => setTitle(e.target.value)} />
                                             </InputGroup>
                                         </FormControl>
                                     </HStack>
                                     <HStack spacing={'5px'} mt={'10px'}>
                                         <FormControl isRequired>
                                             <Textarea
-                                                placeholder='Agrega una descripción: Comparte lo que hace tu pensión tan especial' />
+                                                placeholder='Agrega una descripción: Comparte lo que hace tu pensión tan especial'
+                                                onChange={(e) => setDesc(e.target.value)}
+                                            />
                                         </FormControl>
                                     </HStack>
                                     <HStack spacing={'5px'} mt={'10px'}>
                                         <FormControl isRequired>
                                             <InputGroup>
-                                                <Select placeholder='Seleccione el tipo de espacio' color={'gray'}>
-                                                    <option value='1'>Casa</option>
-                                                    <option value='2'>Apartamento</option>
-                                                    <option value='3'>ApartaEstudio</option>
+                                                <Select placeholder='Seleccione el tipo de espacio' color={'gray'} onChange={(e) => setTipoEspacio(e.target.value)}>
+                                                    <option value='casa'>Casa</option>
+                                                    <option value='apartamento'>Apartamento</option>
+                                                    <option value='apartaestudios'>ApartaEstudio</option>
+                                                </Select>
+                                            </InputGroup>
+                                        </FormControl>
+                                        <FormControl isRequired>
+                                            <InputGroup>
+                                                <Select placeholder='Seleccione el tipo de alojamiento' color={'gray'} onChange={(e) => setTipoAlojamiento(e.target.value)}>
+                                                    <option value='una habitacion'>Una habitación</option>
+                                                    <option value='habitacion compartida'>Habitación compartida</option>
                                                 </Select>
                                             </InputGroup>
                                         </FormControl>
                                         <FormControl isRequired>
                                             <InputGroup >
-                                                <Select placeholder='Seleccione el tipo de alojamiento' color={'gray'}>
-                                                    <option value='1'>Alojamiento entero</option>
-                                                    <option value='2'>Una habitación</option>
-                                                    <option value='3'>Habitación compartida</option>
-                                                </Select>
-                                            </InputGroup>
-                                        </FormControl>
-                                        <FormControl isRequired>
-                                            <InputGroup >
-                                                <Select placeholder='Seleccione el tipo de cupo' color={'gray'}>
-                                                    <option value='1'>Solo cupo (habitación)</option>
-                                                    <option value='2'>Cupo completo (habitación y comida)</option>
+                                                <Select placeholder='Seleccione el tipo de cupo' color={'gray'} onChange={(e) => setTipoCupo(e.target.value)}>
+                                                    <option value='solo cupo'>Solo cupo (habitación)</option>
+                                                    <option value='cupo completo'>Cupo completo (habitación y comida)</option>
                                                 </Select>
                                             </InputGroup>
                                         </FormControl>
@@ -177,7 +207,7 @@ const ModalAnuncio = () => {
                                                 <InputLeftElement pointerEvents='none'>
                                                     <CiLocationOn color='gray.300' />
                                                 </InputLeftElement>
-                                                <Input type='text' placeholder='Barrio' />
+                                                <Input type='text' placeholder='Barrio' onChange={(e) => setBarrio(e.target.value)} />
                                             </InputGroup>
                                         </FormControl>
                                     </HStack>
@@ -187,7 +217,7 @@ const ModalAnuncio = () => {
                                                 <InputLeftElement pointerEvents='none'>
                                                     <GrDirections color='gray.300' />
                                                 </InputLeftElement>
-                                                <Input type='text' placeholder='Agrega la dirección' />
+                                                <Input type='text' placeholder='Agrega la dirección' onChange={(e) => setDireccion(e.target.value)} />
                                             </InputGroup>
                                         </FormControl>
                                     </HStack>
@@ -205,12 +235,12 @@ const ModalAnuncio = () => {
                                             </NumberInput>
                                         </FormControl>
                                         <FormControl isRequired>
-                                                <MultiSelect
-                                                    value={valueSelect}
-                                                    options={optionsMultiService}
-                                                    onChange={setValueSelect}
-                                                    placeholder='Seleccione los servicios'
-                                                />
+                                            <MultiSelect
+                                                value={valueSelectService}
+                                                options={optionsMultiService}
+                                                onChange={setValueSelect}
+                                                placeholder='Seleccione los servicios'
+                                            />
                                         </FormControl>
                                     </HStack>
                                 </Stack>
