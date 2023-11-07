@@ -1,22 +1,13 @@
 import { collection, addDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "../firestore/database";
 import { errorManagment } from "../errors/errorManagmentUser";
-import { toast } from "react-toastify";
-import Swal from 'sweetalert2'
 import { showSuccessAlert, showWarningAlert } from "../../utils/SwalAlert";
-
-export const addDocUser = async (options) => {
-    return await addDoc(collection(db, "anfitriones"), options);
-}
-
-export const addDocPromotionsUser = async (options) => {
-    return await addDoc(collection(db, "PromotionsAnfitrion"), options)
-}
 
 // Función para crear una publicación y relacionarla con un usuario
 export const crearAnuncioPorUsuario = async (userId, options) => {
 
     try {
+
         const response = await showWarningAlert("¿Revisastes todos los datos del anuncio antes de publicarlo?");
 
         if (response.isConfirmed) {

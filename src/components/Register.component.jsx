@@ -32,9 +32,9 @@ import UserNotFound from "../assets/userNotFound.png"
 import { LoadFileProfileUser } from "../firebase/references/users/profiles";
 import { auth } from "../firebase/authentication/auth";
 import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
-import { addDocUser } from '../firebase/collections/users';
 import { errorManagment } from '../firebase/errors/errorManagmentUser';
 import 'react-toastify/dist/ReactToastify.css';
+import { createAnfitrion } from '../firebase/collections/querys/anfitriones';
 
 function Register() {
 
@@ -106,7 +106,7 @@ function Register() {
                 userEmail: userEmail,
             }
 
-            const doc = await addDocUser(options);
+            const doc = await createAnfitrion(options);
 
             await updateProfile(auth.currentUser, {
                 displayName: username + " " + userlastname,

@@ -35,6 +35,7 @@ import { errorManagment } from '../firebase/errors/errorManagmentUser';
 import { db } from '../firebase/firestore/database';
 import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { getAnfitrionByUserId } from '../firebase/collections/querys/anfitriones';
 
 const SingInUser = () => {
 
@@ -72,11 +73,11 @@ const SingInUser = () => {
                                 position: "top-center"
                             });
                             auth.signOut();
-                            console.log('Documento no encontrado.');
                         }
                     })
                     .catch((error) => {
                         console.error('Error al buscar el usuario:', error);
+                        errorManagment(error.code);
                     });
             }).catch((error) => {
                 errorManagment(error.code);
@@ -90,9 +91,7 @@ const SingInUser = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then(async (userCredential) => {
                 setIsLoading(false);
-                const user = userCredential.user;
-                console.log("user autenticated: ", user.uid);
-
+                
                 if (!auth.currentUser?.emailVerified) {
                     toast.error("Aún no has verificado tu corrreo electrónico para activar tu cuenta UP", {
                         theme: "colored",
@@ -101,34 +100,39 @@ const SingInUser = () => {
                     auth.signOut();
                     return;
                 }
+                
+                const user = userCredential.user;
+                const documentAnfitrion = await getAnfitrionByUserId(user.uid);
+                console.log("documento de anfitrion fainner4: ", documentAnfitrion);
 
-                const q = query(collection(db, 'anfitriones'), where('userId', '==', user.uid), limit(1));
+                // const q = query(collection(db, 'anfitriones'), where('userId', '==', user.uid), limit(1));
 
-                getDocs(q)
-                    .then((querySnapshot) => {
-                        if (!querySnapshot.empty) {
-                            const doc = querySnapshot.docs[0];
-                            setIsLoading(false)
+                // getDocs(q)
+                //     .then((querySnapshot) => {
+                //         if (!querySnapshot.empty) {
+                //             const doc = querySnapshot.docs[0];
+                //             setIsLoading(false)
 
-                            toast.success("Accediendo a tu perfil " + (user.displayName ?? user.email), {
-                                theme: "colored",
-                                position: "top-center"
-                            })
+                //             toast.success("Accediendo a tu perfil " + (user.displayName ?? user.email), {
+                //                 theme: "colored",
+                //                 position: "top-center"
+                //             })
 
-                            setTimeout(function () {
-                                window.location.href = "user/" + doc?.id;
-                            }, 3000);
-                        } else {
-                            console.log('Documento no encontrado.');
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Error al buscar el usuario:', error);
-                    });
+                //             setTimeout(function () {
+                //                 window.location.href = "user/" + doc?.id;
+                //             }, 3000);
+                //         } else {
+                //             console.log('Documento no encontrado.');
+                //         }
+                //     })
+                //     .catch((error) => {
+                //         console.error('Error al buscar el usuario:', error);
+                //     });
 
             }).catch((error) => {
                 setIsLoading(false);
                 const errorCode = error.code;
+                console.log("Error email, password: ", error)
                 errorManagment(errorCode);
             });
 
