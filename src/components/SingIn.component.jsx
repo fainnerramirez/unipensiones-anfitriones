@@ -30,7 +30,7 @@ import { BiUser } from "react-icons/bi";
 import { MdPassword } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import { ToastContainer, toast } from 'react-toastify';
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, deleteUser } from "firebase/auth";
 import { errorManagment } from '../firebase/errors/errorManagmentUser';
 import { db } from '../firebase/firestore/database';
 import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
@@ -43,33 +43,35 @@ const SingInUser = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const handleClick = () => setShow(!show)
 
     const handleClickGooglePopup = () => {
-        const provider = new GoogleAuthProvider();
         const auth = getAuth();
+        const provider = new GoogleAuthProvider();
 
         signInWithPopup(auth, provider)
             .then((result) => {
                 const user = result.user;
                 const q = query(collection(db, 'anfitriones'), where('userId', '==', user.uid), limit(1));
-
                 getDocs(q)
-                    .then((querySnapshot) => {
+                    .then(async (querySnapshot) => {
                         if (!querySnapshot.empty) {
-                            const doc = querySnapshot.docs[0];
                             setIsLoading(false)
-
+                            const doc = querySnapshot.docs[0];
                             toast.success("Accediendo a tu perfil " + (user.displayName ?? user.email), {
                                 theme: "colored",
                                 position: "top-center"
                             })
-
                             setTimeout(function () {
                                 window.location.href = "user/" + doc?.id;
                             }, 3000);
                         } else {
+                            await deleteUser(auth.currentUser);
+                            toast.error("Este correo no existe, por favor registrate", {
+                                theme: "colored",
+                                position: "top-center"
+                            });
+                            auth.signOut();
                             console.log('Documento no encontrado.');
                         }
                     })
