@@ -11,7 +11,6 @@ const Layout = ({ children }) => {
   const [userAuth, SetUserAuth] = useState(null);
 
   useEffect(() => {
-
     onAuthStateChanged(auth, (userCredentials) => {
       if (userCredentials) {
         SetUserAuth(userCredentials)
@@ -20,7 +19,7 @@ const Layout = ({ children }) => {
       }
     });
 
-    console.log("Use state: ", userAuth)
+    localStorage.setItem("user", JSON.stringify(userAuth))
   }, [userAuth])
 
   return (

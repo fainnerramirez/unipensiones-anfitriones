@@ -36,6 +36,7 @@ import { db } from '../firebase/firestore/database';
 import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { getAnfitrionByUserId } from '../firebase/collections/querys/anfitriones';
+import { AuthContext } from '../context/authContext';
 
 const SingInUser = () => {
 
@@ -44,10 +45,10 @@ const SingInUser = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { auth } = useContext(AuthContext);
     const handleClick = () => setShow(!show)
 
     const handleClickGooglePopup = () => {
-        const auth = getAuth();
         const provider = new GoogleAuthProvider();
 
         signInWithPopup(auth, provider)
@@ -86,7 +87,6 @@ const SingInUser = () => {
 
     const handleSubmitForm = (event) => {
         event.preventDefault();
-        const auth = getAuth();
 
         signInWithEmailAndPassword(auth, email, password)
             .then(async (userCredential) => {
