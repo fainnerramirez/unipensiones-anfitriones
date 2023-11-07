@@ -12,7 +12,9 @@ import {
     Button,
     Skeleton,
     Box,
-    SkeletonText
+    SkeletonText,
+    Badge,
+    HStack
 } from "@chakra-ui/react"
 import { getAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones'
 import { AuthContext } from '../context/authContext'
@@ -23,10 +25,11 @@ const CardAviso = ({ image }) => {
     const [documentAdvert, setDocumentAdvert] = useState(null);
     const { userAuth } = useContext(AuthContext);
 
+    //error no se esta consultando el documento: razon: es porque hay que eliminar el documento con el id del usuario y poner el nuevo documento.
     useEffect(() => {
         const getAverts = async () => {
             const advertsAnfitrion = await getAdvertsAnfitrionByUserId(userAuth?.uid);
-            console.log("advertsAnfitrion: ", advertsAnfitrion)
+            console.log("advertsAnfitrion: ", advertsAnfitrion.services)
             setDocumentAdvert(advertsAnfitrion);
         }
         getAverts();
@@ -50,7 +53,27 @@ const CardAviso = ({ image }) => {
                 </Box>
                 {
                     documentAdvert?.price != null ?
-                        <Text marginTop={3} textAlign={'left'} fontWeight={'bolder'}>$ {ConvertPrice(documentAdvert?.price)} <span style={{ fontWeight: 'normal' }}>mes</span></Text>
+                        <Box>
+                            <Box>
+                                <Text
+                                    marginTop={3}
+                                    textAlign={'left'}
+                                    fontWeight={'bolder'}
+                                >
+                                    $ {ConvertPrice(documentAdvert?.price)}
+                                    <span style={{ fontWeight: 'normal' }}>mes</span>
+                                </Text>
+                            </Box>
+                            <HStack spacing={3} >
+                                {
+                                    documentAdvert?.services.map((service, index) => (
+                                        <Badge variant='subtle' colorScheme='teal' key={index} borderRadius={35} pt={2} pb={2} pl={3} pr={3}>
+                                            {service.label}
+                                        </Badge>
+                                    ))
+                                }
+                            </HStack>
+                        </Box>
                         :
                         <SkeletonText mt='4' noOfLines={7} spacing='4' skeletonHeight='2' />
                 }

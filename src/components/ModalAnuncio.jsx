@@ -38,7 +38,7 @@ import { LoadFilePension } from '../firebase/references/images/pensions';
 import { AuthContext } from '../context/authContext';
 import { MultiSelect } from 'chakra-multiselect';
 import CardAvisoPreview from './CardAvisoPreview.component';
-import { createAdvertForAnfitrion, getAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones';
+import { createAdvertForAnfitrion } from '../firebase/collections/querys/anfitriones';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ModalAnuncio = () => {
@@ -58,7 +58,6 @@ const ModalAnuncio = () => {
     const [ciudad, setCiudad] = useState("")
     const [direccion, setDireccion] = useState("")
     const [precio, setPrecio] = useState("")
-    const [documentAdvert, setDocumentAdvert] = useState(null);
 
     const format = (val) => `$` + val
     const parse = (val) => val.replace(/^\$/, '')
