@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
     Card,
     CardBody,
@@ -12,14 +12,29 @@ import {
     Button,
     Skeleton
 } from "@chakra-ui/react"
+import { getAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones'
+import { AuthContext } from '../context/authContext'
 
 const CardAviso = ({ image }) => {
+
+    const [documentAdvert, setDocumentAdvert] = useState(null);
+    const { userAuth } = useContext(AuthContext);
+
+    useEffect(() => {
+        const getAverts = async () => {
+            const advertsAnfitrion = await getAdvertsAnfitrionByUserId(userAuth?.uid);
+            setDocumentAdvert(advertsAnfitrion);        
+        }
+        getAverts();
+        console.log("documento by anuncio: ", documentAdvert)
+    }, [userAuth])
+
     return (
         <Card maxW='md'>
             <CardBody>
                 {
-                    image != "" ? <Image
-                        src={image}
+                    documentAdvert != null ? <Image
+                        src={documentAdvert?.urlPhoto}
                         alt='Green double couch with wooden legs'
                         borderRadius='lg'
                         height={250} 

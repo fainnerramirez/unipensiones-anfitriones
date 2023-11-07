@@ -19,7 +19,22 @@ export const getAnfitrionByUserId = async (userId) => {
         }
     } catch (error) {
         console.error('Error al buscar el usuario:', error);
-        // Trata el error adecuadamente
+        errorManagment(error.code)
+    }
+}
+
+export const getAdvertsAnfitrionByUserId = async (userId) => {
+    try {
+        const q = query(collection(db, 'anunciosPorAnfitrion'), where('userId', '==', userId), limit(1));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            return querySnapshot.docs[0].data();
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error('Error al buscar el los anuncios por usuario:', error);
         errorManagment(error.code)
     }
 }
@@ -50,7 +65,7 @@ export const createAdvertForAnfitrion = async (userId, options) => {
                 window.location.href = "/user/" + userId;
             }
 
-            return nuevaPublicacionRef.id; // Devuelve el ID de la publicación recién creada
+            return nuevaPublicacionRef.id;
         }
         else {
             console.log("Operación de publicación cancelada!");
