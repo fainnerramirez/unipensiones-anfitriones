@@ -38,8 +38,8 @@ import { LoadFilePension } from '../firebase/references/images/pensions';
 import { AuthContext } from '../context/authContext';
 import { MultiSelect } from 'chakra-multiselect';
 import CardAvisoPreview from './CardAvisoPreview.component';
+import { createAdvertForAnfitrion } from '../firebase/collections/querys/anfitriones';
 import 'react-toastify/dist/ReactToastify.css';
-import { crearAnuncioPorUsuario } from '../firebase/collections/users';
 
 const ModalAnuncio = () => {
 
@@ -105,7 +105,7 @@ const ModalAnuncio = () => {
             Servicios: valueSelectService
         };
 
-        let response = await crearAnuncioPorUsuario(userAuth?.uid, nuevoAnuncio);
+        let response = await createAdvertForAnfitrion(userAuth?.uid, nuevoAnuncio);
         console.log("Response al nuevo anuncio: ", response);
     }
 

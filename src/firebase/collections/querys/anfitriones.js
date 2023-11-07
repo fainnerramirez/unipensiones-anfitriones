@@ -1,6 +1,7 @@
 import { db } from '../../firestore/database';
 import { collection, query, where, limit, getDocs, addDoc } from 'firebase/firestore';
 import { errorManagment } from '../../errors/errorManagmentUser';
+import { showSuccessAlert, showWarningAlert } from '../../../utils/SwalAlert';
 
 export const createAnfitrion = async (options) => {
     return await addDoc(collection(db, "anfitriones"), options);
