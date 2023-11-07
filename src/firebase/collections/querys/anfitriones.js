@@ -1,5 +1,5 @@
 import { db } from '../../firestore/database';
-import { collection, query, where, limit, getDocs, addDoc } from 'firebase/firestore';
+import { collection, query, where, limit, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore';
 import { errorManagment } from '../../errors/errorManagmentUser';
 import { showSuccessAlert, showWarningAlert } from '../../../utils/SwalAlert';
 import moment from 'moment';
@@ -16,7 +16,7 @@ export const getAnfitrionByUserId = async (userId) => {
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {
-            return querySnapshot.docs[0].data();
+            return { id: querySnapshot.id, ...querySnapshot.docs[0].data() };
         } else {
             return null;
         }
@@ -27,12 +27,12 @@ export const getAnfitrionByUserId = async (userId) => {
 }
 
 export const getAdvertsAnfitrionByUserId = async (userId) => {
-    
-    if(userId){
+
+    if (userId) {
         try {
             const q = query(collection(db, 'anunciosPorAnfitrion'), where('userId', '==', userId), limit(1));
             const querySnapshot = await getDocs(q);
-    
+
             if (!querySnapshot.empty) {
                 return querySnapshot.docs[0].data();
             } else {
@@ -83,3 +83,12 @@ export const createAdvertForAnfitrion = async (userId, options) => {
         errorManagment(error.code);
     }
 }
+
+export const deleteAnfitrion = async (IdDocument) => {
+    return await deleteDoc(doc(db, "anfitriones", IdDocument));
+}
+
+export const deleteAnuncioAnfitrion = async (IdDocument) => {
+    return await deleteDoc(doc(db, "anunciosPorAnfitrion", IdDocument));
+}
+

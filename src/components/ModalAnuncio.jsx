@@ -38,7 +38,7 @@ import { LoadFilePension } from '../firebase/references/images/pensions';
 import { AuthContext } from '../context/authContext';
 import { MultiSelect } from 'chakra-multiselect';
 import CardAvisoPreview from './CardAvisoPreview.component';
-import { createAdvertForAnfitrion } from '../firebase/collections/querys/anfitriones';
+import { createAdvertForAnfitrion, deleteAnfitrion, getAnfitrionByUserId } from '../firebase/collections/querys/anfitriones';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ModalAnuncio = () => {
@@ -90,23 +90,30 @@ const ModalAnuncio = () => {
     const handleSubmitPublicForm = async (event) => {
         event.preventDefault();
 
-        const nuevoAnuncio = {
-            urlFotoAnuncio: image,
-            titulo: title,
-            descripcion: desc,
-            pais: pais,
-            ciudad: ciudad,
-            barrio: barrio,
-            direccion: direccion,
-            tipoEspacio: tipoEspacio,
-            tipoAlojamiento: tipoAlojamiento,
-            tipoCupo: tipoCupo,
-            precio: precio,
-            Servicios: valueSelectService
-        };
+        //proceso de eliminación
+        const document = await getAnfitrionByUserId(userAuth?.uid);
+        const responseDelete = await deleteAnfitrion(document.id);
 
-        let response = await createAdvertForAnfitrion(userAuth?.uid, nuevoAnuncio);
-        console.log("Response al nuevo anuncio: ", response);
+        console.log("Doucment: ", document);
+        console.log("Response delete anfitrion: ", responseDelete);
+
+        // const nuevoAnuncio = {
+        //     urlFotoAnuncio: image,
+        //     titulo: title,
+        //     descripcion: desc,
+        //     pais: pais,
+        //     ciudad: ciudad,
+        //     barrio: barrio,
+        //     direccion: direccion,
+        //     tipoEspacio: tipoEspacio,
+        //     tipoAlojamiento: tipoAlojamiento,
+        //     tipoCupo: tipoCupo,
+        //     precio: precio,
+        //     Servicios: valueSelectService
+        // };
+
+        // let response = await createAdvertForAnfitrion(userAuth?.uid, nuevoAnuncio);
+        // console.log("Response al nuevo anuncio: ", response);
     }
 
     return (
