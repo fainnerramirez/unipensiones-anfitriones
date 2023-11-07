@@ -18,10 +18,12 @@ const CardAviso = ({ image }) => {
         <Card maxW='md'>
             <CardBody>
                 {
-                    image ? <Image
+                    image != "" ? <Image
                         src={image}
                         alt='Green double couch with wooden legs'
                         borderRadius='lg'
+                        height={250} 
+                        width={400}
                     /> : <Skeleton height={250} width={400} />
                 }
 

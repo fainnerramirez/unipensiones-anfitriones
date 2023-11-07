@@ -27,7 +27,7 @@ export const showWarningAlert = async (message) => {
 export const showSuccessAlert = async (message) => {
     return await Swal.fire({
         icon: 'success',
-        title: 'Error',
+        title: '¡Correcto!',
         text: message,
         confirmButtonText: 'Aceptar',
         showCancelButton: false,

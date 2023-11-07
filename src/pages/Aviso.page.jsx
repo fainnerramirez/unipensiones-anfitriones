@@ -4,8 +4,7 @@ import { LoadFilePension, getDownloadURLPension } from "../firebase/references/i
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import Sidebar from '../components/Sidebar.component';
-import { BsFillPlusSquareFill } from "react-icons/bs";
-import { Box, Button, Divider, Heading, Input, Text } from "@chakra-ui/react";
+import { Box, Divider, Heading } from "@chakra-ui/react";
 import { ref } from 'firebase/storage';
 import { storageRef } from '../firebase/storage/storage';
 import ModalAnuncio from '../components/ModalAnuncio';
@@ -15,7 +14,6 @@ const AvisoPage = () => {
     const { userAuth } = useContext(AuthContext);
     const fileInputRef = useRef(null);
     const [errorNotFoundImage, setErrorNotFoundImage] = useState("storage/object-not-found");
-    console.log("userAuth aviso card: ", userAuth)
 
     useEffect(() => {
         const getImagesPension = async () => {

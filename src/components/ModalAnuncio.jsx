@@ -240,6 +240,8 @@ const ModalAnuncio = () => {
                                                 options={optionsMultiService}
                                                 onChange={setValueSelect}
                                                 placeholder='Seleccione los servicios'
+                                                required
+                                                isRequired
                                             />
                                         </FormControl>
                                     </HStack>
