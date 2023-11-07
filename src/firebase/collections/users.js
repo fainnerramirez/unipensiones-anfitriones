@@ -15,7 +15,7 @@ export const addDocPromotionsUser = async (options) => {
 
 // Función para crear una publicación y relacionarla con un usuario
 export const crearAnuncioPorUsuario = async (userId, options) => {
-    
+
     try {
         const response = await showWarningAlert("¿Revisastes todos los datos del anuncio antes de publicarlo?");
 
@@ -31,7 +31,8 @@ export const crearAnuncioPorUsuario = async (userId, options) => {
                 direction: options.direccion,
                 typeSpace: options.tipoEspacio,
                 typeDomicile: options.tipoAlojamiento,
-                typeQuota: options.tipoCupo
+                typeQuota: options.tipoCupo,
+                services: options.Servicios
             });
 
             const responsePublicado = await showSuccessAlert("Genial! Tu anuncio ha sido publicado correctamente");

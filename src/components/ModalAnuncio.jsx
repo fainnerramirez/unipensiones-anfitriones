@@ -72,7 +72,7 @@ const ModalAnuncio = () => {
         { value: '7', label: 'Zona de estudio' },
         { value: '8', label: 'Piscina' },
         { value: '9', label: 'Gimnasio' },
-        { value: '10', label: 'Terraza' },
+        { value: '10', label: 'Terraza' }
     ]
 
     const handleFileAnuncio = () => {
@@ -90,6 +90,7 @@ const ModalAnuncio = () => {
 
     const handleSubmitPublicForm = async (event) => {
         event.preventDefault();
+
         const nuevoAnuncio = {
             urlFotoAnuncio: image,
             titulo: title,
@@ -100,10 +101,10 @@ const ModalAnuncio = () => {
             direccion: direccion,
             tipoEspacio: tipoEspacio,
             tipoAlojamiento: tipoAlojamiento,
-            tipoCupo: tipoCupo
-        }; 
+            tipoCupo: tipoCupo,
+            Servicios: valueSelectService
+        };
 
-        console.log("Options submit anuncio: ", nuevoAnuncio);
         let response = await crearAnuncioPorUsuario(userAuth?.uid, nuevoAnuncio);
         console.log("Response al nuevo anuncio: ", response);
     }
@@ -188,18 +189,16 @@ const ModalAnuncio = () => {
                                     <HStack spacing={'5px'} mt={'10px'}>
                                         <FormControl isRequired>
                                             <InputGroup>
-                                                <InputLeftElement pointerEvents='none'>
-                                                    <CiLocationOn color='gray.300' />
-                                                </InputLeftElement>
-                                                <Input type='text' placeholder='País' onChange={(e) => setPais(e.target.value)} />
+                                                <Select placeholder='Seleccione el país' color={'gray'} onChange={(e) => setPais(e.target.value)}>
+                                                    <option value='colombia'>Colombia</option>
+                                                </Select>
                                             </InputGroup>
                                         </FormControl>
                                         <FormControl isRequired>
                                             <InputGroup>
-                                                <InputLeftElement pointerEvents='none'>
-                                                    <CiLocationOn color='gray.300' />
-                                                </InputLeftElement>
-                                                <Input type='text' placeholder='Ciudad' onChange={(e) => setCiudad(e.target.value)} />
+                                                <Select placeholder='Seleccione la ciudad' color={'gray'} onChange={(e) => setCiudad(e.target.value)}>
+                                                    <option value='santa marta'>Santa Marta</option>
+                                                </Select>
                                             </InputGroup>
                                         </FormControl>
                                         <FormControl isRequired>
@@ -238,10 +237,8 @@ const ModalAnuncio = () => {
                                             <MultiSelect
                                                 value={valueSelectService}
                                                 options={optionsMultiService}
-                                                onChange={setValueSelect}
+                                                onChange={(e) => setValueSelect(e)}
                                                 placeholder='Seleccione los servicios'
-                                                required
-                                                isRequired
                                             />
                                         </FormControl>
                                     </HStack>
