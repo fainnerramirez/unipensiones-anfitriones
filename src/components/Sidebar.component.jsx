@@ -30,7 +30,6 @@ const Sidebar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const firstField = useRef()
     const { userAuth } = useContext(AuthContext);
-    console.log("UserAuth:  ", userAuth);
 
     return (
         <>

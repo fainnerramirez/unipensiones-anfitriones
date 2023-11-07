@@ -9,10 +9,8 @@ const ProfileUser = () => {
   const { userId } = useParams();
   const [userDoc, setUserDoc] = useState(null);
   const [anfitrion, setAnfitrion] = useState("Soy Anfitrión");
-  const { userAuth } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
-
-  console.log("userAuth: ", userAuth)
+  const { userAuth } = useContext(AuthContext);
 
   return (
     <VStack align={'center'}>
