@@ -10,10 +10,13 @@ import {
     Text,
     ButtonGroup,
     Button,
-    Skeleton
+    Skeleton,
+    Box,
+    SkeletonText
 } from "@chakra-ui/react"
 import { getAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones'
 import { AuthContext } from '../context/authContext'
+import { ConvertPrice } from "../utils/PriceConvert";
 
 const CardAviso = ({ image }) => {
 
@@ -23,10 +26,10 @@ const CardAviso = ({ image }) => {
     useEffect(() => {
         const getAverts = async () => {
             const advertsAnfitrion = await getAdvertsAnfitrionByUserId(userAuth?.uid);
-            setDocumentAdvert(advertsAnfitrion);        
+            console.log("advertsAnfitrion: ", advertsAnfitrion)
+            setDocumentAdvert(advertsAnfitrion);
         }
         getAverts();
-        console.log("documento by anuncio: ", documentAdvert)
     }, [userAuth])
 
     return (
@@ -37,22 +40,20 @@ const CardAviso = ({ image }) => {
                         src={documentAdvert?.urlPhoto}
                         alt='Green double couch with wooden legs'
                         borderRadius='lg'
-                        height={250} 
+                        height={250}
                         width={400}
                     /> : <Skeleton height={250} width={400} />
                 }
 
-                {/* <Stack mt='6' spacing='3'>
-                    <Heading size='md'>Living room Sofa</Heading>
-                    <Text>
-                        This sofa is perfect for modern tropical spaces, baroque inspired
-                        spaces, earthy toned spaces and for people who love a chic design with a
-                        sprinkle of vintage design.
-                    </Text>
-                    <Text color='blue.600' fontSize='2xl'>
-                        $450
-                    </Text>
-                </Stack> */}
+                <Box marginTop={2}>
+                    <Text>Agregado el {documentAdvert?.dateCreatedAt}</Text>
+                </Box>
+                {
+                    documentAdvert?.price != null ?
+                        <Text marginTop={3} textAlign={'left'} fontWeight={'bolder'}>$ {ConvertPrice(documentAdvert?.price)} <span style={{ fontWeight: 'normal' }}>mes</span></Text>
+                        :
+                        <SkeletonText mt='4' noOfLines={7} spacing='4' skeletonHeight='2' />
+                }
             </CardBody>
             <Divider />
             <CardFooter>

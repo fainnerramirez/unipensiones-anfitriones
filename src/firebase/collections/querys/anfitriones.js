@@ -2,6 +2,9 @@ import { db } from '../../firestore/database';
 import { collection, query, where, limit, getDocs, addDoc } from 'firebase/firestore';
 import { errorManagment } from '../../errors/errorManagmentUser';
 import { showSuccessAlert, showWarningAlert } from '../../../utils/SwalAlert';
+import moment from 'moment';
+import 'moment/locale/es'
+moment.locale('es');
 
 export const createAnfitrion = async (options) => {
     return await addDoc(collection(db, "anfitriones"), options);
@@ -24,18 +27,21 @@ export const getAnfitrionByUserId = async (userId) => {
 }
 
 export const getAdvertsAnfitrionByUserId = async (userId) => {
-    try {
-        const q = query(collection(db, 'anunciosPorAnfitrion'), where('userId', '==', userId), limit(1));
-        const querySnapshot = await getDocs(q);
-
-        if (!querySnapshot.empty) {
-            return querySnapshot.docs[0].data();
-        } else {
-            return null;
+    
+    if(userId){
+        try {
+            const q = query(collection(db, 'anunciosPorAnfitrion'), where('userId', '==', userId), limit(1));
+            const querySnapshot = await getDocs(q);
+    
+            if (!querySnapshot.empty) {
+                return querySnapshot.docs[0].data();
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.error('Error al buscar el los anuncios por usuario:', error);
+            errorManagment(error.code)
         }
-    } catch (error) {
-        console.error('Error al buscar el los anuncios por usuario:', error);
-        errorManagment(error.code)
     }
 }
 
@@ -56,7 +62,9 @@ export const createAdvertForAnfitrion = async (userId, options) => {
                 typeSpace: options.tipoEspacio,
                 typeDomicile: options.tipoAlojamiento,
                 typeQuota: options.tipoCupo,
-                services: options.Servicios
+                services: options.Servicios,
+                price: options.precio,
+                dateCreatedAt: moment().format('LL')
             });
 
             const responsePublicado = await showSuccessAlert("Genial! Tu anuncio ha sido publicado correctamente");

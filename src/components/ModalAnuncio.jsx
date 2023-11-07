@@ -27,7 +27,7 @@ import {
     NumberDecrementStepper,
     Divider
 } from '@chakra-ui/react'
-import { useState, useRef, useContext } from 'react';
+import { useState, useRef, useContext, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import { FiUpload } from "react-icons/fi"
@@ -38,7 +38,7 @@ import { LoadFilePension } from '../firebase/references/images/pensions';
 import { AuthContext } from '../context/authContext';
 import { MultiSelect } from 'chakra-multiselect';
 import CardAvisoPreview from './CardAvisoPreview.component';
-import { createAdvertForAnfitrion } from '../firebase/collections/querys/anfitriones';
+import { createAdvertForAnfitrion, getAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ModalAnuncio = () => {
@@ -47,7 +47,6 @@ const ModalAnuncio = () => {
     const fileInputUpdaloadRef = useRef(null);
     const [image, setImage] = useState("");
     const { userAuth } = useContext(AuthContext);
-
     const [valueSelectService, setValueSelect] = useState([])
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
@@ -59,6 +58,7 @@ const ModalAnuncio = () => {
     const [ciudad, setCiudad] = useState("")
     const [direccion, setDireccion] = useState("")
     const [precio, setPrecio] = useState("")
+    const [documentAdvert, setDocumentAdvert] = useState(null);
 
     const format = (val) => `$` + val
     const parse = (val) => val.replace(/^\$/, '')
@@ -102,6 +102,7 @@ const ModalAnuncio = () => {
             tipoEspacio: tipoEspacio,
             tipoAlojamiento: tipoAlojamiento,
             tipoCupo: tipoCupo,
+            precio: precio,
             Servicios: valueSelectService
         };
 

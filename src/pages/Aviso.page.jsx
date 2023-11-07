@@ -8,8 +8,10 @@ import { Box, Divider, Heading } from "@chakra-ui/react";
 import { ref } from 'firebase/storage';
 import { storageRef } from '../firebase/storage/storage';
 import ModalAnuncio from '../components/ModalAnuncio';
+import { getAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones';
 
 const AvisoPage = () => {
+    const [documentAdvert, setDocumentAdvert] = useState(null);
     const [image, setImage] = useState("");
     const { userAuth } = useContext(AuthContext);
     const fileInputRef = useRef(null);
@@ -21,6 +23,14 @@ const AvisoPage = () => {
             let urlImage = await getDownloadURLPension(imagesRef);
             setImage(urlImage !== errorNotFoundImage ? urlImage : "");
         }
+
+        const getAverts = async () => {
+            const advertsAnfitrion = await getAdvertsAnfitrionByUserId(userAuth?.uid);
+            console.log("advertsAnfitrion: ", advertsAnfitrion)
+            setDocumentAdvert(advertsAnfitrion);
+        }
+
+        getAverts();
         getImagesPension();
     }, [image, userAuth])
 
@@ -48,12 +58,12 @@ const AvisoPage = () => {
                 </Box>
             </Box>
             <Divider color={'teal.900'} height={2} bg={'teal.400'} borderRadius={35} />
-            {image != "" ?
+            {documentAdvert != null ?
                 <Heading as="h4" marginTop={10} size={'lg'} textAlign={'center'}>Tus anuncios</Heading>
                 :
                 <Heading as="h4" marginTop={10} size={'lg'} textAlign={'center'}>Aún no tienes anuncios</Heading>}
             <Box display={'flex'} justifyContent={'start'} marginTop={10}>
-                {image != "" &&
+                {documentAdvert != null &&
                     <Box>
                         <CardAviso image={image} />
                     </Box>
