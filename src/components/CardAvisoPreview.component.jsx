@@ -11,22 +11,17 @@ import {
     HStack
 } from "@chakra-ui/react"
 import { AuthContext } from '../context/authContext'
+import { useFormatPrice } from "../custom/Hooks/useFormatPrice";
 import moment from 'moment';
 import 'moment/locale/es'
 moment.locale('es');
 
 const CardAvisoPreview = ({ image, ciudad, pais, precio }) => {
-    const [precioConvert, setPrecioConvert] = useState("");
+    const { convertPrice } = useFormatPrice();
     const { userAuth } = useContext(AuthContext);
 
     useEffect(() => {
-        const handleInputChange = (e) => {
-            const inputValue = precio;
-            const formattedValue = inputValue.replace(/[\.,]/g, '');
-            const formattedNumber = new Intl.NumberFormat('es-ES').format(formattedValue);
-            setPrecioConvert(formattedNumber);
-        };
-        handleInputChange();
+        console.log("renderizado de card aviso preview");
     }, [precio, ciudad, pais]);
 
     return (
@@ -37,7 +32,7 @@ const CardAvisoPreview = ({ image, ciudad, pais, precio }) => {
                         src={image}
                         alt='Imagen de la pensión'
                         borderRadius='lg'
-                        height={250} 
+                        height={250}
                         width={400}
                     /> : <Skeleton height={250} width={400} />
                 }
@@ -61,7 +56,7 @@ const CardAvisoPreview = ({ image, ciudad, pais, precio }) => {
                     </Box>
                     {
                         precio ?
-                            <Text marginTop={3} textAlign={'left'} fontWeight={'bolder'}>$ {precioConvert} <span style={{ fontWeight: 'normal' }}>mes</span></Text>
+                            <Text marginTop={3} textAlign={'left'} fontWeight={'bolder'}>$ {convertPrice(precio)} <span style={{ fontWeight: 'normal' }}>mes</span></Text>
                             :
                             <SkeletonText mt='4' noOfLines={7} spacing='4' skeletonHeight='2' />
                     }

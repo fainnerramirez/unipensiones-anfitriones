@@ -75,7 +75,7 @@ const CardAviso = ({ image }) => {
                             </HStack>
                         </Box>
                         :
-                        <SkeletonText mt='4' noOfLines={7} spacing='4' skeletonHeight='2' />
+                        <SkeletonText mt='4' noOfLines={2} spacing='4' skeletonHeight='2' />
                 }
             </CardBody>
             <Divider />
