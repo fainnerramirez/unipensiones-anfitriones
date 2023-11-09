@@ -78,6 +78,7 @@ export const createAdvertForAnfitrion = async (userId, options) => {
         }
         else {
             console.log("Operación de publicación cancelada!");
+            return null;
         }
     } catch (error) {
         console.error(error);

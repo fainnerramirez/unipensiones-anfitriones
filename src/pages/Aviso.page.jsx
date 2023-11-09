@@ -28,7 +28,7 @@ const AvisoPage = () => {
                     <Heading as="h2" size={'lg'} marginLeft={10} textTransform={'capitalize'}>Bienvenido de nuevo {userAuth && userAuth?.displayName}</Heading>
                 </Box>
                 <Box>
-                    <ModalAnuncio />
+                    <ModalAnuncio isvalidPublished={documentAdvert != null ? false : true}/>
                 </Box>
             </Box>
             <Divider color={'teal.900'} height={2} bg={'teal.400'} borderRadius={35} />

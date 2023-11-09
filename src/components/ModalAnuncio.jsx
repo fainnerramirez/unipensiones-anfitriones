@@ -47,7 +47,7 @@ import {
 } from '../firebase/collections/querys/anfitriones';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ModalAnuncio = () => {
+const ModalAnuncio = ({ isvalidPublished }) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     const fileInputUpdaloadRef = useRef(null);
@@ -65,7 +65,6 @@ const ModalAnuncio = () => {
     const [direccion, setDireccion] = useState("")
     const [precio, setPrecio] = useState("")
     //esto va en el archivo de aviso no aquí.
-    const [isValidPublished, setIsValidPublished] = useState(true);
 
     const format = (val) => `$` + val
     const parse = (val) => val.replace(/^\$/, '')
@@ -133,7 +132,7 @@ const ModalAnuncio = () => {
             </Button>
 
             {
-                isValidPublished ?
+                isvalidPublished ?
                     <Modal isOpen={isOpen} size={'full'} onClose={onClose} isCentered motionPreset='slideInBottom'>
                         <ModalOverlay />
                         <ModalContent>
