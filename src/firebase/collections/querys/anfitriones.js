@@ -12,11 +12,12 @@ export const createAnfitrion = async (options) => {
 
 export const getAnfitrionByUserId = async (userId) => {
     try {
+        console.log("Entro getAnfitrionByUserId: ", userId)
         const q = query(collection(db, 'anfitriones'), where('userId', '==', userId), limit(1));
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {
-            return { id: querySnapshot.id, ...querySnapshot.docs[0].data() };
+            return { id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data() };
         } else {
             return null;
         }
@@ -34,7 +35,7 @@ export const getAdvertsAnfitrionByUserId = async (userId) => {
             const querySnapshot = await getDocs(q);
 
             if (!querySnapshot.empty) {
-                return querySnapshot.docs[0].data();
+                return {id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data()};
             } else {
                 return null;
             }
@@ -88,7 +89,6 @@ export const deleteAnfitrion = async (IdDocument) => {
     return await deleteDoc(doc(db, "anfitriones", IdDocument));
 }
 
-export const deleteAnuncioAnfitrion = async (IdDocument) => {
+export const deleteAdvertAnfitrion = async (IdDocument) => {
     return await deleteDoc(doc(db, "anunciosPorAnfitrion", IdDocument));
 }
-

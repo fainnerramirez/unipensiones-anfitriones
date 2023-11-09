@@ -2,9 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import {
     Card,
     CardBody,
-    Stack,
     Image,
-    Heading,
     CardFooter,
     Divider,
     Text,
@@ -14,7 +12,7 @@ import {
     Box,
     SkeletonText,
     Badge,
-    HStack
+    HStack,
 } from "@chakra-ui/react"
 import { getAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones'
 import { AuthContext } from '../context/authContext'
@@ -41,13 +39,12 @@ const CardAviso = ({ image }) => {
                 {
                     documentAdvert != null ? <Image
                         src={documentAdvert?.urlPhoto}
-                        alt='Green double couch with wooden legs'
+                        alt={'Foto anuncio de ' + userAuth?.displayName}
                         borderRadius='lg'
                         height={250}
                         width={400}
                     /> : <Skeleton height={250} width={400} />
                 }
-
                 <Box marginTop={2}>
                     <Text>Agregado el {documentAdvert?.dateCreatedAt}</Text>
                 </Box>
@@ -61,13 +58,21 @@ const CardAviso = ({ image }) => {
                                     fontWeight={'bolder'}
                                 >
                                     $ {ConvertPrice(documentAdvert?.price)}
-                                    <span style={{ fontWeight: 'normal' }}>mes</span>
+                                    <span style={{ fontWeight: 'normal' }}> mes</span>
                                 </Text>
                             </Box>
-                            <HStack spacing={3} >
+                            <HStack spacing={3} marginTop={3} flexWrap={'wrap'}>
                                 {
                                     documentAdvert?.services.map((service, index) => (
-                                        <Badge variant='subtle' colorScheme='teal' key={index} borderRadius={35} pt={2} pb={2} pl={3} pr={3}>
+                                        <Badge 
+                                            variant='subtle' 
+                                            colorScheme='teal' 
+                                            key={index} 
+                                            borderRadius={35} 
+                                            pt={2} 
+                                            pb={2} 
+                                            pl={3} 
+                                            pr={3}>
                                             {service.label}
                                         </Badge>
                                     ))
