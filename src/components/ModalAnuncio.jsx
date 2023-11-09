@@ -38,12 +38,12 @@ import { LoadFilePension } from '../firebase/references/images/pensions';
 import { AuthContext } from '../context/authContext';
 import { MultiSelect } from 'chakra-multiselect';
 import CardAvisoPreview from './CardAvisoPreview.component';
-import { 
-    createAdvertForAnfitrion, 
-    deleteAnfitrion, 
-    deleteAdvertAnfitrion, 
-    getAdvertsAnfitrionByUserId, 
-    getAnfitrionByUserId 
+import {
+    createAdvertForAnfitrion,
+    deleteAnfitrion,
+    deleteAdvertAnfitrion,
+    getAdvertsAnfitrionByUserId,
+    getAnfitrionByUserId
 } from '../firebase/collections/querys/anfitriones';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -64,6 +64,8 @@ const ModalAnuncio = () => {
     const [ciudad, setCiudad] = useState("")
     const [direccion, setDireccion] = useState("")
     const [precio, setPrecio] = useState("")
+    //esto va en el archivo de aviso no aquí.
+    const [isValidPublished, setIsValidPublished] = useState(true);
 
     const format = (val) => `$` + val
     const parse = (val) => val.replace(/^\$/, '')
@@ -99,7 +101,7 @@ const ModalAnuncio = () => {
         const document = await getAdvertsAnfitrionByUserId(userAuth?.uid);
         let responseDelete = null;
 
-        if(document != null){
+        if (document != null) {
             responseDelete = await deleteAdvertAnfitrion(document?.id);
         }
 
@@ -129,155 +131,216 @@ const ModalAnuncio = () => {
                 onClick={onOpen}>
                 Subir anuncio
             </Button>
-            <Modal isOpen={isOpen} size={'full'} onClose={onClose} isCentered motionPreset='slideInBottom'>
-                <ModalOverlay />
-                <ModalContent>
-                    <HStack spacing={10} display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
-                        <form style={{ width: "50%" }} onSubmit={handleSubmitPublicForm}>
-                            <ModalHeader>Publicación de anuncio</ModalHeader>
-                            <ModalCloseButton color={'teal.900'} />
-                            <ModalBody>
-                                <Stack spacing={4}>
-                                    <Flex justifyContent={'center'} alignItems={'end'}>
-                                        <Button colorScheme='teal' rightIcon={<FiUpload />} onClick={handleFileAnuncio}>
-                                            Subir foto
-                                        </Button>
-                                        <Input
-                                            type="file"
-                                            ref={fileInputUpdaloadRef}
-                                            style={{ display: 'none' }}
-                                            onChange={(e) => handleFilePensionChange(e)}
-                                        />
-                                    </Flex>
-                                    <HStack spacing={'5px'} mt={'10px'}>
-                                        <FormControl isRequired>
-                                            <InputGroup>
-                                                <InputLeftElement pointerEvents='none'>
-                                                    <LuSubtitles color='gray.300' />
-                                                </InputLeftElement>
+
+            {
+                isValidPublished ?
+                    <Modal isOpen={isOpen} size={'full'} onClose={onClose} isCentered motionPreset='slideInBottom'>
+                        <ModalOverlay />
+                        <ModalContent>
+                            <HStack spacing={10} display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
+                                <form style={{ width: "50%" }} onSubmit={handleSubmitPublicForm}>
+                                    <ModalHeader>Publicación de anuncio</ModalHeader>
+                                    <ModalCloseButton color={'teal.900'} />
+                                    <ModalBody>
+                                        <Stack spacing={4}>
+                                            <Flex justifyContent={'center'} alignItems={'end'}>
+                                                <Button colorScheme='teal' rightIcon={<FiUpload />} onClick={handleFileAnuncio}>
+                                                    Subir foto
+                                                </Button>
                                                 <Input
-                                                    type='text'
-                                                    placeholder='Agrega un titulo llamativo al anuncio. 
+                                                    type="file"
+                                                    ref={fileInputUpdaloadRef}
+                                                    style={{ display: 'none' }}
+                                                    onChange={(e) => handleFilePensionChange(e)}
+                                                />
+                                            </Flex>
+                                            <HStack spacing={'5px'} mt={'10px'}>
+                                                <FormControl isRequired>
+                                                    <InputGroup>
+                                                        <InputLeftElement pointerEvents='none'>
+                                                            <LuSubtitles color='gray.300' />
+                                                        </InputLeftElement>
+                                                        <Input
+                                                            type='text'
+                                                            placeholder='Agrega un titulo llamativo al anuncio. 
                                                     Ej: Un ambiente acogedor para estudiantes: Tu mejor opción'
-                                                    onChange={(e) => setTitle(e.target.value)} />
-                                            </InputGroup>
-                                        </FormControl>
-                                    </HStack>
-                                    <HStack spacing={'5px'} mt={'10px'}>
-                                        <FormControl isRequired>
-                                            <Textarea
-                                                placeholder='Agrega una descripción: Comparte lo que hace tu pensión tan especial'
-                                                onChange={(e) => setDesc(e.target.value)}
-                                            />
-                                        </FormControl>
-                                    </HStack>
-                                    <HStack spacing={'5px'} mt={'10px'}>
-                                        <FormControl isRequired>
-                                            <InputGroup>
-                                                <Select placeholder='Seleccione el tipo de espacio' color={'gray'} onChange={(e) => setTipoEspacio(e.target.value)}>
-                                                    <option value='casa'>Casa</option>
-                                                    <option value='apartamento'>Apartamento</option>
-                                                    <option value='apartaestudios'>ApartaEstudio</option>
-                                                </Select>
-                                            </InputGroup>
-                                        </FormControl>
-                                        <FormControl isRequired>
-                                            <InputGroup>
-                                                <Select placeholder='Seleccione el tipo de alojamiento' color={'gray'} onChange={(e) => setTipoAlojamiento(e.target.value)}>
-                                                    <option value='una habitacion'>Una habitación</option>
-                                                    <option value='habitacion compartida'>Habitación compartida</option>
-                                                </Select>
-                                            </InputGroup>
-                                        </FormControl>
-                                        <FormControl isRequired>
-                                            <InputGroup >
-                                                <Select placeholder='Seleccione el tipo de cupo' color={'gray'} onChange={(e) => setTipoCupo(e.target.value)}>
-                                                    <option value='solo cupo'>Solo cupo (habitación)</option>
-                                                    <option value='cupo completo'>Cupo completo (habitación y comida)</option>
-                                                </Select>
-                                            </InputGroup>
-                                        </FormControl>
-                                    </HStack>
-                                    <HStack spacing={'5px'} mt={'10px'}>
-                                        <FormControl isRequired>
-                                            <InputGroup>
-                                                <Select placeholder='Seleccione el país' color={'gray'} onChange={(e) => setPais(e.target.value)}>
-                                                    <option value='colombia'>Colombia</option>
-                                                </Select>
-                                            </InputGroup>
-                                        </FormControl>
-                                        <FormControl isRequired>
-                                            <InputGroup>
-                                                <Select placeholder='Seleccione la ciudad' color={'gray'} onChange={(e) => setCiudad(e.target.value)}>
-                                                    <option value='santa marta'>Santa Marta</option>
-                                                </Select>
-                                            </InputGroup>
-                                        </FormControl>
-                                        <FormControl isRequired>
-                                            <InputGroup>
-                                                <InputLeftElement pointerEvents='none'>
-                                                    <CiLocationOn color='gray.300' />
-                                                </InputLeftElement>
-                                                <Input type='text' placeholder='Barrio' onChange={(e) => setBarrio(e.target.value)} />
-                                            </InputGroup>
-                                        </FormControl>
-                                    </HStack>
-                                    <HStack spacing={'5px'}>
-                                        <FormControl isRequired>
-                                            <InputGroup>
-                                                <InputLeftElement pointerEvents='none'>
-                                                    <GrDirections color='gray.300' />
-                                                </InputLeftElement>
-                                                <Input type='text' placeholder='Agrega la dirección' onChange={(e) => setDireccion(e.target.value)} />
-                                            </InputGroup>
-                                        </FormControl>
-                                    </HStack>
-                                    <HStack spacing={5}>
-                                        <FormControl>
-                                            <NumberInput
-                                                onChange={(valueString) => setPrecio(parse(valueString))}
-                                                value={format(precio)}
-                                            >
-                                                <NumberInputField />
-                                                <NumberInputStepper>
-                                                    <NumberIncrementStepper />
-                                                    <NumberDecrementStepper />
-                                                </NumberInputStepper>
-                                            </NumberInput>
-                                        </FormControl>
-                                        <FormControl isRequired>
-                                            <MultiSelect
-                                                value={valueSelectService}
-                                                options={optionsMultiService}
-                                                onChange={(e) => setValueSelect(e)}
-                                                placeholder='Seleccione los servicios'
-                                            />
-                                        </FormControl>
-                                    </HStack>
-                                </Stack>
-                            </ModalBody>
-                            <ModalFooter display={'flex'} justifyContent={'flex-start'}>
-                                <Button
-                                    // isLoading={isLoading}
-                                    width={'full'}
-                                    colorScheme='blue'
-                                    loadingText='Cargando'
-                                    color={'teal.800'}
-                                    variant={'outline'}
-                                    mt={3}
-                                    _hover={{ backgroundColor: 'teal.800', color: "white" }}
-                                    type='submit'
-                                >Publicar</Button>
-                            </ModalFooter>
-                        </form>
-                        <Box marginTop={20}>
-                            <Text textAlign={'center'}>Vista previa de tu anuncio</Text>
-                            <Divider color={'teal.900'} />
-                            <CardAvisoPreview image={image} ciudad={ciudad} pais={pais} precio={precio} />
-                        </Box>
-                    </HStack>
-                </ModalContent>
-            </Modal >
+                                                            onChange={(e) => setTitle(e.target.value)} />
+                                                    </InputGroup>
+                                                </FormControl>
+                                            </HStack>
+                                            <HStack spacing={'5px'} mt={'10px'}>
+                                                <FormControl isRequired>
+                                                    <Textarea
+                                                        placeholder='Agrega una descripción: Comparte lo que hace tu pensión tan especial'
+                                                        onChange={(e) => setDesc(e.target.value)}
+                                                    />
+                                                </FormControl>
+                                            </HStack>
+                                            <HStack spacing={'5px'} mt={'10px'}>
+                                                <FormControl isRequired>
+                                                    <InputGroup>
+                                                        <Select placeholder='Seleccione el tipo de espacio' color={'gray'} onChange={(e) => setTipoEspacio(e.target.value)}>
+                                                            <option value='casa'>Casa</option>
+                                                            <option value='apartamento'>Apartamento</option>
+                                                            <option value='apartaestudios'>ApartaEstudio</option>
+                                                        </Select>
+                                                    </InputGroup>
+                                                </FormControl>
+                                                <FormControl isRequired>
+                                                    <InputGroup>
+                                                        <Select placeholder='Seleccione el tipo de alojamiento' color={'gray'} onChange={(e) => setTipoAlojamiento(e.target.value)}>
+                                                            <option value='una habitacion'>Una habitación</option>
+                                                            <option value='habitacion compartida'>Habitación compartida</option>
+                                                        </Select>
+                                                    </InputGroup>
+                                                </FormControl>
+                                                <FormControl isRequired>
+                                                    <InputGroup >
+                                                        <Select placeholder='Seleccione el tipo de cupo' color={'gray'} onChange={(e) => setTipoCupo(e.target.value)}>
+                                                            <option value='solo cupo'>Solo cupo (habitación)</option>
+                                                            <option value='cupo completo'>Cupo completo (habitación y comida)</option>
+                                                        </Select>
+                                                    </InputGroup>
+                                                </FormControl>
+                                            </HStack>
+                                            <HStack spacing={'5px'} mt={'10px'}>
+                                                <FormControl isRequired>
+                                                    <InputGroup>
+                                                        <Select placeholder='Seleccione el país' color={'gray'} onChange={(e) => setPais(e.target.value)}>
+                                                            <option value='colombia'>Colombia</option>
+                                                        </Select>
+                                                    </InputGroup>
+                                                </FormControl>
+                                                <FormControl isRequired>
+                                                    <InputGroup>
+                                                        <Select placeholder='Seleccione la ciudad' color={'gray'} onChange={(e) => setCiudad(e.target.value)}>
+                                                            <option value='santa marta'>Santa Marta</option>
+                                                        </Select>
+                                                    </InputGroup>
+                                                </FormControl>
+                                                <FormControl isRequired>
+                                                    <InputGroup>
+                                                        <InputLeftElement pointerEvents='none'>
+                                                            <CiLocationOn color='gray.300' />
+                                                        </InputLeftElement>
+                                                        <Input type='text' placeholder='Barrio' onChange={(e) => setBarrio(e.target.value)} />
+                                                    </InputGroup>
+                                                </FormControl>
+                                            </HStack>
+                                            <HStack spacing={'5px'}>
+                                                <FormControl isRequired>
+                                                    <InputGroup>
+                                                        <InputLeftElement pointerEvents='none'>
+                                                            <GrDirections color='gray.300' />
+                                                        </InputLeftElement>
+                                                        <Input type='text' placeholder='Agrega la dirección' onChange={(e) => setDireccion(e.target.value)} />
+                                                    </InputGroup>
+                                                </FormControl>
+                                            </HStack>
+                                            <HStack spacing={5}>
+                                                <FormControl>
+                                                    <NumberInput
+                                                        onChange={(valueString) => setPrecio(parse(valueString))}
+                                                        value={format(precio)}
+                                                    >
+                                                        <NumberInputField />
+                                                        <NumberInputStepper>
+                                                            <NumberIncrementStepper />
+                                                            <NumberDecrementStepper />
+                                                        </NumberInputStepper>
+                                                    </NumberInput>
+                                                </FormControl>
+                                                <FormControl isRequired>
+                                                    <MultiSelect
+                                                        value={valueSelectService}
+                                                        options={optionsMultiService}
+                                                        onChange={(e) => setValueSelect(e)}
+                                                        placeholder='Seleccione los servicios'
+                                                    />
+                                                </FormControl>
+                                            </HStack>
+                                        </Stack>
+                                    </ModalBody>
+                                    <ModalFooter display={'flex'} justifyContent={'flex-start'}>
+                                        <Button
+                                            // isLoading={isLoading}
+                                            width={'full'}
+                                            colorScheme='blue'
+                                            loadingText='Cargando'
+                                            color={'teal.800'}
+                                            variant={'outline'}
+                                            mt={3}
+                                            _hover={{ backgroundColor: 'teal.800', color: "white" }}
+                                            type='submit'
+                                        >Publicar</Button>
+                                    </ModalFooter>
+                                </form>
+                                <Box marginTop={20}>
+                                    <Text textAlign={'center'}>Vista previa de tu anuncio</Text>
+                                    <Divider color={'teal.900'} />
+                                    <CardAvisoPreview image={image} ciudad={ciudad} pais={pais} precio={precio} />
+                                </Box>
+                            </HStack>
+                        </ModalContent>
+                    </Modal >
+                    :
+                    <Modal isOpen={isOpen} size={'lg'} onClose={onClose} isCentered motionPreset='slideInBottom'>
+                        <ModalOverlay />
+                        <ModalContent>
+                            <HStack spacing={10} display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
+                                <form style={{ width: "50%" }} onSubmit={handleSubmitPublicForm}>
+                                    <ModalHeader>Publicación de anuncio</ModalHeader>
+                                    <ModalCloseButton color={'teal.900'} />
+                                    <ModalBody>
+                                        <Stack spacing={4}>
+                                            <HStack spacing={'5px'} mt={'10px'}>
+                                                <FormControl isRequired>
+                                                    <InputGroup>
+                                                        <InputLeftElement pointerEvents='none'>
+                                                            <LuSubtitles color='gray.300' />
+                                                        </InputLeftElement>
+                                                        <Input
+                                                            type='text'
+                                                            placeholder='Agrega un titulo llamativo al anuncio. 
+                                                    Ej: Un ambiente acogedor para estudiantes: Tu mejor opción'
+                                                            onChange={(e) => setTitle(e.target.value)} />
+                                                    </InputGroup>
+                                                </FormControl>
+                                            </HStack>
+                                            <HStack spacing={'5px'} mt={'10px'}>
+                                                <FormControl isRequired>
+                                                    <Textarea
+                                                        placeholder='Agrega una descripción: Comparte lo que hace tu pensión tan especial'
+                                                        onChange={(e) => setDesc(e.target.value)}
+                                                    />
+                                                </FormControl>
+                                            </HStack>
+                                        </Stack>
+                                    </ModalBody>
+                                    <ModalFooter display={'flex'} justifyContent={'flex-start'}>
+                                        <Button
+                                            // isLoading={isLoading}
+                                            width={'full'}
+                                            colorScheme='blue'
+                                            loadingText='Cargando'
+                                            color={'teal.800'}
+                                            variant={'outline'}
+                                            mt={3}
+                                            _hover={{ backgroundColor: 'teal.800', color: "white" }}
+                                            type='submit'
+                                        >Publicar</Button>
+                                    </ModalFooter>
+                                </form>
+                                <Box marginTop={20}>
+                                    <Text textAlign={'center'}>Vista previa de tu anuncio</Text>
+                                    <Divider color={'teal.900'} />
+                                    <CardAvisoPreview image={image} ciudad={ciudad} pais={pais} precio={precio} />
+                                </Box>
+                            </HStack>
+                        </ModalContent>
+                    </Modal >
+            }
+
             <ToastContainer />
         </>
     )
