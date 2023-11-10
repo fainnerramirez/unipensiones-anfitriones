@@ -25,7 +25,8 @@ import {
     NumberInputStepper,
     NumberIncrementStepper,
     NumberDecrementStepper,
-    Divider
+    Divider,
+    Image
 } from '@chakra-ui/react'
 import { useState, useRef, useContext, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
@@ -33,6 +34,7 @@ import { BsFillPlusSquareFill } from "react-icons/bs";
 import { FiUpload } from "react-icons/fi"
 import { GrDirections } from "react-icons/gr";
 import { CiLocationOn } from "react-icons/ci";
+import { TbStars } from "react-icons/tb";
 import { LuSubtitles } from "react-icons/lu";
 import { LoadFilePension } from '../firebase/references/images/pensions';
 import { AuthContext } from '../context/authContext';
@@ -46,6 +48,7 @@ import {
     getAnfitrionByUserId
 } from '../firebase/collections/querys/anfitriones';
 import 'react-toastify/dist/ReactToastify.css';
+import Nequi from "../assets/nequi.png";
 
 const ModalAnuncio = ({ isvalidPublished }) => {
 
@@ -78,7 +81,8 @@ const ModalAnuncio = ({ isvalidPublished }) => {
         { value: '7', label: 'Zona de estudio' },
         { value: '8', label: 'Piscina' },
         { value: '9', label: 'Gimnasio' },
-        { value: '10', label: 'Terraza' }
+        { value: '10', label: 'Terraza' },
+        { value: '11', label: 'Lavado de ropa' }
     ]
 
     const handleFileAnuncio = () => {
@@ -130,7 +134,6 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                 onClick={onOpen}>
                 Subir anuncio
             </Button>
-
             {
                 isvalidPublished ?
                     <Modal isOpen={isOpen} size={'full'} onClose={onClose} isCentered motionPreset='slideInBottom'>
@@ -283,58 +286,42 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                         </ModalContent>
                     </Modal >
                     :
-                    <Modal isOpen={isOpen} size={'lg'} onClose={onClose} isCentered motionPreset='slideInBottom'>
+                    <Modal isOpen={isOpen} size={'xl'} onClose={onClose} isCentered motionPreset='slideInBottom'>
                         <ModalOverlay />
                         <ModalContent>
-                            <HStack spacing={10} display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
-                                <form style={{ width: "50%" }} onSubmit={handleSubmitPublicForm}>
-                                    <ModalHeader>Publicación de anuncio</ModalHeader>
-                                    <ModalCloseButton color={'teal.900'} />
-                                    <ModalBody>
-                                        <Stack spacing={4}>
-                                            <HStack spacing={'5px'} mt={'10px'}>
-                                                <FormControl isRequired>
-                                                    <InputGroup>
-                                                        <InputLeftElement pointerEvents='none'>
-                                                            <LuSubtitles color='gray.300' />
-                                                        </InputLeftElement>
-                                                        <Input
-                                                            type='text'
-                                                            placeholder='Agrega un titulo llamativo al anuncio. 
-                                                    Ej: Un ambiente acogedor para estudiantes: Tu mejor opción'
-                                                            onChange={(e) => setTitle(e.target.value)} />
-                                                    </InputGroup>
-                                                </FormControl>
-                                            </HStack>
-                                            <HStack spacing={'5px'} mt={'10px'}>
-                                                <FormControl isRequired>
-                                                    <Textarea
-                                                        placeholder='Agrega una descripción: Comparte lo que hace tu pensión tan especial'
-                                                        onChange={(e) => setDesc(e.target.value)}
-                                                    />
-                                                </FormControl>
-                                            </HStack>
-                                        </Stack>
-                                    </ModalBody>
-                                    <ModalFooter display={'flex'} justifyContent={'flex-start'}>
-                                        <Button
-                                            // isLoading={isLoading}
-                                            width={'full'}
-                                            colorScheme='blue'
-                                            loadingText='Cargando'
-                                            color={'teal.800'}
-                                            variant={'outline'}
-                                            mt={3}
-                                            _hover={{ backgroundColor: 'teal.800', color: "white" }}
-                                            type='submit'
-                                        >Publicar</Button>
-                                    </ModalFooter>
-                                </form>
-                                <Box marginTop={20}>
-                                    <Text textAlign={'center'}>Vista previa de tu anuncio</Text>
-                                    <Divider color={'teal.900'} />
-                                    <CardAvisoPreview image={image} ciudad={ciudad} pais={pais} precio={precio} />
-                                </Box>
+                            <HStack display={'flex'} flexDir={'column'}>
+                                <ModalHeader textAlign={'center'}>Paga con Nequi</ModalHeader>
+                                <ModalCloseButton color={'teal.900'} />
+                                <ModalBody>
+                                    <Box width={'100%'} height={'100%'} display={'flex'} justifyContent={'center'}>
+                                        <Image
+                                            src={Nequi}
+                                        />
+                                    </Box>
+                                    <Box mt={10} width={'100%'} display={'flex'} flexDir={'column'} justifyContent={'center'}>
+                                        <Button pointerEvents={'none'} leftIcon={<TbStars />} rightIcon={<TbStars />} bg={'yellow.500'} disabled fontSize={20} color={'white'}>
+                                            Hazte Anfitrion &nbsp; <span style={{ fontWeight: 'bolder' }}> PREMIUM</span></Button>
+                                        <Text mt={5} fontSize={20} textAlign={'center'}>
+                                            Eleva tu oferta de pensiones universitarias con nuestra exclusiva promoción.
+                                            Por tan solo  <span style={{ fontWeight: 'bolder' }}>$49.900 pesos</span>, tendrás la libertad de destacar
+                                            todas tus pensiones en nuestra plataforma. Aumenta la visibilidad de tu alojamiento,
+                                            llega a más estudiantes y optimiza tu presencia en nuestra plataforma. Haz que tu oferta
+                                            se destaque y atraiga a los estudiantes que buscan el alojamiento perfecto.
+                                        </Text>
+                                    </Box>
+                                </ModalBody>
+                                <ModalFooter display={'flex'} justifyContent={'flex-start'}>
+                                    <Button as='a'
+                                        href='https://drive.google.com/file/d/1N6zX2sp-FPdoNA1xUaVoJScS53DqBtq8/view?usp=drive_link'
+                                        width={'full'}
+                                        colorScheme={'purple'}
+                                        color={'white'}
+                                        variant={'solid'}
+                                        mt={3}
+                                        _hover={{ backgroundColor: 'purple.800', color: "white" }}
+                                        target='_blank'
+                                    >Paga con QR Nequi</Button>
+                                </ModalFooter>
                             </HStack>
                         </ModalContent>
                     </Modal >

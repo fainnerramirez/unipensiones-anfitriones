@@ -91,7 +91,7 @@ const SingInUser = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then(async (userCredential) => {
                 setIsLoading(false);
-                
+
                 if (!auth.currentUser?.emailVerified) {
                     toast.error("Aún no has verificado tu corrreo electrónico para activar tu cuenta UP", {
                         theme: "colored",
@@ -100,42 +100,34 @@ const SingInUser = () => {
                     auth.signOut();
                     return;
                 }
-                
+
                 const user = userCredential.user;
-                const documentAnfitrion = await getAnfitrionByUserId(user.uid);
-                console.log("documento de anfitrion fainner4: ", documentAnfitrion);
 
-                // const q = query(collection(db, 'anfitriones'), where('userId', '==', user.uid), limit(1));
+                try {
+                    const documentAnfitrion = await getAnfitrionByUserId(user.uid);
 
-                // getDocs(q)
-                //     .then((querySnapshot) => {
-                //         if (!querySnapshot.empty) {
-                //             const doc = querySnapshot.docs[0];
-                //             setIsLoading(false)
-
-                //             toast.success("Accediendo a tu perfil " + (user.displayName ?? user.email), {
-                //                 theme: "colored",
-                //                 position: "top-center"
-                //             })
-
-                //             setTimeout(function () {
-                //                 window.location.href = "user/" + doc?.id;
-                //             }, 3000);
-                //         } else {
-                //             console.log('Documento no encontrado.');
-                //         }
-                //     })
-                //     .catch((error) => {
-                //         console.error('Error al buscar el usuario:', error);
-                //     });
-
+                    if (documentAnfitrion) {
+                        toast.success("Accediendo a tu perfil " + (user.displayName ?? user.email), {
+                            theme: "colored",
+                            position: "top-center"
+                        })
+                        setTimeout(function () {
+                            window.location.href = "user/" + documentAnfitrion?.id;
+                        }, 1000);
+                    }
+                    else {
+                        console.log("Documento no encontrado!");
+                    }
+                } catch (error) {
+                    console.error(error);
+                    errorManagment(error.code);
+                }
             }).catch((error) => {
                 setIsLoading(false);
                 const errorCode = error.code;
                 console.log("Error email, password: ", error)
                 errorManagment(errorCode);
             });
-
     }
 
     return (
