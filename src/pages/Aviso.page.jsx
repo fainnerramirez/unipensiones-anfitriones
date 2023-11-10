@@ -3,7 +3,7 @@ import CardAviso from '../components/CardAviso.component';
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import Sidebar from '../components/Sidebar.component';
-import { Box, Divider, Heading } from "@chakra-ui/react";
+import { Box, Divider, Heading, Skeleton, SkeletonText } from "@chakra-ui/react";
 import ModalAnuncio from '../components/ModalAnuncio';
 import { getAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones';
 
@@ -25,10 +25,20 @@ const AvisoPage = () => {
             <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} marginTop={20} marginBottom={5}>
                 <Box display={'flex'} alignItems={'center'}>
                     <Sidebar />
-                    <Heading as="h2" size={'lg'} marginLeft={10} textTransform={'capitalize'}>Bienvenido de nuevo {userAuth && userAuth?.displayName}</Heading>
+                    {
+                        userAuth != null ? <Heading
+                            as="h2"
+                            size={'lg'}
+                            marginLeft={10}
+                            textTransform={'capitalize'}>
+                            Bienvenido de nuevo {userAuth && userAuth?.displayName}
+                        </Heading>
+                            :
+                            <SkeletonText startColor='pink.500' endColor='orange.500' noOfLines={1} spacing='4' skeletonHeight='2' />
+                    }
                 </Box>
                 <Box>
-                    <ModalAnuncio isvalidPublished={documentAdvert != null ? false : true}/>
+                    <ModalAnuncio isvalidPublished={documentAdvert != null ? false : true} />
                 </Box>
             </Box>
             <Divider color={'teal.900'} height={2} bg={'teal.400'} borderRadius={35} />

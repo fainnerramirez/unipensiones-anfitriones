@@ -1,7 +1,7 @@
 import { db } from '../../firestore/database';
 import { collection, query, where, limit, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore';
 import { errorManagment } from '../../errors/errorManagmentUser';
-import { showSuccessAlert, showWarningAlert } from '../../../utils/SwalAlert';
+import { showSuccessAlert, showWarningAlert, showWarningAlertConfirm } from '../../../utils/SwalAlert';
 import moment from 'moment';
 import 'moment/locale/es'
 moment.locale('es');
@@ -91,5 +91,12 @@ export const deleteAnfitrion = async (IdDocument) => {
 }
 
 export const deleteAdvertAnfitrion = async (IdDocument) => {
-    return await deleteDoc(doc(db, "anunciosPorAnfitrion", IdDocument));
+    let confirm = await showWarningAlertConfirm("¿Estas seguro de eliminar el anuncio? Esta acción no se puede revertir");
+    if(confirm.isConfirmed){
+       await deleteDoc(doc(db, "anunciosPorAnfitrion", IdDocument));
+       let confirmSuccess = await showSuccessAlert("Tu anuncio ha sido eliminnado");
+       if(confirmSuccess.isConfirmed || confirmSuccess.isDismissed){
+            window.location.reload();
+       }
+    }
 }

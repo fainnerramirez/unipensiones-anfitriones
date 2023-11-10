@@ -24,6 +24,18 @@ export const showWarningAlert = async (message) => {
     });
 }
 
+export const showWarningAlertConfirm = async (message) => {
+    return await Swal.fire({
+        icon: 'warning',
+        title: 'Advertencia',
+        text: message,
+        confirmButtonText: 'Si, Eliminar',
+        cancelButtonText: 'No, Cancelar',
+        showCancelButton: true,
+        showCloseButton: true
+    });
+}
+
 export const showSuccessAlert = async (message) => {
     return await Swal.fire({
         icon: 'success',

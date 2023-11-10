@@ -14,7 +14,7 @@ import {
     Badge,
     HStack,
 } from "@chakra-ui/react"
-import { getAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones'
+import { deleteAdvertAnfitrion, getAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones'
 import { AuthContext } from '../context/authContext'
 import { ConvertPrice } from "../utils/PriceConvert";
 
@@ -27,11 +27,14 @@ const CardAviso = ({ image }) => {
     useEffect(() => {
         const getAverts = async () => {
             const advertsAnfitrion = await getAdvertsAnfitrionByUserId(userAuth?.uid);
-            console.log("advertsAnfitrion: ", advertsAnfitrion.services)
             setDocumentAdvert(advertsAnfitrion);
         }
         getAverts();
     }, [userAuth])
+
+    const handleDeleteAnuncio = async () => {
+        let responseDelete = await deleteAdvertAnfitrion(documentAdvert?.id);
+    }   
 
     return (
         <Card maxW='md'>
@@ -86,10 +89,7 @@ const CardAviso = ({ image }) => {
             <Divider />
             <CardFooter>
                 <ButtonGroup spacing='2'>
-                    <Button variant='solid' colorScheme='teal'>
-                        Editar anuncio
-                    </Button>
-                    <Button variant='ghost' colorScheme='red'>
+                    <Button variant='outline' colorScheme='red' onClick={handleDeleteAnuncio}>
                         Eliminar anuncio
                     </Button>
                 </ButtonGroup>
