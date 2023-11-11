@@ -300,7 +300,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                     </Box>
                                     <Box mt={10} width={'100%'} display={'flex'} flexDir={'column'} justifyContent={'center'}>
                                         <Button pointerEvents={'none'} leftIcon={<TbStars />} rightIcon={<TbStars />} bg={'yellow.500'} disabled fontSize={20} color={'white'}>
-                                            Hazte Anfitrion &nbsp; <span style={{ fontWeight: 'bolder' }}> PREMIUM</span></Button>
+                                            Hazte un &nbsp; <span style={{ fontWeight: 'bolder' }}> SUPERANFITRIÓN</span></Button>
                                         <Text mt={5} fontSize={20} textAlign={'center'}>
                                             Eleva tu oferta de pensiones universitarias con nuestra exclusiva promoción.
                                             Por tan solo  <span style={{ fontWeight: 'bolder' }}>$49.900 pesos</span>, tendrás la libertad de destacar
@@ -326,7 +326,6 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                         </ModalContent>
                     </Modal >
             }
-
             <ToastContainer />
         </>
     )

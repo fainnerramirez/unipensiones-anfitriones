@@ -48,7 +48,7 @@ export const getAdvertsAnfitrionByUserId = async (userId) => {
 
 export const createAdvertForAnfitrion = async (userId, options) => {
     try {
-        const response = await showWarningAlert("¿Revisastes todos los datos del anuncio antes de publicarlo?");
+        const response = await showWarningAlert("¿Revisastes todos los datos del anuncio antes de publicarlo?, No prodrás modificarlos después");
 
         if (response.isConfirmed) {
             const nuevaPublicacionRef = await addDoc(collection(db, "anunciosPorAnfitrion"), {
@@ -91,7 +91,7 @@ export const deleteAnfitrion = async (IdDocument) => {
 }
 
 export const deleteAdvertAnfitrion = async (IdDocument) => {
-    let confirm = await showWarningAlertConfirm("¿Estas seguro de eliminar el anuncio? Esta acción no se puede revertir");
+    let confirm = await showWarningAlertConfirm("¿Estas seguro de eliminar el anuncio? Esta acción no se podrá revertir");
     if(confirm.isConfirmed){
        await deleteDoc(doc(db, "anunciosPorAnfitrion", IdDocument));
        let confirmSuccess = await showSuccessAlert("Tu anuncio ha sido eliminnado");

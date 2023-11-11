@@ -104,6 +104,7 @@ function Register() {
                 birthday: day,
                 phone: phone,
                 userEmail: userEmail,
+                superanfitrion: false
             }
 
             const doc = await createAnfitrion(options);
