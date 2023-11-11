@@ -23,7 +23,7 @@ export const getAnfitrionByUserId = async (userId) => {
         }
     } catch (error) {
         console.error('Error al buscar el usuario:', error);
-        errorManagment(error.code)
+        return null;
     }
 }
 
@@ -41,13 +41,13 @@ export const getAdvertsAnfitrionByUserId = async (userId) => {
             }
         } catch (error) {
             console.error('Error al buscar el los anuncios por usuario:', error);
-            errorManagment(error.code)
+            return null;
         }
     }
 }
 
 export const createAdvertForAnfitrion = async (userId, options) => {
-    
+
     try {
         const response = await showWarningAlert("¿Revisastes todos los datos del anuncio antes de publicarlo?, No prodrás modificarlos después");
 

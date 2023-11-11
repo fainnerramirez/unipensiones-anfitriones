@@ -4,11 +4,13 @@ import Footer from '../components/Footer.component'
 import Navbar from '../components/Navbar.component'
 import { AuthContext } from '../context/authContext'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { getAnfitrionByUserId } from '../firebase/collections/querys/anfitriones'
 
 const Layout = ({ children }) => {
 
   const auth = getAuth();
   const [userAuth, SetUserAuth] = useState(null);
+  const [isSuperanfitrion, setSuperanfitrion] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (userCredentials) => {
@@ -22,8 +24,16 @@ const Layout = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(userAuth))
   }, [userAuth])
 
+  useEffect(() => {
+    const getDocument = async () => {
+      let documentanfitrion = await getAnfitrionByUserId(userAuth?.uid)
+      setSuperanfitrion(documentanfitrion?.superanfitrion);
+    }
+    getDocument();
+  }, [userAuth])
+
   return (
-    <AuthContext.Provider value={{ auth, userAuth, SetUserAuth }}>
+    <AuthContext.Provider value={{ auth, userAuth, SetUserAuth, isSuperanfitrion }}>
       <Navbar />
       <Box height={'86vh'}>
         {children}

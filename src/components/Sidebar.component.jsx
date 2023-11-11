@@ -1,4 +1,3 @@
-import { AddIcon } from "@chakra-ui/icons";
 import {
     Box,
     Button,
@@ -9,27 +8,24 @@ import {
     DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
-    FormLabel,
-    Input,
-    InputGroup,
-    InputLeftAddon,
-    InputRightAddon,
     Stack,
     useDisclosure,
-    Text,
     Heading,
-    Image
+    Image,
+    Badge
 } from "@chakra-ui/react";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useRef } from "react";
 import { CgMenu } from "react-icons/cg";
 import { AuthContext } from "../context/authContext";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { MdWorkspacePremium } from "react-icons/md";
 
 const Sidebar = () => {
+
     const navigate = useNavigate();
     const { isOpen, onOpen, onClose } = useDisclosure()
     const firstField = useRef()
-    const { userAuth } = useContext(AuthContext);
+    const { userAuth, isSuperanfitrion } = useContext(AuthContext);
 
     return (
         <>
@@ -58,12 +54,20 @@ const Sidebar = () => {
                                 alt={userAuth?.username}
                             />
                         </Box>
-                        <Box display={'flex'} justifyContent={'center'}>
+                        {
+                            isSuperanfitrion && <Box display={'flex'} justifyContent={'center'} mt={5}>
+                                <Badge ml='1' bg={'#e6b219'} borderRadius={5} textAlign={'center'} display={'flex'} alignItems={'center'} p={1}>
+                                    SuperAnfitrión
+                                    <MdWorkspacePremium ml={20} fontSize={20} />
+                                </Badge>
+                            </Box>
+                        }
+                        <Box display={'flex'} justifyContent={'center'} mt={3}>
                             <Heading size="sm" textTransform={'capitalize'}>{userAuth?.displayName}</Heading>
                         </Box>
                         <Stack spacing='24px' marginTop={'30px'}>
                             <Box>
-                                <Button colorScheme="teal" width={'full'} onClick={() => navigate("profile", {replace: true})}>
+                                <Button colorScheme="teal" width={'full'} onClick={() => navigate("profile", { replace: true })}>
                                     Mi Perfil
                                 </Button>
                             </Box>
@@ -72,7 +76,6 @@ const Sidebar = () => {
                             </Box>
                         </Stack>
                     </DrawerBody>
-
                     <DrawerFooter borderTopWidth='1px' display={'flex'} justifyContent={'center'}>
                         <Heading size={'md'}>Unipensiones</Heading>
                     </DrawerFooter>
