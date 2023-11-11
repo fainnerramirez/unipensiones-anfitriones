@@ -17,29 +17,26 @@ import {
 import { deleteAdvertAnfitrion, getAllAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones'
 import { AuthContext } from '../context/authContext'
 import { ConvertPrice } from "../utils/PriceConvert";
+import { deleteFilePensionAnfitrion } from '../firebase/collections/querys/pensions';
 
 const CardAviso = ({ anuncio }) => {
-    // const [anuncio, setanuncio] = useState(null);
     const { userAuth, isSuperanfitrion } = useContext(AuthContext);
 
-    // useEffect(() => {
-    //     const getAverts = async () => {
-    //         const advertsAnfitrion = await getAllAdvertsAnfitrionByUserId(userAuth?.uid, 10);
-    //         console.log("Anuncio por usuario o por anfitrion: ", advertsAnfitrion);
-    //         //setanuncio(advertsAnfitrion);
-    //     }
-    //     getAverts();
-    // }, [userAuth])
-
     const handleDeleteAnuncio = async () => {
-        let responseDelete = await deleteAdvertAnfitrion(anuncio?.id);
+        const url = new URL(anuncio?.urlPhoto);
+        const decode = decodeURIComponent(url.pathname)
+        let array = decode.split('/o/')[1];
+        let urlSeparated = array.split('/');
+        let nameFile = urlSeparated[urlSeparated?.length - 1];
+        await deleteAdvertAnfitrion(anuncio?.id);
+        await deleteFilePensionAnfitrion(userAuth?.uid, nameFile);
     }
 
     return (
         <Card maxW='md'>
             <CardBody>
                 {
-                    isSuperanfitrion && <Badge bg={'#e6b219'} position="absolute" top="6" right="7" display={'flex'}>
+                    isSuperanfitrion && <Badge bg={'#e6b219'} position="absolute" top="6" right="7">
                         superanfitrion
                     </Badge>
                 }

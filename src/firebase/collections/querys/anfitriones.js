@@ -72,7 +72,7 @@ export const getAllAdvertsAnfitrionByUserId = async (userId, limite) => {
 export const createAdvertForAnfitrion = async (userId, options) => {
 
     try {
-        
+
         const response = await showWarningAlert("¿Revisastes todos los datos del anuncio antes de publicarlo?, No prodrás modificarlos después");
 
         if (response.isConfirmed) {
