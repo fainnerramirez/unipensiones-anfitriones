@@ -4,6 +4,7 @@ import { errorManagment } from '../../errors/errorManagmentUser';
 import { showSuccessAlert, showWarningAlert, showWarningAlertConfirm } from '../../../utils/SwalAlert';
 import moment from 'moment';
 import 'moment/locale/es'
+import { deleteFilePensionAnfitrion } from './pensions';
 moment.locale('es');
 
 export const createAnfitrion = async (options) => {
@@ -116,10 +117,11 @@ export const deleteAnfitrion = async (IdDocument) => {
     return await deleteDoc(doc(db, "anfitriones", IdDocument));
 }
 
-export const deleteAdvertAnfitrion = async (IdDocument) => {
+export const deleteAdvertAnfitrion = async (userId, namefile, IdDocument) => {
     let confirm = await showWarningAlertConfirm("¿Estas seguro de eliminar el anuncio? Esta acción no se podrá revertir");
     if (confirm.isConfirmed) {
         await deleteDoc(doc(db, "anunciosPorAnfitrion", IdDocument));
+        await deleteFilePensionAnfitrion(userId, namefile);
         let confirmSuccess = await showSuccessAlert("Tu anuncio ha sido eliminnado");
         if (confirmSuccess.isConfirmed || confirmSuccess.isDismissed) {
             window.location.reload();

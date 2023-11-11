@@ -28,8 +28,7 @@ const CardAviso = ({ anuncio }) => {
         let array = decode.split('/o/')[1];
         let urlSeparated = array.split('/');
         let nameFile = urlSeparated[urlSeparated?.length - 1];
-        await deleteAdvertAnfitrion(anuncio?.id);
-        await deleteFilePensionAnfitrion(userAuth?.uid, nameFile);
+        await deleteAdvertAnfitrion(userAuth?.uid, nameFile, anuncio?.id);
     }
 
     return (
