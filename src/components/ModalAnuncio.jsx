@@ -55,7 +55,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const fileInputUpdaloadRef = useRef(null);
     const [image, setImage] = useState("");
-    const { userAuth } = useContext(AuthContext);
+    const { userAuth, isSuperanfitrion } = useContext(AuthContext);
     const [valueSelectService, setValueSelect] = useState([])
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
@@ -100,14 +100,11 @@ const ModalAnuncio = ({ isvalidPublished }) => {
 
     const handleSubmitPublicForm = async (event) => {
         event.preventDefault();
-
-        const document = await getAdvertsAnfitrionByUserId(userAuth?.uid);
-        let responseDelete = null;
-
-        if (document != null) {
-            responseDelete = await deleteAdvertAnfitrion(document?.id);
-        }
-
+        // const document = await getAdvertsAnfitrionByUserId(userAuth?.uid);
+        // let responseDelete = null;
+        // if (document != null) {
+        //     responseDelete = await deleteAdvertAnfitrion(document?.id);
+        // }
         const nuevoAnuncio = {
             urlFotoAnuncio: image,
             titulo: title,
@@ -135,7 +132,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                 Subir anuncio
             </Button>
             {
-                isvalidPublished ?
+                isvalidPublished || isSuperanfitrion ?
                     <Modal isOpen={isOpen} size={'full'} onClose={onClose} isCentered motionPreset='slideInBottom'>
                         <ModalOverlay />
                         <ModalContent>

@@ -14,34 +14,38 @@ import {
     Badge,
     HStack,
 } from "@chakra-ui/react"
-import { deleteAdvertAnfitrion, getAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones'
+import { deleteAdvertAnfitrion, getAllAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones'
 import { AuthContext } from '../context/authContext'
 import { ConvertPrice } from "../utils/PriceConvert";
 
-const CardAviso = ({ image }) => {
+const CardAviso = ({ anuncio }) => {
+    // const [anuncio, setanuncio] = useState(null);
+    const { userAuth, isSuperanfitrion } = useContext(AuthContext);
 
-    const [documentAdvert, setDocumentAdvert] = useState(null);
-    const { userAuth } = useContext(AuthContext);
-
-    //error no se esta consultando el documento: razon: es porque hay que eliminar el documento con el id del usuario y poner el nuevo documento.
-    useEffect(() => {
-        const getAverts = async () => {
-            const advertsAnfitrion = await getAdvertsAnfitrionByUserId(userAuth?.uid);
-            setDocumentAdvert(advertsAnfitrion);
-        }
-        getAverts();
-    }, [userAuth])
+    // useEffect(() => {
+    //     const getAverts = async () => {
+    //         const advertsAnfitrion = await getAllAdvertsAnfitrionByUserId(userAuth?.uid, 10);
+    //         console.log("Anuncio por usuario o por anfitrion: ", advertsAnfitrion);
+    //         //setanuncio(advertsAnfitrion);
+    //     }
+    //     getAverts();
+    // }, [userAuth])
 
     const handleDeleteAnuncio = async () => {
-        let responseDelete = await deleteAdvertAnfitrion(documentAdvert?.id);
-    }   
+        let responseDelete = await deleteAdvertAnfitrion(anuncio?.id);
+    }
 
     return (
         <Card maxW='md'>
             <CardBody>
                 {
-                    documentAdvert != null ? <Image
-                        src={documentAdvert?.urlPhoto}
+                    isSuperanfitrion && <Badge bg={'#e6b219'} position="absolute" top="6" right="7" display={'flex'}>
+                        superanfitrion
+                    </Badge>
+                }
+                {
+                    anuncio != null ? <Image
+                        src={anuncio?.urlPhoto}
                         alt={'Foto anuncio de ' + userAuth?.displayName}
                         borderRadius='lg'
                         height={250}
@@ -49,22 +53,22 @@ const CardAviso = ({ image }) => {
                     /> : <Skeleton height={250} width={400} />
                 }
                 <Box marginTop={2}>
-                    <Text>Agregado el {documentAdvert?.dateCreatedAt}</Text>
+                    <Text>Agregado el {anuncio?.dateCreatedAt}</Text>
                 </Box>
                 {
-                    documentAdvert?.price != null ?
+                    anuncio?.price != null ?
                         <Box>
                             <HStack spacing={3} marginTop={3} flexWrap={'wrap'}>
                                 {
-                                    documentAdvert?.services.map((service, index) => (
-                                        <Badge 
-                                            variant='subtle' 
-                                            colorScheme='teal' 
-                                            key={index} 
-                                            borderRadius={35} 
-                                            pt={2} 
-                                            pb={2} 
-                                            pl={3} 
+                                    anuncio?.services.map((service, index) => (
+                                        <Badge
+                                            variant='subtle'
+                                            colorScheme='teal'
+                                            key={index}
+                                            borderRadius={35}
+                                            pt={2}
+                                            pb={2}
+                                            pl={3}
                                             pr={3}>
                                             {service.label}
                                         </Badge>
@@ -77,7 +81,7 @@ const CardAviso = ({ image }) => {
                                     textAlign={'left'}
                                     fontWeight={'bolder'}
                                 >
-                                    $ {ConvertPrice(documentAdvert?.price)}
+                                    $ {ConvertPrice(anuncio?.price)}
                                     <span style={{ fontWeight: 'normal' }}> mes</span>
                                 </Text>
                             </Box>

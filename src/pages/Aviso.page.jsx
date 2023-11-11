@@ -3,18 +3,22 @@ import CardAviso from '../components/CardAviso.component';
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import Sidebar from '../components/Sidebar.component';
-import { Box, Divider, Heading, Skeleton, SkeletonText } from "@chakra-ui/react";
+import { Box, Divider, HStack, Heading, Skeleton, SkeletonText } from "@chakra-ui/react";
 import ModalAnuncio from '../components/ModalAnuncio';
-import { getAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones';
+import { getAdvertsAnfitrionByUserId, getAllAdvertsAnfitrionByUserId } from '../firebase/collections/querys/anfitriones';
+import { MdWorkspacePremium } from "react-icons/md";
+import ContainerCardsAviso from '../components/ContainerCardsAviso.component';
+
 
 const AvisoPage = () => {
+
     const [documentAdvert, setDocumentAdvert] = useState(null);
     const [image, setImage] = useState("");
-    const { userAuth } = useContext(AuthContext);
+    const { userAuth, isSuperanfitrion } = useContext(AuthContext);
 
     useEffect(() => {
         const getAverts = async () => {
-            const advertsAnfitrion = await getAdvertsAnfitrionByUserId(userAuth?.uid);
+            const advertsAnfitrion = await getAllAdvertsAnfitrionByUserId(userAuth?.uid, 10);
             setDocumentAdvert(advertsAnfitrion);
         }
         getAverts();
@@ -23,15 +27,21 @@ const AvisoPage = () => {
     return (
         <Box width={'90%'} margin={'auto'}>
             <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} marginTop={20} marginBottom={5}>
-                <Box display={'flex'} alignItems={'center'}>
+                <Box display={'flex'} alignItems={'center'} width={'full'}>
                     <Sidebar />
                     {
                         userAuth != null ? <Heading
                             as="h2"
                             size={'lg'}
                             marginLeft={10}
+                            display={'flex'}
                             textTransform={'capitalize'}>
                             Bienvenido de nuevo {userAuth && userAuth?.displayName}
+                            {
+                                isSuperanfitrion && <Box bg={'#e6b219'} ml={1} borderRadius={5}>
+                                    <MdWorkspacePremium ml={3} />
+                                </Box>
+                            }
                         </Heading>
                             :
                             <SkeletonText noOfLines={1} spacing='4' skeletonHeight='2' />
@@ -48,9 +58,9 @@ const AvisoPage = () => {
                 <Heading as="h4" marginTop={10} size={'lg'} textAlign={'center'}>Aún no tienes anuncios</Heading>}
             <Box display={'flex'} justifyContent={'start'} marginTop={10}>
                 {documentAdvert != null &&
-                    <Box>
-                        <CardAviso image={image} />
-                    </Box>
+                    <HStack spacing={10} display={'flex'} justifyContent={'flex-start'} alignItems={'center'} flexWrap={'wrap'}>
+                        <ContainerCardsAviso anuncios={documentAdvert} />
+                    </HStack>
                 }
             </Box>
         </Box>

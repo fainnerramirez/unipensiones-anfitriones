@@ -46,12 +46,37 @@ export const getAdvertsAnfitrionByUserId = async (userId) => {
     }
 }
 
+export const getAllAdvertsAnfitrionByUserId = async (userId, limite) => {
+
+    if (userId) {
+        try {
+            const q = query(collection(db, 'anunciosPorAnfitrion'), where('userId', '==', userId), limit(limite));
+            const querySnapshot = await getDocs(q);
+
+            if (!querySnapshot.empty) {
+                let docs = [];
+                querySnapshot.docs.forEach((doc, i) => {
+                    docs.push({ id: doc.id, ...doc.data() })
+                });
+                return docs;
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.error('Error al buscar el los anuncios por usuario:', error);
+            return null;
+        }
+    }
+}
+
 export const createAdvertForAnfitrion = async (userId, options) => {
 
     try {
+        
         const response = await showWarningAlert("¿Revisastes todos los datos del anuncio antes de publicarlo?, No prodrás modificarlos después");
 
         if (response.isConfirmed) {
+
             const nuevaPublicacionRef = await addDoc(collection(db, "anunciosPorAnfitrion"), {
                 userId: userId,
                 urlPhoto: options.urlFotoAnuncio,

@@ -16,9 +16,9 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useRef } from "react";
 import { CgMenu } from "react-icons/cg";
+import { MdWorkspacePremium } from "react-icons/md";
 import { AuthContext } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import { MdWorkspacePremium } from "react-icons/md";
 
 const Sidebar = () => {
 
