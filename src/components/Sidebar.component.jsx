@@ -63,12 +63,12 @@ const Sidebar = () => {
                         </Box>
                         <Stack spacing='24px' marginTop={'30px'}>
                             <Box>
-                                <Button width={'full'} onClick={() => navigate("profile", {replace: true})}>
+                                <Button colorScheme="teal" width={'full'} onClick={() => navigate("profile", {replace: true})}>
                                     Mi Perfil
                                 </Button>
                             </Box>
                             <Box>
-                                <Button width={'full'}>Mis Anuncios</Button>
+                                <Button colorScheme="teal" width={'full'}>Mis Anuncios</Button>
                             </Box>
                         </Stack>
                     </DrawerBody>

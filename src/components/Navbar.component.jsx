@@ -259,9 +259,13 @@ const NAV_ITEMS = [
         href: '/faq',
       },
       {
-        label: 'Contáctanos',
+        label: 'Pagos por Nequi',
         href: '/faq',
       },
+      {
+        label: 'Contáctanos',
+        href: '/faq',
+      }
     ]
   }
 ]

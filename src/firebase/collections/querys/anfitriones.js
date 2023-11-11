@@ -35,7 +35,7 @@ export const getAdvertsAnfitrionByUserId = async (userId) => {
             const querySnapshot = await getDocs(q);
 
             if (!querySnapshot.empty) {
-                return {id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data()};
+                return { id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data() };
             } else {
                 return null;
             }
@@ -47,12 +47,13 @@ export const getAdvertsAnfitrionByUserId = async (userId) => {
 }
 
 export const createAdvertForAnfitrion = async (userId, options) => {
+    
     try {
         const response = await showWarningAlert("¿Revisastes todos los datos del anuncio antes de publicarlo?, No prodrás modificarlos después");
 
         if (response.isConfirmed) {
             const nuevaPublicacionRef = await addDoc(collection(db, "anunciosPorAnfitrion"), {
-                userId: userId, // Esto relaciona la publicación con un usuario,
+                userId: userId,
                 urlPhoto: options.urlFotoAnuncio,
                 title: options.titulo,
                 description: options.descripcion,
@@ -92,11 +93,11 @@ export const deleteAnfitrion = async (IdDocument) => {
 
 export const deleteAdvertAnfitrion = async (IdDocument) => {
     let confirm = await showWarningAlertConfirm("¿Estas seguro de eliminar el anuncio? Esta acción no se podrá revertir");
-    if(confirm.isConfirmed){
-       await deleteDoc(doc(db, "anunciosPorAnfitrion", IdDocument));
-       let confirmSuccess = await showSuccessAlert("Tu anuncio ha sido eliminnado");
-       if(confirmSuccess.isConfirmed || confirmSuccess.isDismissed){
+    if (confirm.isConfirmed) {
+        await deleteDoc(doc(db, "anunciosPorAnfitrion", IdDocument));
+        let confirmSuccess = await showSuccessAlert("Tu anuncio ha sido eliminnado");
+        if (confirmSuccess.isConfirmed || confirmSuccess.isDismissed) {
             window.location.reload();
-       }
+        }
     }
 }
