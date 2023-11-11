@@ -54,16 +54,6 @@ const CardAviso = ({ image }) => {
                 {
                     documentAdvert?.price != null ?
                         <Box>
-                            <Box>
-                                <Text
-                                    marginTop={3}
-                                    textAlign={'left'}
-                                    fontWeight={'bolder'}
-                                >
-                                    $ {ConvertPrice(documentAdvert?.price)}
-                                    <span style={{ fontWeight: 'normal' }}> mes</span>
-                                </Text>
-                            </Box>
                             <HStack spacing={3} marginTop={3} flexWrap={'wrap'}>
                                 {
                                     documentAdvert?.services.map((service, index) => (
@@ -81,6 +71,16 @@ const CardAviso = ({ image }) => {
                                     ))
                                 }
                             </HStack>
+                            <Box>
+                                <Text
+                                    marginTop={3}
+                                    textAlign={'left'}
+                                    fontWeight={'bolder'}
+                                >
+                                    $ {ConvertPrice(documentAdvert?.price)}
+                                    <span style={{ fontWeight: 'normal' }}> mes</span>
+                                </Text>
+                            </Box>
                         </Box>
                         :
                         <SkeletonText mt='4' noOfLines={2} spacing='4' skeletonHeight='2' />

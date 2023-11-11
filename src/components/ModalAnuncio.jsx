@@ -280,7 +280,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                 <Box marginTop={20}>
                                     <Text textAlign={'center'}>Vista previa de tu anuncio</Text>
                                     <Divider color={'teal.900'} />
-                                    <CardAvisoPreview image={image} ciudad={ciudad} pais={pais} precio={precio} />
+                                    <CardAvisoPreview image={image} ciudad={ciudad} pais={pais} precio={precio} services={valueSelectService} />
                                 </Box>
                             </HStack>
                         </ModalContent>

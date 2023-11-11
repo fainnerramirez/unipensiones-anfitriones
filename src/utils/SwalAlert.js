@@ -20,7 +20,9 @@ export const showWarningAlert = async (message) => {
         confirmButtonText: 'Si, Publicar',
         cancelButtonText: 'No, Revisar',
         showCancelButton: true,
-        showCloseButton: true
+        showCloseButton: true,
+        confirmButtonColor: "rgb(49, 151, 149)",
+        iconColor: "rgb(49, 151, 149)"
     });
 }
 
@@ -32,7 +34,9 @@ export const showWarningAlertConfirm = async (message) => {
         confirmButtonText: 'Si, Eliminar',
         cancelButtonText: 'No, Cancelar',
         showCancelButton: true,
-        showCloseButton: true
+        showCloseButton: true,
+        confirmButtonColor: "rgb(49, 151, 149)",
+        iconColor: "rgb(49, 151, 149)"
     });
 }
 
@@ -43,5 +47,7 @@ export const showSuccessAlert = async (message) => {
         text: message,
         confirmButtonText: 'Aceptar',
         showCancelButton: false,
+        confirmButtonColor: "rgb(49, 151, 149)",
+        iconColor: "rgb(49, 151, 149)"
     });
 }

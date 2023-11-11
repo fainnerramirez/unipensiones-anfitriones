@@ -8,7 +8,8 @@ import {
     Box,
     SkeletonCircle,
     SkeletonText,
-    HStack
+    HStack,
+    Badge
 } from "@chakra-ui/react"
 import { AuthContext } from '../context/authContext'
 import { useFormatPrice } from "../custom/Hooks/useFormatPrice";
@@ -16,7 +17,7 @@ import moment from 'moment';
 import 'moment/locale/es'
 moment.locale('es');
 
-const CardAvisoPreview = ({ image, ciudad, pais, precio }) => {
+const CardAvisoPreview = ({ image, ciudad, pais, precio, services }) => {
     const { convertPrice } = useFormatPrice();
     const { userAuth } = useContext(AuthContext);
 
@@ -54,6 +55,25 @@ const CardAvisoPreview = ({ image, ciudad, pais, precio }) => {
                     <Box marginTop={2}>
                         <Text>Agregado el {moment().format('LL')}</Text>
                     </Box>
+                    <HStack mt={2} spacing={2} display={'flex'} flexWrap={'wrap'}>
+                    {
+                        services ? services.map((service, index) => (
+                            <Badge
+                                variant='subtle'
+                                colorScheme='teal'
+                                key={index}
+                                borderRadius={35}
+                                pt={2}
+                                pb={2}
+                                pl={3}
+                                pr={3}>
+                                {service.label}
+                            </Badge>
+                        ))
+                            :
+                            <SkeletonText mt='4' noOfLines={1} spacing='2' skeletonHeight='2' />
+                    }
+                    </HStack>
                     {
                         precio ?
                             <Text marginTop={3} textAlign={'left'} fontWeight={'bolder'}>$ {convertPrice(precio)} <span style={{ fontWeight: 'normal' }}>mes</span></Text>
