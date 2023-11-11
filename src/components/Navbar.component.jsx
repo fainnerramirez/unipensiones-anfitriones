@@ -25,9 +25,7 @@ import SingInUser from './SingIn.component'
 
 const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure()
-  const { auth } = useContext(AuthContext);
-
-  const user = auth.currentUser;
+  const { auth, userAuth } = useContext(AuthContext);
   
   const handleLogout = () => {
     auth.signOut();
@@ -66,7 +64,7 @@ const Navbar = () => {
             </Text>
             <DesktopNav />
             {
-              user 
+              userAuth 
               ?
               <Button ml={'5'} colorScheme='teal' onClick={handleLogout}>Salir</Button>
               :

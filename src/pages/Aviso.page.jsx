@@ -34,7 +34,7 @@ const AvisoPage = () => {
                             Bienvenido de nuevo {userAuth && userAuth?.displayName}
                         </Heading>
                             :
-                            <SkeletonText startColor='pink.500' endColor='orange.500' noOfLines={1} spacing='4' skeletonHeight='2' />
+                            <SkeletonText noOfLines={1} spacing='4' skeletonHeight='2' />
                     }
                 </Box>
                 <Box>
