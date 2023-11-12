@@ -178,7 +178,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                             <HStack spacing={'5px'} mt={'10px'}>
                                                 <FormControl isRequired>
                                                     <InputGroup>
-                                                        <Select placeholder='Seleccione el tipo de espacio' color={'gray'} onChange={(e) => setTipoEspacio(e.target.value)}>
+                                                        <Select icon={<MdArrowDropDown />} placeholder='Seleccione el tipo de espacio' color={'gray'} onChange={(e) => setTipoEspacio(e.target.value)}>
                                                             <option value='casa'>Casa</option>
                                                             <option value='apartamento'>Apartamento</option>
                                                             <option value='apartaestudios'>ApartaEstudio</option>
@@ -187,7 +187,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                                 </FormControl>
                                                 <FormControl isRequired>
                                                     <InputGroup>
-                                                        <Select placeholder='Seleccione el tipo de alojamiento' color={'gray'} onChange={(e) => setTipoAlojamiento(e.target.value)}>
+                                                        <Select icon={<MdArrowDropDown />} placeholder='Seleccione el tipo de alojamiento' color={'gray'} onChange={(e) => setTipoAlojamiento(e.target.value)}>
                                                             <option value='una habitacion'>Una habitación</option>
                                                             <option value='habitacion compartida'>Habitación compartida</option>
                                                         </Select>
@@ -195,7 +195,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                                 </FormControl>
                                                 <FormControl isRequired>
                                                     <InputGroup >
-                                                        <Select placeholder='Seleccione el tipo de cupo' color={'gray'} onChange={(e) => setTipoCupo(e.target.value)}>
+                                                        <Select icon={<MdArrowDropDown />} placeholder='Seleccione el tipo de cupo' color={'gray'} onChange={(e) => setTipoCupo(e.target.value)}>
                                                             <option value='solo cupo'>Solo cupo (habitación)</option>
                                                             <option value='cupo completo'>Cupo completo (habitación y comida)</option>
                                                         </Select>
@@ -205,14 +205,14 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                             <HStack spacing={'5px'} mt={'10px'}>
                                                 <FormControl isRequired>
                                                     <InputGroup>
-                                                        <Select placeholder='Seleccione el país' color={'gray'} onChange={(e) => setPais(e.target.value)}>
+                                                        <Select icon={<MdArrowDropDown />} placeholder='Seleccione el país' color={'gray'} onChange={(e) => setPais(e.target.value)}>
                                                             <option value='colombia'>Colombia</option>
                                                         </Select>
                                                     </InputGroup>
                                                 </FormControl>
                                                 <FormControl isRequired>
                                                     <InputGroup>
-                                                        <Select placeholder='Seleccione la ciudad' color={'gray'} onChange={(e) => setCiudad(e.target.value)}>
+                                                        <Select icon={<MdArrowDropDown />} placeholder='Seleccione la ciudad' color={'gray'} onChange={(e) => setCiudad(e.target.value)}>
                                                             <option value='santa marta'>Santa Marta</option>
                                                         </Select>
                                                     </InputGroup>
