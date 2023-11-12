@@ -106,6 +106,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
         //     responseDelete = await deleteAdvertAnfitrion(document?.id);
         // }
         const nuevoAnuncio = {
+            username: userAuth?.displayName,
             urlFotoAnuncio: image,
             titulo: title,
             descripcion: desc,
