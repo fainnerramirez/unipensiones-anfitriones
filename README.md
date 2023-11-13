@@ -17,7 +17,3 @@ Bienvenido a Unipensiones, la aplicación diseñada para facilitar la gestión d
 ## 🤝 Contribuciones
 
 ¡Las contribuciones son bienvenidas! Si encuentras algún error o tienes ideas para mejorar la aplicación, no dudes en abrir un issue o enviar un pull request.
-
-## 📃 Licencia
-
-Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
