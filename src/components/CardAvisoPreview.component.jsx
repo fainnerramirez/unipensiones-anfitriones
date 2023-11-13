@@ -56,23 +56,23 @@ const CardAvisoPreview = ({ image, ciudad, pais, precio, services }) => {
                         <Text>Agregado el {moment().format('LL')}</Text>
                     </Box>
                     <HStack mt={2} spacing={2} display={'flex'} flexWrap={'wrap'}>
-                    {
-                        services ? services.map((service, index) => (
-                            <Badge
-                                variant='subtle'
-                                colorScheme='teal'
-                                key={index}
-                                borderRadius={35}
-                                pt={2}
-                                pb={2}
-                                pl={3}
-                                pr={3}>
-                                {service.label}
-                            </Badge>
-                        ))
-                            :
-                            <SkeletonText mt='4' noOfLines={1} spacing='2' skeletonHeight='2' />
-                    }
+                        {
+                            services ? services.map((service, index) => (
+                                <Badge
+                                    variant='subtle'
+                                    colorScheme='teal'
+                                    key={index}
+                                    borderRadius={35}
+                                    pt={2}
+                                    pb={2}
+                                    pl={3}
+                                    pr={3}>
+                                    {service.label}
+                                </Badge>
+                            ))
+                                :
+                                <SkeletonText mt='4' noOfLines={1} spacing='2' skeletonHeight='2' />
+                        }
                     </HStack>
                     {
                         precio ?

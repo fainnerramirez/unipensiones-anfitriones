@@ -35,6 +35,7 @@ import { FiUpload } from "react-icons/fi"
 import { GrDirections } from "react-icons/gr";
 import { CiLocationOn } from "react-icons/ci";
 import { TbStars } from "react-icons/tb";
+import { MdArrowDropDown } from "react-icons/md";
 import { LuSubtitles } from "react-icons/lu";
 import { LoadFilePension } from '../firebase/references/images/pensions';
 import { AuthContext } from '../context/authContext';
@@ -106,7 +107,8 @@ const ModalAnuncio = ({ isvalidPublished }) => {
         //     responseDelete = await deleteAdvertAnfitrion(document?.id);
         // }
         const nuevoAnuncio = {
-            username: userAuth?.displayName,
+            username: userAuth?.displayName ?? "",
+            userPhoto: userAuth?.photoURL ?? "",
             urlFotoAnuncio: image,
             titulo: title,
             descripcion: desc,

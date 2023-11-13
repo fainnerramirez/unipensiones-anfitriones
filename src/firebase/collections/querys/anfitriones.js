@@ -80,6 +80,8 @@ export const createAdvertForAnfitrion = async (userId, options) => {
 
             const nuevaPublicacionRef = await addDoc(collection(db, "anunciosPorAnfitrion"), {
                 userId: userId,
+                username: options.username,
+                userPhoto: options.userPhoto,
                 urlPhoto: options.urlFotoAnuncio,
                 title: options.titulo,
                 description: options.descripcion,
@@ -92,7 +94,7 @@ export const createAdvertForAnfitrion = async (userId, options) => {
                 typeQuota: options.tipoCupo,
                 services: options.Servicios,
                 price: options.precio,
-                dateCreatedAt: moment().format('LL')
+                dateCreatedAt: moment().format('L')
             });
 
             const responsePublicado = await showSuccessAlert("Genial! Tu anuncio ha sido publicado correctamente");
