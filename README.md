@@ -12,7 +12,7 @@ Bienvenido a Unipensiones, la aplicación diseñada para facilitar la gestión d
 ## 📦 Tecnologías Utilizadas
 
 - Frontend: HTML, CSS, JavaScript, React Js
-- Backend: Firebase
+- Backend: Firebase Google
 
 ## 🤝 Contribuciones
 
