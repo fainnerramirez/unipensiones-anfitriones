@@ -82,6 +82,7 @@ export const createAdvertForAnfitrion = async (userId, options) => {
                 userId: userId,
                 username: options.username,
                 userPhoto: options.userPhoto,
+                phone: options.phone,
                 urlPhoto: options.urlFotoAnuncio,
                 title: options.titulo,
                 description: options.descripcion,

@@ -109,6 +109,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
         const nuevoAnuncio = {
             username: userAuth?.displayName ?? "",
             userPhoto: userAuth?.photoURL ?? "",
+            phone: userAuth?.phone ?? "",
             urlFotoAnuncio: image,
             titulo: title,
             descripcion: desc,
