@@ -32,7 +32,7 @@ const CardAviso = ({ anuncio }) => {
     }
 
     return (
-        <Card maxW='md'>
+        <Card maxW='sm'>
             <CardBody>
                 {
                     isSuperanfitrion && <Badge bg={'#e6b219'} position="absolute" top="6" right="7">

@@ -58,7 +58,7 @@ const AvisoPage = () => {
                 <Heading as="h4" marginTop={10} size={'lg'} textAlign={'center'}>Aún no tienes anuncios</Heading>}
             <Box display={'flex'} justifyContent={'start'} marginTop={10}>
                 {documentAdvert != null &&
-                    <HStack spacing={10} display={'flex'} justifyContent={'flex-start'} alignItems={'center'} flexWrap={'wrap'}>
+                    <HStack spacing={10} display={'flex'} justifyContent={'flex-start'} alignItems={'flex-start'} flexWrap={'wrap'}>
                         <ContainerCardsAviso anuncios={documentAdvert} />
                     </HStack>
                 }

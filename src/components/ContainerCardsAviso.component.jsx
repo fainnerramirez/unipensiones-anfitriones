@@ -6,7 +6,7 @@ const ContainerCardsAviso = ({ anuncios }) => {
     return (
         anuncios.map(anuncio => {
             return (
-                <Box key={anuncio.id}  display={'flex'} flexDir={'column'} justifyContent={'flex-start'} alignItems={'flex-start'} flexWrap={'wrap'}>
+                <Box key={anuncio.id}  display={'flex'} flexDir={'row'} justifyContent={'flex-start'} alignItems={'flex-start'} flexWrap={'wrap'}>
                     <CardAviso anuncio={anuncio} />
                 </Box>
             )
