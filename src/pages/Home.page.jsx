@@ -7,8 +7,8 @@ import CardAnfitrion from "../assets/cardAfitrion.png"
 const Homepage = () => {
     return (
         <Box width={'90%'} margin={'auto'}>
-            <HStack spacing={10} justifyContent={'center'} alignItems={'center'} className='card-glass' pt={10} pb={10} bg={'white'}>
-                <Box borderRadius={10} bgGradient='linear(to-l, #39A7FF, #0174BE)' height={'70vh'} width={{ base: '45%' }} display={'flex'} alignItems={'center'} justifyContent={'flex-start'} flexDir={'column'}>
+            <HStack spacing={10} justifyContent={'center'} alignItems={'center'} className='card-glass' pt={10} pb={10} bg={'#ffffff'}>
+                <Box borderRadius={10} height={'70vh'} width={{ base: '45%' }} display={'flex'} alignItems={'center'} justifyContent={'flex-start'} flexDir={'column'}>
                     <Image src={CardAnfitrion} borderRadius={10} mt={10} />
                     <Box color={'white'} textAlign={'center'} mt={10}>
                         <Heading fontWeight={'bold'} p={1}>
