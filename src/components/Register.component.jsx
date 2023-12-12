@@ -158,8 +158,8 @@ function Register() {
                             onChange={handleFileProfileChange}
                         />
                     </Flex>
-                    <HStack spacing={'5px'} mt={'10px'}>
-                        <FormControl width={'50%'} isRequired>
+                    <HStack spacing={'5px'} mt={'10px'} flexDir={{base: 'column', md: 'row'}}>
+                        <FormControl width={{base: '100%', md: '50%'}} isRequired>
                             <InputGroup>
                                 <InputLeftElement pointerEvents='none'>
                                     <BiUser color='gray.300' />
@@ -167,7 +167,7 @@ function Register() {
                                 <Input type='text' placeholder='Nombres' onChange={(e) => setUsername(e.target.value)} />
                             </InputGroup>
                         </FormControl>
-                        <FormControl width={'50%'} isRequired>
+                        <FormControl width={{base: '100%', md: '50%'}}  isRequired>
                             <InputGroup >
                                 <InputLeftElement pointerEvents='none'>
                                     <BiUser color='gray.300' />
@@ -177,7 +177,7 @@ function Register() {
                         </FormControl>
                     </HStack>
                     <HStack spacing={'5px'}>
-                        <FormControl isRequired>
+                        <FormControl isRequired width={{base: '100%', md: '50%'}}>
                             <InputGroup>
                                 <InputLeftElement pointerEvents='none'>
                                     <BsCalendarDate color='gray.300' />
@@ -185,7 +185,7 @@ function Register() {
                                 <Input type='date' placeholder='Fecha de nacimiento' onChange={(e) => setDay(e.target.value)} />
                             </InputGroup>
                         </FormControl>
-                        <FormControl isRequired display={'flex'} flexDir={'column'}>
+                        <FormControl isRequired display={'flex'} flexDir={'column'} width={{base: '100%', md: '50%'}}>
                             <InputGroup>
                                 <InputLeftElement pointerEvents='none'>
                                     <AiFillPhone color='gray.300' />
