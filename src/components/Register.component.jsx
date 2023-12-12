@@ -112,20 +112,20 @@ function Register() {
             await updateProfile(auth.currentUser, {
                 displayName: username + " " + userlastname,
             });
-            
+
             if (selectedFileProfile) {
                 await LoadFileProfileUser(selectedFileProfile, doc?.id);
             }
 
             //enviando email de verficación
             sendEmailVerification(auth.currentUser)
-            .then(() => {
-                toast.success("Revisa tu correo electrónico " + user?.email + " para activar tu cuenta en UP. !Ya casi estas dentro!", {
-                    theme: "colored",
-                    position: "top-center"
-                })
-                auth.signOut();
-            });
+                .then(() => {
+                    toast.success("Revisa tu correo electrónico " + user?.email + " para activar tu cuenta en UP. !Ya casi estas dentro!", {
+                        theme: "colored",
+                        position: "top-center"
+                    })
+                    auth.signOut();
+                });
 
             setIsLoading(false)
         }
@@ -138,147 +138,113 @@ function Register() {
 
     return (
         <>
-            <Button
-                colorScheme={'green'}
-                bg={'teal.500'}
-                rounded={'full'}
-                px={6}
-                _hover={{
-                    bg: 'teal.600',
-                }}
-                onClick={onOpen}>
-                Comienza Ahora
-            </Button>
-            <Modal isOpen={isOpen} size={'xl'} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                    <form onSubmit={handleSubmitForm}>
-                        <ModalHeader bg={'teal.500'} color={'whiteAlpha.900'}>Registro de anfitrión</ModalHeader>
-                        <ModalCloseButton color={'whiteAlpha.900'} />
-                        <ModalBody>
-
-                            <Stack spacing={4}>
-                                <Flex justifyContent={'center'} alignItems={'end'}>
-                                    <Image
-                                        borderRadius='full'
-                                        objectFit={'cover'}
-                                        boxSize='150px'
-                                        src={selectedImage}
-                                        alt='Foto del usuario'
-                                    />
-                                    <Button onClick={handleButtonEditPhotoUser}>
-                                        <TbEdit />
-                                    </Button>
-                                    <Input
-                                        type="file"
-                                        ref={fileInputRef}
-                                        style={{ display: 'none' }}
-                                        onChange={handleFileProfileChange}
-                                    />
-                                </Flex>
-                                <HStack spacing={'5px'} mt={'10px'}>
-                                    <FormControl width={'50%'} isRequired>
-                                        <InputGroup>
-                                            <InputLeftElement pointerEvents='none'>
-                                                <BiUser color='gray.300' />
-                                            </InputLeftElement>
-                                            <Input type='text' placeholder='Nombres' onChange={(e) => setUsername(e.target.value)} />
-                                        </InputGroup>
-                                    </FormControl>
-                                    <FormControl width={'50%'} isRequired>
-                                        <InputGroup >
-                                            <InputLeftElement pointerEvents='none'>
-                                                <BiUser color='gray.300' />
-                                            </InputLeftElement>
-                                            <Input type='text' placeholder='Apellidos' onChange={(e) => setUserlastname(e.target.value)} />
-                                        </InputGroup>
-                                    </FormControl>
-                                </HStack>
-                                <HStack spacing={'5px'}>
-                                    <FormControl isRequired>
-                                        <InputGroup>
-                                            <InputLeftElement pointerEvents='none'>
-                                                <BsCalendarDate color='gray.300' />
-                                            </InputLeftElement>
-                                            <Input type='date' placeholder='Fecha de nacimiento' onChange={(e) => setDay(e.target.value)} />
-                                        </InputGroup>
-                                    </FormControl>
-                                    <FormControl isRequired display={'flex'} flexDir={'column'}>
-                                        <InputGroup>
-                                            <InputLeftElement pointerEvents='none'>
-                                                <AiFillPhone color='gray.300' />
-                                            </InputLeftElement>
-                                            <Input type='number' placeholder='Teléfono o Celular' onChange={(e) => setPhone(e.target.value)} />
-                                        </InputGroup>
-                                    </FormControl>
-                                </HStack>
-                                <FormControl>
-                                    <InputGroup>
-                                        <InputLeftElement
-                                            pointerEvents='none'
-                                        >
-                                            <HiOutlineMail color='green.500' />
-                                        </InputLeftElement>
-                                        <Input type='email' placeholder='Correo electrónico' onChange={(e) => setUserEmail(e.target.value)} />
-                                    </InputGroup>
-                                    <FormHelperText>
-                                        Escribe un correo válido. Deberás validar tu correo electrónico después
-                                    </FormHelperText>
-                                </FormControl>
-                                <FormControl>
-                                    <InputGroup>
-                                        <InputLeftElement
-                                            pointerEvents='none'
-                                        >
-                                            <MdPassword color='green.500' />
-                                        </InputLeftElement>
-                                        <Input type={show ? 'text' : 'password'} placeholder='Ingresa contraseña' onChange={(e) => setUserPassword(e.target.value)} />
-                                        <InputRightElement width='4.5rem'>
-                                            <Button h='1.75rem' size='sm' onClick={handleClick}>
-                                                {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-                                            </Button>
-                                        </InputRightElement>
-                                    </InputGroup>
-                                    <FormHelperText>
-                                        Debe ser igual o mayor a 7 caractéres.
-                                    </FormHelperText>
-                                </FormControl>
-                                <FormControl>
-                                    <InputGroup>
-                                        <InputLeftElement
-                                            pointerEvents='none'
-                                        >
-                                            <MdPassword color='green.500' />
-                                        </InputLeftElement>
-                                        <Input type={show ? 'text' : 'password'} placeholder='Confirma tu contraseña' onChange={(e) => setUserPasswordTwo(e.target.value)} />
-                                        <InputRightElement width='4.5rem'>
-                                            <Button h='1.75rem' size='sm' onClick={handleClick}>
-                                                {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-                                            </Button>
-                                        </InputRightElement>
-                                    </InputGroup>
-                                    <FormHelperText>
-                                        Debe ser igual o mayor a 7 caractéres.
-                                    </FormHelperText>
-                                </FormControl>
-                            </Stack>
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button
-                                isLoading={isLoading}
-                                colorScheme='blue'
-                                loadingText='Cargando'
-                                color={'teal.800'}
-                                variant={'outline'}
-                                mt={3}
-                                _hover={{ backgroundColor: 'teal.800', color: "white" }}
-                                type='submit'
-                            >Registrarme</Button>
-                        </ModalFooter>
-                    </form>
-                </ModalContent>
-            </Modal >
-            <ToastContainer />
+            <form onSubmit={handleSubmitForm}>
+                <Stack spacing={4}>
+                    <Flex justifyContent={'center'} alignItems={'end'}>
+                        <Image
+                            borderRadius='full'
+                            objectFit={'cover'}
+                            boxSize='150px'
+                            src={selectedImage}
+                            alt='Foto del usuario'
+                        />
+                        <Button onClick={handleButtonEditPhotoUser}>
+                            <TbEdit />
+                        </Button>
+                        <Input
+                            type="file"
+                            ref={fileInputRef}
+                            style={{ display: 'none' }}
+                            onChange={handleFileProfileChange}
+                        />
+                    </Flex>
+                    <HStack spacing={'5px'} mt={'10px'}>
+                        <FormControl width={'50%'} isRequired>
+                            <InputGroup>
+                                <InputLeftElement pointerEvents='none'>
+                                    <BiUser color='gray.300' />
+                                </InputLeftElement>
+                                <Input type='text' placeholder='Nombres' onChange={(e) => setUsername(e.target.value)} />
+                            </InputGroup>
+                        </FormControl>
+                        <FormControl width={'50%'} isRequired>
+                            <InputGroup >
+                                <InputLeftElement pointerEvents='none'>
+                                    <BiUser color='gray.300' />
+                                </InputLeftElement>
+                                <Input type='text' placeholder='Apellidos' onChange={(e) => setUserlastname(e.target.value)} />
+                            </InputGroup>
+                        </FormControl>
+                    </HStack>
+                    <HStack spacing={'5px'}>
+                        <FormControl isRequired>
+                            <InputGroup>
+                                <InputLeftElement pointerEvents='none'>
+                                    <BsCalendarDate color='gray.300' />
+                                </InputLeftElement>
+                                <Input type='date' placeholder='Fecha de nacimiento' onChange={(e) => setDay(e.target.value)} />
+                            </InputGroup>
+                        </FormControl>
+                        <FormControl isRequired display={'flex'} flexDir={'column'}>
+                            <InputGroup>
+                                <InputLeftElement pointerEvents='none'>
+                                    <AiFillPhone color='gray.300' />
+                                </InputLeftElement>
+                                <Input type='number' placeholder='Teléfono o Celular' onChange={(e) => setPhone(e.target.value)} />
+                            </InputGroup>
+                        </FormControl>
+                    </HStack>
+                    <FormControl>
+                        <InputGroup>
+                            <InputLeftElement
+                                pointerEvents='none'
+                            >
+                                <HiOutlineMail color='green.500' />
+                            </InputLeftElement>
+                            <Input type='email' placeholder='Correo electrónico' onChange={(e) => setUserEmail(e.target.value)} />
+                        </InputGroup>
+                        <FormHelperText>
+                            Escribe un correo válido. Deberás validar tu correo electrónico después
+                        </FormHelperText>
+                    </FormControl>
+                    <FormControl>
+                        <InputGroup>
+                            <InputLeftElement
+                                pointerEvents='none'
+                            >
+                                <MdPassword color='green.500' />
+                            </InputLeftElement>
+                            <Input type={show ? 'text' : 'password'} placeholder='Ingresa contraseña' onChange={(e) => setUserPassword(e.target.value)} />
+                            <InputRightElement width='4.5rem'>
+                                <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                    {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                        <FormHelperText>
+                            Debe ser igual o mayor a 7 caractéres.
+                        </FormHelperText>
+                    </FormControl>
+                    <FormControl>
+                        <InputGroup>
+                            <InputLeftElement
+                                pointerEvents='none'
+                            >
+                                <MdPassword color='green.500' />
+                            </InputLeftElement>
+                            <Input type={show ? 'text' : 'password'} placeholder='Confirma tu contraseña' onChange={(e) => setUserPasswordTwo(e.target.value)} />
+                            <InputRightElement width='4.5rem'>
+                                <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                    {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                        <FormHelperText>
+                            Debe ser igual o mayor a 7 caractéres.
+                        </FormHelperText>
+                    </FormControl>
+                </Stack>
+            </form>
         </>
     )
 }

@@ -34,9 +34,11 @@ const Layout = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ auth, userAuth, SetUserAuth, isSuperanfitrion }}>
-      <Navbar />
-      <Box height={'86vh'}>
-        {children}
+      <Box bgGradient='linear(to-l, #F6FBFE, #E0E9F5)'>
+        <Navbar />
+        <Box height={'86vh'}>
+          {children}
+        </Box>
       </Box>
       {/* <Footer /> */}
     </AuthContext.Provider>

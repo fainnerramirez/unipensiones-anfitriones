@@ -13,12 +13,13 @@ import ResetPassword from "./components/ResetPassword.component";
 import moment from 'moment';
 import 'moment/locale/es'
 import './styles/global.css';
+import Homepage from "./pages/Home.page";
 moment.locale('es');
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
-      <Route index element={<HeroHost />} />
+      <Route index element={<Homepage />} />
       <Route path="resetpassword" element={<ResetPassword />} />
       <Route path="user/:userId" element={<AvisoPage />} />
       <Route path="user/:userId/profile" element={<ProfileUser />} />

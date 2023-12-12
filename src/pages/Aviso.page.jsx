@@ -9,7 +9,6 @@ import { getAdvertsAnfitrionByUserId, getAllAdvertsAnfitrionByUserId } from '../
 import { MdWorkspacePremium } from "react-icons/md";
 import ContainerCardsAviso from '../components/ContainerCardsAviso.component';
 
-
 const AvisoPage = () => {
 
     const [documentAdvert, setDocumentAdvert] = useState(null);
