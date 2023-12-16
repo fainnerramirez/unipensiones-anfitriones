@@ -148,8 +148,8 @@ function Register() {
                         text: "Revisa tu correo electrónico " + user?.email + " para activar tu cuenta en UP. !Ya casi estas dentro!",
                         confirmButtonText: 'Ok',
                         showCloseButton: true,
-                        confirmButtonColor: "blue",
-                        iconColor: "blue"
+                        confirmButtonColor: "#0174BE",
+                        iconColor: "#0174BE"
                     });
                     auth.signOut();
                 });
