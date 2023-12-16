@@ -42,6 +42,8 @@ import { createAnfitrion } from '../firebase/collections/querys/anfitriones';
 import { FaCamera } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import SingInUser from './SingIn.component';
+import Confetti from 'react-confetti'
+import Swal from 'sweetalert2';
 
 function Register() {
 
@@ -57,6 +59,7 @@ function Register() {
     const [userPasswordTwo, setUserPasswordTwo] = useState("")
     const [isLoading, setIsLoading] = useState(false);
     const [isWhatsapp, setIsWhatsapp] = useState(false);
+    const [showConfetti, setShowConfetti] = useState(false);
     const fileInputRef = useRef(null);
 
     const handleClick = () => setShow(!show)
@@ -134,10 +137,20 @@ function Register() {
             //enviando email de verficación
             sendEmailVerification(auth.currentUser)
                 .then(() => {
-                    toast.success("Revisa tu correo electrónico " + user?.email + " para activar tu cuenta en UP. !Ya casi estas dentro!", {
-                        theme: "colored",
-                        position: "top-center"
-                    })
+                    setShowConfetti(true);
+                    // toast.success("Revisa tu correo electrónico " + user?.email + " para activar tu cuenta en UP. !Ya casi estas dentro!", {
+                    //     theme: "colored",
+                    //     position: "top-center"
+                    // })
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Activa tu cuenta unipensiones',
+                        text: "Revisa tu correo electrónico " + user?.email + " para activar tu cuenta en UP. !Ya casi estas dentro!",
+                        confirmButtonText: 'Ok',
+                        showCloseButton: true,
+                        confirmButtonColor: "blue",
+                        iconColor: "blue"
+                    });
                     auth.signOut();
                 });
 
@@ -152,6 +165,9 @@ function Register() {
 
     return (
         <>
+            {
+                showConfetti && <Confetti gravity={1} />
+            }
             <form onSubmit={handleSubmitForm}>
                 <Stack spacing={4}>
                     <Flex justifyContent={'center'} alignItems={'end'}>
