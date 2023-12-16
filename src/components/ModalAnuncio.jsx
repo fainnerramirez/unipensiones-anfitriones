@@ -29,7 +29,6 @@ import {
     Image
 } from '@chakra-ui/react'
 import { useState, useRef, useContext, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import { FiUpload } from "react-icons/fi"
 import { GrDirections } from "react-icons/gr";
@@ -327,7 +326,6 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                         </ModalContent>
                     </Modal >
             }
-            <ToastContainer />
         </>
     )
 }

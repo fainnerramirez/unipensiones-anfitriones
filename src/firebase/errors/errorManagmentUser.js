@@ -17,6 +17,7 @@ export const errorManagment = (error) => {
             break;
 
         case 'auth/email-already-in-use':
+            console.log("Entro aqui en el error")
             toast.error("Este correo ya existe!. Inicia Sesión", {
                 theme: "colored",
                 position: "top-center"

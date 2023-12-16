@@ -14,6 +14,7 @@ import moment from 'moment';
 import 'moment/locale/es'
 import './styles/global.css';
 import Homepage from "./pages/Home.page";
+import { ToastContainer } from "react-toastify";
 moment.locale('es');
 
 const router = createBrowserRouter(
@@ -31,6 +32,7 @@ const App = () => {
   return (
     <Layout>
       <RouterProvider router={router} />
+      <ToastContainer />
     </Layout>
   );
 };

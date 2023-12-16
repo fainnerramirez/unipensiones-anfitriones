@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { Box, Button, FormControl, FormHelperText, Heading, Input, InputGroup, InputLeftElement, VStack } from '@chakra-ui/react';
 import { MdPasswor, MdEmail } from 'react-icons/md';
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 import { AuthContext } from '../context/authContext';
 
 const ResetPassword = () => {
@@ -60,7 +60,6 @@ const ResetPassword = () => {
                     >Restablecer contraseña</Button>
                 </Box>
             </form>
-            <ToastContainer />
         </Box>
     )
 }

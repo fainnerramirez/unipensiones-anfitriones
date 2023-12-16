@@ -17,10 +17,14 @@ import {
     Image,
     Flex,
     FormControl,
-    FormHelperText
+    FormHelperText,
+    Box,
+    Divider,
+    Text,
+    AbsoluteCenter,
+    Checkbox
 } from '@chakra-ui/react'
 import { useState, useRef, useContext } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
 import { BiUser } from "react-icons/bi"
 import { MdPassword } from "react-icons/md";
 import { BsCalendarDate } from "react-icons/bs";
@@ -35,6 +39,8 @@ import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } 
 import { errorManagment } from '../firebase/errors/errorManagmentUser';
 import 'react-toastify/dist/ReactToastify.css';
 import { createAnfitrion } from '../firebase/collections/querys/anfitriones';
+import { FaCamera } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 function Register() {
 
@@ -74,6 +80,7 @@ function Register() {
     const handleSubmitForm = async (event) => {
         event.preventDefault();
         setIsLoading(true)
+        console.log("Evennto submit");
 
         if (userPassword.length < 7 || userPasswordTwo.length < 7) {
             setIsLoading(false)
@@ -97,6 +104,8 @@ function Register() {
 
             const { user } = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
 
+            console.log("User: ", user)
+
             const options = {
                 userId: user.uid,
                 username: username,
@@ -109,11 +118,14 @@ function Register() {
 
             const doc = await createAnfitrion(options);
 
+            console.log("doc created: ", doc)
+
             await updateProfile(auth.currentUser, {
                 displayName: username + " " + userlastname,
             });
 
             if (selectedFileProfile) {
+                console.log("Entro aqui")
                 await LoadFileProfileUser(selectedFileProfile, doc?.id);
             }
 
@@ -130,6 +142,7 @@ function Register() {
             setIsLoading(false)
         }
         catch (error) {
+            console.log("ERROR", error)
             setIsLoading(false)
             const errorCode = error.code;
             errorManagment(errorCode);
@@ -144,11 +157,11 @@ function Register() {
                         <Image
                             borderRadius='full'
                             objectFit={'cover'}
-                            boxSize='150px'
+                            boxSize='100px'
                             src={selectedImage}
                             alt='Foto del usuario'
                         />
-                        <Button onClick={handleButtonEditPhotoUser}>
+                        <Button onClick={handleButtonEditPhotoUser} colorScheme='blue'>
                             <TbEdit />
                         </Button>
                         <Input
@@ -158,39 +171,42 @@ function Register() {
                             onChange={handleFileProfileChange}
                         />
                     </Flex>
-                    <HStack spacing={'5px'} mt={'10px'} flexDir={{base: 'column', md: 'row'}}>
-                        <FormControl width={{base: '100%', md: '50%'}} isRequired>
+                    <HStack spacing={'5px'} mt={'10px'} flexDir={{ base: 'column', md: 'row' }}>
+                        <FormControl width={{ base: '100%', md: '50%' }} isRequired>
                             <InputGroup>
                                 <InputLeftElement pointerEvents='none'>
                                     <BiUser color='gray.300' />
                                 </InputLeftElement>
-                                <Input type='text' placeholder='Nombres' onChange={(e) => setUsername(e.target.value)} />
+                                <Input type='text' placeholder='Nombres' variant='filled' onChange={(e) => setUsername(e.target.value)} />
                             </InputGroup>
                         </FormControl>
-                        <FormControl width={{base: '100%', md: '50%'}}  isRequired>
+                        <FormControl width={{ base: '100%', md: '50%' }} isRequired>
                             <InputGroup >
                                 <InputLeftElement pointerEvents='none'>
                                     <BiUser color='gray.300' />
                                 </InputLeftElement>
-                                <Input type='text' placeholder='Apellidos' onChange={(e) => setUserlastname(e.target.value)} />
+                                <Input type='text' placeholder='Apellidos' variant='filled' onChange={(e) => setUserlastname(e.target.value)} />
                             </InputGroup>
                         </FormControl>
                     </HStack>
                     <HStack spacing={'5px'}>
-                        <FormControl isRequired width={{base: '100%', md: '50%'}}>
+                        <FormControl isRequired width={{ base: '100%', md: '50%' }}>
                             <InputGroup>
                                 <InputLeftElement pointerEvents='none'>
                                     <BsCalendarDate color='gray.300' />
                                 </InputLeftElement>
-                                <Input type='date' placeholder='Fecha de nacimiento' onChange={(e) => setDay(e.target.value)} />
+                                <Input type='date' placeholder='Fecha de nacimiento' variant='filled' onChange={(e) => setDay(e.target.value)} />
                             </InputGroup>
                         </FormControl>
-                        <FormControl isRequired display={'flex'} flexDir={'column'} width={{base: '100%', md: '50%'}}>
+                        <FormControl isRequired display={'flex'} flexDir={'column'} width={{ base: '100%', md: '50%' }}>
                             <InputGroup>
                                 <InputLeftElement pointerEvents='none'>
                                     <AiFillPhone color='gray.300' />
                                 </InputLeftElement>
-                                <Input type='number' placeholder='Teléfono o Celular' onChange={(e) => setPhone(e.target.value)} />
+                                <Input type='number' placeholder='Teléfono o Celular' variant='filled' onChange={(e) => setPhone(e.target.value)} mt={1}/>
+                                <Checkbox size='md' colorScheme='blue' ml={3}>
+                                    Tiene WhatsApp
+                                </Checkbox>
                             </InputGroup>
                         </FormControl>
                     </HStack>
@@ -201,7 +217,7 @@ function Register() {
                             >
                                 <HiOutlineMail color='green.500' />
                             </InputLeftElement>
-                            <Input type='email' placeholder='Correo electrónico' onChange={(e) => setUserEmail(e.target.value)} />
+                            <Input type='email' placeholder='Correo electrónico' variant='filled' onChange={(e) => setUserEmail(e.target.value)} />
                         </InputGroup>
                         <FormHelperText>
                             Escribe un correo válido. Deberás validar tu correo electrónico después
@@ -214,7 +230,7 @@ function Register() {
                             >
                                 <MdPassword color='green.500' />
                             </InputLeftElement>
-                            <Input type={show ? 'text' : 'password'} placeholder='Ingresa contraseña' onChange={(e) => setUserPassword(e.target.value)} />
+                            <Input type={show ? 'text' : 'password'} placeholder='Ingresa contraseña' variant='filled' onChange={(e) => setUserPassword(e.target.value)} />
                             <InputRightElement width='4.5rem'>
                                 <Button h='1.75rem' size='sm' onClick={handleClick}>
                                     {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
@@ -232,7 +248,7 @@ function Register() {
                             >
                                 <MdPassword color='green.500' />
                             </InputLeftElement>
-                            <Input type={show ? 'text' : 'password'} placeholder='Confirma tu contraseña' onChange={(e) => setUserPasswordTwo(e.target.value)} />
+                            <Input type={show ? 'text' : 'password'} placeholder='Confirma tu contraseña' variant='filled' onChange={(e) => setUserPasswordTwo(e.target.value)} />
                             <InputRightElement width='4.5rem'>
                                 <Button h='1.75rem' size='sm' onClick={handleClick}>
                                     {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
@@ -244,6 +260,18 @@ function Register() {
                         </FormHelperText>
                     </FormControl>
                 </Stack>
+                <Box mt={5}>
+                    <Button colorScheme='blue' width={'full'} type='submit' isLoading={isLoading}>Registrarme</Button>
+                </Box>
+                <Box position='relative' padding='6'>
+                    <Divider />
+                    <AbsoluteCenter bg='white' px='4'>
+                        ¿Ya tienes cuenta?
+                    </AbsoluteCenter>
+                </Box>
+                <Box mt={5}>
+                    <Button colorScheme='blue' variant={'outline'} width={'full'}>Ingresar</Button>
+                </Box>
             </form>
         </>
     )

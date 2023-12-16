@@ -29,7 +29,7 @@ import {
 import { BiUser } from "react-icons/bi";
 import { MdPassword } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, deleteUser } from "firebase/auth";
 import { errorManagment } from '../firebase/errors/errorManagmentUser';
 import { db } from '../firebase/firestore/database';
@@ -206,7 +206,6 @@ const SingInUser = () => {
                     </form>
                 </ModalContent>
             </Modal >
-            <ToastContainer />
         </>
     )
 }
