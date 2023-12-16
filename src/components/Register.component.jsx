@@ -105,16 +105,18 @@ function Register() {
             const { user } = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
 
             const options = {
-                userId: user.uid,
-                username: username,
-                lastname: userlastname,
-                birthday: day,
-                phone: {
-                    number: phone,
-                    isWhatsapp: isWhatsapp
-                },
-                userEmail: userEmail,
-                superanfitrion: false
+                user: {
+                    id: user.uid,
+                    name: username,
+                    lastname: userlastname,
+                    birthday: day,
+                    email: userEmail,
+                    phone: {
+                        number: phone,
+                        isWhatsapp: isWhatsapp
+                    },
+                    superanfitrion: false
+                }
             }
 
             const doc = await createAnfitrion(options);
