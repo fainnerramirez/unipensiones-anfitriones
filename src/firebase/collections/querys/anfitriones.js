@@ -14,7 +14,7 @@ export const createAnfitrion = async (options) => {
 export const getAnfitrionByUserId = async (userId) => {
     try {
         console.log("Entro getAnfitrionByUserId: ", userId)
-        const q = query(collection(db, 'anfitriones'), where('userId', '==', userId), limit(1));
+        const q = query(collection(db, 'anfitriones'), where('user.id', '==', userId), limit(1));
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {

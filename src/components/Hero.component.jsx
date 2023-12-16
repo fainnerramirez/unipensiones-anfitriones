@@ -34,7 +34,7 @@ const HeroHost = () => {
             fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
             lineHeight={'110%'}>
             Bienvenido a Unipensiones <br />
-            <Text as={'span'} color={'teal.500'}>
+            <Text as={'span'} color={'blue.500'}>
               Comparte Tu Espacio con Estudiantes
             </Text>
           </Heading>

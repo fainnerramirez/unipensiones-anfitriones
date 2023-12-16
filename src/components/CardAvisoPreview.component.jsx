@@ -60,7 +60,7 @@ const CardAvisoPreview = ({ image, ciudad, pais, precio, services }) => {
                             services ? services.map((service, index) => (
                                 <Badge
                                     variant='subtle'
-                                    colorScheme='teal'
+                                    colorScheme='blue'
                                     key={index}
                                     borderRadius={35}
                                     pt={2}

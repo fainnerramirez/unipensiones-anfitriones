@@ -50,7 +50,7 @@ const AvisoPage = () => {
                     <ModalAnuncio isvalidPublished={documentAdvert != null ? false : true} />
                 </Box>
             </Box>
-            <Divider color={'teal.900'} height={2} bg={'teal.400'} borderRadius={35} />
+            <Divider color={'blue.900'} height={2} bg={'blue.400'} borderRadius={35} />
             {documentAdvert != null ?
                 <Heading as="h4" marginTop={10} size={'lg'} textAlign={'center'}>Tus anuncios</Heading>
                 :

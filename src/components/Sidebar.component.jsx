@@ -29,7 +29,7 @@ const Sidebar = () => {
 
     return (
         <>
-            <Button marginLeft={'20px'} colorScheme='teal' onClick={onOpen} padding={'20px'}>
+            <Button marginLeft={'20px'} colorScheme='blue' onClick={onOpen} padding={'20px'}>
                 <CgMenu fontSize={'30px'} />
             </Button>
             <Drawer
@@ -67,12 +67,12 @@ const Sidebar = () => {
                         </Box>
                         <Stack spacing='24px' marginTop={'30px'}>
                             <Box>
-                                <Button colorScheme="teal" width={'full'} onClick={() => navigate("profile", { replace: true })}>
+                                <Button colorScheme="blue" width={'full'} onClick={() => navigate("profile", { replace: true })}>
                                     Mi Perfil
                                 </Button>
                             </Box>
                             <Box>
-                                <Button colorScheme="teal" width={'full'}>Mis Anuncios</Button>
+                                <Button colorScheme="blue" width={'full'}>Mis Anuncios</Button>
                             </Box>
                         </Stack>
                     </DrawerBody>

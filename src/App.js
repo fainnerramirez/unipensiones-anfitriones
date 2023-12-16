@@ -3,7 +3,7 @@ import { PATHS } from "./utils/PathsRouter";
 import HeroHost from "./components/Hero.component";
 import ErrorPage from "./components/ErrorPage.component";
 import Layout from "./Layout/Layout";
-import AvisoPage from "./pages/Aviso.page";
+import AvisoPage from "./pages/Admin.page";
 //librarys
 import 'react-toastify/dist/ReactToastify.css';
 import Root from "./pages/Root";

@@ -24,7 +24,8 @@ import {
     FormHelperText,
     VStack,
     Text,
-    Divider
+    Divider,
+    Heading
 } from '@chakra-ui/react'
 import { BiUser } from "react-icons/bi";
 import { MdPassword } from "react-icons/md";
@@ -103,6 +104,8 @@ const SingInUser = () => {
 
                 const user = userCredential.user;
 
+                console.log("User: ", user)
+
                 try {
                     const documentAnfitrion = await getAnfitrionByUserId(user.uid);
 
@@ -143,7 +146,9 @@ const SingInUser = () => {
                 <ModalOverlay />
                 <ModalContent>
                     <form onSubmit={handleSubmitForm}>
-                        <ModalHeader bgGradient='linear(to-l, #87C4FF, #0174BE)' color={'whiteAlpha.900'}>Ingreso de anfitrión</ModalHeader>
+                        <ModalHeader pt={5} pb={5} bgGradient='linear(to-l, #87C4FF, #0174BE)' color={'whiteAlpha.900'}>
+                            <Heading textAlign={'center'}>Ingresa a tu cuenta</Heading>
+                        </ModalHeader>
                         <ModalCloseButton color={'whiteAlpha.900'} />
                         <ModalBody>
                             <Stack spacing={4} mt="5">
@@ -191,7 +196,7 @@ const SingInUser = () => {
                                     <Text textAlign={'center'}>ó inicia sesión con</Text>
                                 </Box>
                                 <Box mt="5" display={'flex'} justifyContent={'center'}>
-                                    <Button rightIcon={<FcGoogle />} colorScheme='teal' variant={'outline'} onClick={handleClickGooglePopup}>
+                                    <Button rightIcon={<FcGoogle />} colorScheme='blue' variant={'outline'} onClick={handleClickGooglePopup}>
                                         Google
                                     </Button>
                                 </Box>

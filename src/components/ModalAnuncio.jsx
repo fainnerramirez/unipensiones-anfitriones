@@ -129,7 +129,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
     return (
         <>
             <Button
-                colorScheme='teal'
+                colorScheme='blue'
                 rightIcon={<BsFillPlusSquareFill />}
                 onClick={onOpen}>
                 Subir anuncio
@@ -142,11 +142,11 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                             <HStack spacing={10} display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
                                 <form style={{ width: "50%" }} onSubmit={handleSubmitPublicForm}>
                                     <ModalHeader>Publicación de anuncio</ModalHeader>
-                                    <ModalCloseButton color={'teal.900'} />
+                                    <ModalCloseButton color={'blue.900'} />
                                     <ModalBody>
                                         <Stack spacing={4}>
                                             <Flex justifyContent={'center'} alignItems={'end'}>
-                                                <Button colorScheme='teal' rightIcon={<FiUpload />} onClick={handleFileAnuncio}>
+                                                <Button colorScheme='blue' rightIcon={<FiUpload />} onClick={handleFileAnuncio}>
                                                     Subir foto
                                                 </Button>
                                                 <Input
@@ -269,17 +269,17 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                             width={'full'}
                                             colorScheme='blue'
                                             loadingText='Cargando'
-                                            color={'teal.800'}
+                                            color={'blue.800'}
                                             variant={'outline'}
                                             mt={3}
-                                            _hover={{ backgroundColor: 'teal.800', color: "white" }}
+                                            _hover={{ backgroundColor: 'blue.800', color: "white" }}
                                             type='submit'
                                         >Publicar</Button>
                                     </ModalFooter>
                                 </form>
                                 <Box marginTop={20}>
                                     <Text textAlign={'center'}>Vista previa de tu anuncio</Text>
-                                    <Divider color={'teal.900'} />
+                                    <Divider color={'blue.900'} />
                                     <CardAvisoPreview image={image} ciudad={ciudad} pais={pais} precio={precio} services={valueSelectService} />
                                 </Box>
                             </HStack>
@@ -291,7 +291,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                         <ModalContent>
                             <HStack display={'flex'} flexDir={'column'}>
                                 <ModalHeader textAlign={'center'}>Paga con Nequi</ModalHeader>
-                                <ModalCloseButton color={'teal.900'} />
+                                <ModalCloseButton color={'blue.900'} />
                                 <ModalBody>
                                     <Box width={'100%'} height={'100%'} display={'flex'} justifyContent={'center'}>
                                         <Image
