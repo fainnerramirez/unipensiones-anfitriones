@@ -50,7 +50,6 @@ function Register() {
     const [selectedFileProfile, setSelectedFileProfile] = useState(null);
     const [username, setUsername] = useState("")
     const [userlastname, setUserlastname] = useState("")
-    const [day, setDay] = useState("")
     const [phone, setPhone] = useState("")
     const [userEmail, setUserEmail] = useState("")
     const [userPassword, setUserPassword] = useState("")
@@ -109,7 +108,6 @@ function Register() {
                     id: user.uid,
                     name: username,
                     lastname: userlastname,
-                    birthday: day,
                     email: userEmail,
                     phone: {
                         number: phone,
@@ -189,21 +187,13 @@ function Register() {
                         </FormControl>
                     </HStack>
                     <HStack spacing={'5px'}>
-                        <FormControl isRequired width={{ base: '100%', md: '50%' }}>
-                            <InputGroup>
-                                <InputLeftElement pointerEvents='none'>
-                                    <BsCalendarDate color='gray.300' />
-                                </InputLeftElement>
-                                <Input type='date' placeholder='Fecha de nacimiento' variant='filled' onChange={(e) => setDay(e.target.value)} />
-                            </InputGroup>
-                        </FormControl>
-                        <FormControl isRequired display={'flex'} flexDir={'column'} width={{ base: '100%', md: '50%' }}>
+                        <FormControl isRequired display={'flex'} flexDir={'column'} width={{ base: '100%', md: '100%' }}>
                             <InputGroup>
                                 <InputLeftElement pointerEvents='none'>
                                     <AiFillPhone color='gray.300' />
                                 </InputLeftElement>
                                 <Input type='number' placeholder='Teléfono o Celular' variant='filled' onChange={(e) => setPhone(e.target.value)} mt={1}/>
-                                <Checkbox size='md' colorScheme='blue' ml={3} onChange={(e) => setIsWhatsapp(e.target.checked)}>
+                                <Checkbox width={'100%'} size='lg' colorScheme='blue' ml={3} onChange={(e) => setIsWhatsapp(e.target.checked)}>
                                     Tiene WhatsApp
                                 </Checkbox>
                             </InputGroup>
