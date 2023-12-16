@@ -24,7 +24,7 @@ import {
     AbsoluteCenter,
     Checkbox
 } from '@chakra-ui/react'
-import { useState, useRef, useContext } from 'react';
+import { useState, useRef, useContext, useEffect } from 'react';
 import { BiUser } from "react-icons/bi"
 import { MdPassword } from "react-icons/md";
 import { BsCalendarDate } from "react-icons/bs";
@@ -56,6 +56,7 @@ function Register() {
     const [userPassword, setUserPassword] = useState("")
     const [userPasswordTwo, setUserPasswordTwo] = useState("")
     const [isLoading, setIsLoading] = useState(false);
+    const [isWhatsapp, setIsWhatsapp] = useState(false);
     const fileInputRef = useRef(null);
 
     const handleClick = () => setShow(!show)
@@ -80,7 +81,6 @@ function Register() {
     const handleSubmitForm = async (event) => {
         event.preventDefault();
         setIsLoading(true)
-        console.log("Evennto submit");
 
         if (userPassword.length < 7 || userPasswordTwo.length < 7) {
             setIsLoading(false)
@@ -104,21 +104,20 @@ function Register() {
 
             const { user } = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
 
-            console.log("User: ", user)
-
             const options = {
                 userId: user.uid,
                 username: username,
                 lastname: userlastname,
                 birthday: day,
-                phone: phone,
+                phone: {
+                    number: phone,
+                    isWhatsapp: isWhatsapp
+                },
                 userEmail: userEmail,
                 superanfitrion: false
             }
 
             const doc = await createAnfitrion(options);
-
-            console.log("doc created: ", doc)
 
             await updateProfile(auth.currentUser, {
                 displayName: username + " " + userlastname,
@@ -204,7 +203,7 @@ function Register() {
                                     <AiFillPhone color='gray.300' />
                                 </InputLeftElement>
                                 <Input type='number' placeholder='Teléfono o Celular' variant='filled' onChange={(e) => setPhone(e.target.value)} mt={1}/>
-                                <Checkbox size='md' colorScheme='blue' ml={3}>
+                                <Checkbox size='md' colorScheme='blue' ml={3} onChange={(e) => setIsWhatsapp(e.target.checked)}>
                                     Tiene WhatsApp
                                 </Checkbox>
                             </InputGroup>
