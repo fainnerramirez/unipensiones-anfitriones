@@ -124,7 +124,6 @@ function Register() {
             });
 
             if (selectedFileProfile) {
-                console.log("Entro aqui")
                 await LoadFileProfileUser(selectedFileProfile, doc?.id);
             }
 
@@ -141,7 +140,6 @@ function Register() {
             setIsLoading(false)
         }
         catch (error) {
-            console.log("ERROR", error)
             setIsLoading(false)
             const errorCode = error.code;
             errorManagment(errorCode);
