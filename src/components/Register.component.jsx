@@ -104,6 +104,8 @@ function Register() {
 
             const { user } = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
 
+            console.log("User: ", user)
+
             const options = {
                 user: {
                     id: user.uid,
@@ -122,6 +124,7 @@ function Register() {
 
             await updateProfile(auth.currentUser, {
                 displayName: username + " " + userlastname,
+                phone: phone
             });
 
             if (selectedFileProfile) {
@@ -193,14 +196,14 @@ function Register() {
                                 <InputLeftElement pointerEvents='none'>
                                     <AiFillPhone color='gray.300' />
                                 </InputLeftElement>
-                                <Input type='number' placeholder='Teléfono o Celular' variant='filled' onChange={(e) => setPhone(e.target.value)} mt={1}/>
-                                <Checkbox 
+                                <Input type='number' placeholder='Teléfono o Celular' variant='filled' onChange={(e) => setPhone(e.target.value)} mt={1} />
+                                <Checkbox
                                     name="hola"
-                                    width={'100%'} 
-                                    size='lg' 
-                                    colorScheme='blue' 
-                                    ml={3} 
-                                    value={false} 
+                                    width={'100%'}
+                                    size='lg'
+                                    colorScheme='blue'
+                                    ml={3}
+                                    value={false}
                                     onChange={(e) => setIsWhatsapp(e.target.checked)}
                                 >
                                     Tiene WhatsApp
@@ -268,7 +271,7 @@ function Register() {
                     </AbsoluteCenter>
                 </Box>
                 <Box mt={5}>
-                    <SingInUser />                
+                    <SingInUser />
                 </Box>
             </form>
         </>

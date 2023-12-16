@@ -103,9 +103,7 @@ const SingInUser = () => {
                 }
 
                 const user = userCredential.user;
-
-                console.log("User: ", user)
-
+                
                 try {
                     const documentAnfitrion = await getAnfitrionByUserId(user.uid);
 
