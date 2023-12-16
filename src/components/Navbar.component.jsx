@@ -31,7 +31,7 @@ const Navbar = () => {
         <Image src={Logo} width={50} height={50} borderRadius={10} />
         <Heading size={'lg'}>Unipensiones</Heading>
       </HStack>
-      <Box display={{ base: (userAuth ? 'block' : 'none')}}>
+      <Box display={userAuth ? 'block' : 'none'}>
         <Button colorScheme='blue' onClick={handleSignOut}>Cerrar Sesión</Button>
       </Box>
     </HStack>

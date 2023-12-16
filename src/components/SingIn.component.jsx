@@ -86,7 +86,7 @@ const SingInUser = () => {
             });
     }
 
-    const handleSubmitForm = (event) => {
+    const handleSubmitFormUser = (event) => {
         event.preventDefault();
 
         signInWithEmailAndPassword(auth, email, password)
@@ -123,21 +123,21 @@ const SingInUser = () => {
                     }
                 } catch (error) {
                     console.error(error);
-                    errorManagment(error.code);
+                    //errorManagment(error.code);
                 }
             }).catch((error) => {
                 setIsLoading(false);
                 const errorCode = error.code;
                 console.log("Error email, password: ", error)
-                errorManagment(errorCode);
+                //errorManagment(errorCode);
             });
     }
 
     return (
         <>
             <Button
-                colorScheme='blue' 
-                variant={'outline'} 
+                colorScheme='blue'
+                variant={'outline'}
                 width={'full'}
                 onClick={onOpen}>
                 Ingresar
@@ -145,7 +145,7 @@ const SingInUser = () => {
             <Modal isOpen={isOpen} size={'xl'} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <form onSubmit={handleSubmitForm}>
+                    <form onSubmit={handleSubmitFormUser}>
                         <ModalHeader pt={5} pb={5} bgGradient='linear(to-l, #87C4FF, #0174BE)' color={'whiteAlpha.900'}>
                             <Heading textAlign={'center'}>Ingresa a tu cuenta</Heading>
                         </ModalHeader>
@@ -167,7 +167,7 @@ const SingInUser = () => {
                                             <InputLeftElement pointerEvents='none'>
                                                 <MdPassword color='gray.300' />
                                             </InputLeftElement>
-                                            <Input type={show ? 'text' : 'password'} variant={'filled'}  placeholder='Contraseña' size='lg' onChange={(e) => setPassword(e.target.value)} />
+                                            <Input type={show ? 'text' : 'password'} variant={'filled'} placeholder='Contraseña' size='lg' onChange={(e) => setPassword(e.target.value)} />
                                             <InputRightElement width='4.5rem'>
                                                 <Button h='1.75rem' size='md' mt={'1.5'} onClick={handleClick}>
                                                     {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
@@ -183,7 +183,7 @@ const SingInUser = () => {
                         </ModalBody>
                         <ModalFooter display={'flex'} justifyContent={'center'} alignItems={'center'} flexDir={'column'}>
                             <Button
-                                width={{base: 'full', md: '50%'}}
+                                width={{ base: 'full', md: '50%' }}
                                 isLoading={isLoading}
                                 colorScheme='blue'
                                 loadingText='Cargando'

@@ -84,10 +84,10 @@ function Register() {
 
         if (userPassword.length < 7 || userPasswordTwo.length < 7) {
             setIsLoading(false)
-            toast.error("Las contraseñas deben tener por lo menos 7 caracteres", {
-                theme: "colored",
-                position: "top-center"
-            })
+            // toast.error("Las contraseñas deben tener por lo menos 7 caracteres", {
+            //     theme: "colored",
+            //     position: "top-center"
+            // })
             return;
         }
 

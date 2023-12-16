@@ -12,15 +12,17 @@ export const createAnfitrion = async (options) => {
 }
 
 export const getAnfitrionByUserId = async (userId) => {
+
     try {
         console.log("Entro getAnfitrionByUserId: ", userId)
-        const q = query(collection(db, 'anfitriones'), where('user.id', '==', userId), limit(1));
-        const querySnapshot = await getDocs(q);
-
-        if (!querySnapshot.empty) {
-            return { id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data() };
-        } else {
-            return null;
+        if(userId != null && userId != undefined && userId){
+            const q = query(collection(db, 'anfitriones'), where('user.id', '==', userId), limit(1));
+            const querySnapshot = await getDocs(q);
+            if (!querySnapshot.empty) {
+                return { id: querySnapshot.docs[0].id, ...querySnapshot.docs[0].data() };
+            } else {
+                return null;
+            }
         }
     } catch (error) {
         console.error('Error al buscar el usuario:', error);
@@ -32,7 +34,7 @@ export const getAdvertsAnfitrionByUserId = async (userId) => {
 
     if (userId) {
         try {
-            const q = query(collection(db, 'anunciosPorAnfitrion'), where('userId', '==', userId), limit(1));
+            const q = query(collection(db, 'anunciosPorAnfitrion'), where('user.id', '==', userId), limit(1));
             const querySnapshot = await getDocs(q);
 
             if (!querySnapshot.empty) {
