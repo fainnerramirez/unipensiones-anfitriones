@@ -41,6 +41,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { createAnfitrion } from '../firebase/collections/querys/anfitriones';
 import { FaCamera } from "react-icons/fa6";
 import { toast } from "react-toastify";
+import SingInUser from './SingIn.component';
 
 function Register() {
 
@@ -193,7 +194,15 @@ function Register() {
                                     <AiFillPhone color='gray.300' />
                                 </InputLeftElement>
                                 <Input type='number' placeholder='Teléfono o Celular' variant='filled' onChange={(e) => setPhone(e.target.value)} mt={1}/>
-                                <Checkbox width={'100%'} size='lg' colorScheme='blue' ml={3} onChange={(e) => setIsWhatsapp(e.target.checked)}>
+                                <Checkbox 
+                                    name="hola"
+                                    width={'100%'} 
+                                    size='lg' 
+                                    colorScheme='blue' 
+                                    ml={3} 
+                                    value={false} 
+                                    onChange={(e) => setIsWhatsapp(e.target.checked)}
+                                >
                                     Tiene WhatsApp
                                 </Checkbox>
                             </InputGroup>
@@ -259,7 +268,7 @@ function Register() {
                     </AbsoluteCenter>
                 </Box>
                 <Box mt={5}>
-                    <Button colorScheme='blue' variant={'outline'} width={'full'}>Ingresar</Button>
+                    <SingInUser />                
                 </Box>
             </form>
         </>
