@@ -310,13 +310,13 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                     <Heading fontSize={30}>Convierte en un Superanfitrión</Heading>
                                 </ModalHeader>
                                 <ModalCloseButton color={'white'} />
-                                <ModalBody>
+                                <ModalBody width={'95%'}>
                                     <Card variant={'elevated'}>
                                         <CardHeader textAlign={'center'}>
                                             <Heading fontSize={'5xl'}>
                                                 <Stat>
                                                     <StatLabel fontSize={20}>Plan Superanfitrión</StatLabel>
-                                                    <StatNumber fontSize={40}>$49.000/semestral</StatNumber>
+                                                    <StatNumber fontSize={{base: 30, md: 40}}>$49.000/semestral</StatNumber>
                                                     <StatHelpText fontSize={18}>Un pago único por semestre</StatHelpText>
                                                 </Stat>
                                             </Heading>
