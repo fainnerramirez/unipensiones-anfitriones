@@ -88,7 +88,7 @@ const SingInUser = () => {
 
     const handleSubmitFormUser = (event) => {
         event.preventDefault();
-
+        setIsLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then(async (userCredential) => {
                 setIsLoading(false);
@@ -138,7 +138,7 @@ const SingInUser = () => {
                 variant={'outline'}
                 width={'full'}
                 onClick={onOpen}>
-                Ingresar
+                Iniciar Sesión
             </Button>
             <Modal isOpen={isOpen} size={'xl'} onClose={onClose}>
                 <ModalOverlay />
