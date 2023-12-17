@@ -55,9 +55,9 @@ const Sidebar = () => {
                             />
                         </Box>
                         {
-                            isSuperanfitrion && <Box display={'flex'} justifyContent={'center'} mt={5}>
-                                <Badge ml='1' bg={'#e6b219'} borderRadius={5} textAlign={'center'} display={'flex'} alignItems={'center'} p={1}>
-                                    SuperAnfitrión
+                            <Box display={'flex'} justifyContent={'center'} mt={5}>
+                                <Badge ml='1' bg={isSuperanfitrion ? '#e6b219' : 'gray.300'} borderRadius={5} textAlign={'center'} display={'flex'} alignItems={'center'} p={1}>
+                                    {isSuperanfitrion ? 'Plan SuperAnfitrión' : 'Plan Gratis' }
                                     <MdWorkspacePremium ml={20} fontSize={20} />
                                 </Badge>
                             </Box>
@@ -70,9 +70,6 @@ const Sidebar = () => {
                                 <Button colorScheme="blue" width={'full'} onClick={() => navigate("profile", { replace: true })}>
                                     Mi Perfil
                                 </Button>
-                            </Box>
-                            <Box>
-                                <Button colorScheme="blue" width={'full'}>Mis Anuncios</Button>
                             </Box>
                         </Stack>
                     </DrawerBody>
