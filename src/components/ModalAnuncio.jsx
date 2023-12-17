@@ -310,13 +310,13 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                     <Heading fontSize={30}>Convierte en un Superanfitrión</Heading>
                                 </ModalHeader>
                                 <ModalCloseButton color={'white'} />
-                                <ModalBody width={'95%'}>
+                                <ModalBody width={{base: '100%', md: '95%'}}>
                                     <Card variant={'elevated'}>
                                         <CardHeader textAlign={'center'}>
                                             <Heading fontSize={'5xl'}>
                                                 <Stat>
                                                     <StatLabel fontSize={20}>Plan Superanfitrión</StatLabel>
-                                                    <StatNumber fontSize={{base: 30, md: 40}}>$49.000/semestral</StatNumber>
+                                                    <StatNumber fontSize={{base: 34, md: 40}}>$49.000/semestral</StatNumber>
                                                     <StatHelpText fontSize={18}>Un pago único por semestre</StatHelpText>
                                                 </Stat>
                                             </Heading>
@@ -352,7 +352,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                         </CardBody>
                                     </Card>
                                 </ModalBody>
-                                <ModalFooter display={'flex'} justifyContent={'flex-start'} height={310}>
+                                <ModalFooter display={'flex'} justifyContent={'flex-start'} height={290} mt={0} pt={0}>
                                     <HStack height={200} flexDir={{ base: 'column', md: 'row' }}>
                                         <Box>
                                             <Image src={Nequi} height={70} width={170}/>
