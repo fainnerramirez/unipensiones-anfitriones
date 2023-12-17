@@ -58,7 +58,7 @@ const Sidebar = () => {
                             <Box display={'flex'} justifyContent={'center'} mt={5}>
                                 <Badge ml='1' bg={isSuperanfitrion ? '#e6b219' : 'gray.300'} borderRadius={5} textAlign={'center'} display={'flex'} alignItems={'center'} p={1}>
                                     {isSuperanfitrion ? 'Plan SuperAnfitrión' : 'Plan Gratis' }
-                                    <MdWorkspacePremium ml={20} fontSize={20} />
+                                    { isSuperanfitrion && <MdWorkspacePremium ml={20} fontSize={20} />}
                                 </Badge>
                             </Box>
                         }
