@@ -27,7 +27,8 @@ const Layout = ({ children }) => {
   useEffect(() => {
     const getDocument = async () => {
       let documentanfitrion = await getAnfitrionByUserId(userAuth?.uid)
-      setSuperanfitrion(documentanfitrion?.superanfitrion);
+      console.log("Documento superanfitrion: ", documentanfitrion);
+      setSuperanfitrion(documentanfitrion?.user?.superanfitrion);
     }
     getDocument();
   }, [userAuth])

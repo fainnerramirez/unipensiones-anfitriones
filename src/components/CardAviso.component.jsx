@@ -23,6 +23,8 @@ import "../styles/glass.css"
 const CardAviso = ({ anuncio }) => {
     const { userAuth, isSuperanfitrion } = useContext(AuthContext);
 
+    console.log("isSuperanfitrion: ", isSuperanfitrion)
+
     const handleDeleteAnuncio = async () => {
         const url = new URL(anuncio?.urlPhoto);
         const decode = decodeURIComponent(url.pathname)
