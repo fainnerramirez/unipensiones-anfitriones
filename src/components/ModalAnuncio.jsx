@@ -130,9 +130,9 @@ const ModalAnuncio = ({ isvalidPublished }) => {
         <>
             <Button
                 colorScheme='blue'
-                rightIcon={<BsFillPlusSquareFill />}
+                rightIcon={<BsFillPlusSquareFill/>}
                 onClick={onOpen}>
-                Subir anuncio
+                <Text display={{base: 'none', md: 'block'}}>Subir anuncio</Text>
             </Button>
             {
                 isvalidPublished || isSuperanfitrion ?
