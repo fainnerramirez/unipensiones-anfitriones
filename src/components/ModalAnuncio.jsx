@@ -26,7 +26,19 @@ import {
     NumberIncrementStepper,
     NumberDecrementStepper,
     Divider,
-    Image
+    Image,
+    Card,
+    CardHeader,
+    CardBody,
+    List,
+    ListItem,
+    ListIcon,
+    Heading,
+    Stat,
+    StatLabel,
+    StatNumber,
+    StatHelpText,
+    useStepContext
 } from '@chakra-ui/react'
 import { useState, useRef, useContext, useEffect } from 'react';
 import { BsFillPlusSquareFill } from "react-icons/bs";
@@ -34,7 +46,7 @@ import { FiUpload } from "react-icons/fi"
 import { GrDirections } from "react-icons/gr";
 import { CiLocationOn } from "react-icons/ci";
 import { TbStars } from "react-icons/tb";
-import { MdArrowDropDown } from "react-icons/md";
+import { MdArrowDropDown, MdCheckCircle, MdSettings } from "react-icons/md";
 import { LuSubtitles } from "react-icons/lu";
 import { LoadFilePension } from '../firebase/references/images/pensions';
 import { AuthContext } from '../context/authContext';
@@ -49,6 +61,7 @@ import {
 } from '../firebase/collections/querys/anfitriones';
 import 'react-toastify/dist/ReactToastify.css';
 import Nequi from "../assets/nequi.png";
+import { FaCheck } from 'react-icons/fa';
 
 const ModalAnuncio = ({ isvalidPublished }) => {
 
@@ -67,7 +80,8 @@ const ModalAnuncio = ({ isvalidPublished }) => {
     const [ciudad, setCiudad] = useState("")
     const [direccion, setDireccion] = useState("")
     const [precio, setPrecio] = useState("")
-    //esto va en el archivo de aviso no aquí.
+    const [urlNequi, setUrlNequi] = useState("https://drive.google.com/file/d/1N6zX2sp-FPdoNA1xUaVoJScS53DqBtq8/view?usp=drive_link")
+    const [urlMercadoPago, setUrlMercadoPago] = useState("https://www.mercadopago.com.co/subscriptions/checkout?preapproval_plan_id=2c9380848c6efe38018c78e268e70389");
 
     const format = (val) => `$` + val
     const parse = (val) => val.replace(/^\$/, '')
@@ -130,9 +144,9 @@ const ModalAnuncio = ({ isvalidPublished }) => {
         <>
             <Button
                 colorScheme='blue'
-                rightIcon={<BsFillPlusSquareFill/>}
+                rightIcon={<BsFillPlusSquareFill />}
                 onClick={onOpen}>
-                <Text display={{base: 'none', md: 'block'}}>Subir anuncio</Text>
+                <Text display={{ base: 'none', md: 'block' }}>Subir anuncio</Text>
             </Button>
             {
                 isvalidPublished || isSuperanfitrion ?
@@ -290,37 +304,72 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                         <ModalOverlay />
                         <ModalContent>
                             <HStack display={'flex'} flexDir={'column'}>
-                                <ModalHeader textAlign={'center'}>Paga con Nequi</ModalHeader>
-                                <ModalCloseButton color={'blue.900'} />
+                                <ModalHeader textAlign={'center'} width={'100%'} bgGradient='linear(to-l, #87C4FF, #0174BE)' color={'white'}>
+                                    <Heading>Convierte en un Superanfitrión</Heading>
+                                </ModalHeader>
+                                <ModalCloseButton color={'white'} />
                                 <ModalBody>
-                                    <Box width={'100%'} height={'100%'} display={'flex'} justifyContent={'center'}>
-                                        <Image
-                                            src={Nequi}
-                                        />
-                                    </Box>
-                                    <Box mt={10} width={'100%'} display={'flex'} flexDir={'column'} justifyContent={'center'}>
-                                        <Button pointerEvents={'none'} leftIcon={<TbStars />} rightIcon={<TbStars />} bg={'yellow.500'} disabled fontSize={20} color={'white'}>
-                                            Hazte un &nbsp; <span style={{ fontWeight: 'bolder' }}> SUPERANFITRIÓN</span></Button>
-                                        <Text mt={5} fontSize={20} textAlign={'center'}>
-                                            Eleva tu oferta de pensiones universitarias con nuestra exclusiva promoción.
-                                            Por tan solo  <span style={{ fontWeight: 'bolder' }}>$49.900 pesos</span>, tendrás la libertad de destacar
-                                            todas tus pensiones en nuestra plataforma. Aumenta la visibilidad de tu alojamiento,
-                                            llega a más estudiantes y optimiza tu presencia en nuestra plataforma. Haz que tu oferta
-                                            se destaque y atraiga a los estudiantes que buscan el alojamiento perfecto.
-                                        </Text>
-                                    </Box>
+                                    <Card variant={'elevated'}>
+                                        <CardHeader textAlign={'center'}>
+                                            <Heading fontSize={'5xl'}>
+                                                <Stat>
+                                                    <StatLabel fontSize={20}>Plan Superanfitrión</StatLabel>
+                                                    <StatNumber fontSize={40}>$49.000/semestral</StatNumber>
+                                                    <StatHelpText fontSize={18}>Un pago único por semestre</StatHelpText>
+                                                </Stat>
+                                            </Heading>
+                                        </CardHeader>
+                                        <CardBody>
+                                            <List spacing={3} fontSize={20}>
+                                                <ListItem>
+                                                    <ListIcon as={FaCheck} color='blue.500' />
+                                                    Publicación ilimitada
+                                                </ListItem>
+                                                <ListItem>
+                                                    <ListIcon as={FaCheck} color='blue.500' />
+                                                    Destacado en Búsquedas
+                                                </ListItem>
+                                                <ListItem>
+                                                    <ListIcon as={FaCheck} color='blue.500' />
+                                                    Notificación a los estudiantes de tus anuncios
+                                                </ListItem>
+                                                <ListItem>
+                                                    <ListIcon as={FaCheck} color='blue.500' />
+                                                    Asesoramiento Personalizado
+                                                </ListItem>
+                                                {/* You can also use custom icons from react-icons */}
+                                                <ListItem>
+                                                    <ListIcon as={FaCheck} color='blue.500' />
+                                                    Integración de Redes Sociales
+                                                </ListItem>
+                                                <ListItem>
+                                                    <ListIcon as={FaCheck} color='blue.500' />
+                                                    Acceso a nuevas caracteristicas de la plataforma
+                                                </ListItem>
+                                            </List>
+                                        </CardBody>
+                                    </Card>
                                 </ModalBody>
                                 <ModalFooter display={'flex'} justifyContent={'flex-start'}>
-                                    <Button as='a'
-                                        href='https://drive.google.com/file/d/1N6zX2sp-FPdoNA1xUaVoJScS53DqBtq8/view?usp=drive_link'
-                                        width={'full'}
-                                        colorScheme={'purple'}
-                                        color={'white'}
-                                        variant={'solid'}
-                                        mt={3}
-                                        _hover={{ backgroundColor: 'purple.800', color: "white" }}
-                                        target='_blank'
-                                    >Paga con QR Nequi</Button>
+                                    <HStack>
+                                        <Button as='a'
+                                            href={urlNequi}
+                                            width={'full'}
+                                            colorScheme={'blue'}
+                                            color={'white'}
+                                            variant={'solid'}
+                                            mt={3}
+                                            target='_blank'
+                                        >Paga con QR Nequi</Button>
+                                        <Button as='a'
+                                            href={urlMercadoPago}
+                                            width={'full'}
+                                            colorScheme={'blue'}
+                                            variant={'outline'}
+                                            mt={3}
+                                            target='_blank'
+                                        >Paga con Mercado Pago</Button>
+                                    </HStack>
                                 </ModalFooter>
                             </HStack>
                         </ModalContent>
