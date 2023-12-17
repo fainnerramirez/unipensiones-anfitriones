@@ -38,7 +38,8 @@ import {
     StatLabel,
     StatNumber,
     StatHelpText,
-    useStepContext
+    useStepContext,
+    CardFooter
 } from '@chakra-ui/react'
 import { useState, useRef, useContext, useEffect } from 'react';
 import { BsFillPlusSquareFill } from "react-icons/bs";
@@ -61,6 +62,7 @@ import {
 } from '../firebase/collections/querys/anfitriones';
 import 'react-toastify/dist/ReactToastify.css';
 import Nequi from "../assets/nequi.png";
+import MercadoPago from "../assets/mercadopago.png"
 import { FaCheck } from 'react-icons/fa';
 
 const ModalAnuncio = ({ isvalidPublished }) => {
@@ -300,12 +302,12 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                         </ModalContent>
                     </Modal >
                     :
-                    <Modal isOpen={isOpen} size={'xl'} onClose={onClose} isCentered motionPreset='slideInBottom'>
+                    <Modal borderRadius={15} isOpen={isOpen} size={'xl'} onClose={onClose} isCentered motionPreset='slideInBottom' bgGradient='linear(to-l, #87C4FF, #0174BE)'>
                         <ModalOverlay />
-                        <ModalContent>
+                        <ModalContent bgGradient='linear(to-l, #87C4FF, #0174BE)' borderRadius={15}>
                             <HStack display={'flex'} flexDir={'column'}>
                                 <ModalHeader textAlign={'center'} width={'100%'} bgGradient='linear(to-l, #87C4FF, #0174BE)' color={'white'}>
-                                    <Heading>Convierte en un Superanfitrión</Heading>
+                                    <Heading fontSize={30}>Convierte en un Superanfitrión</Heading>
                                 </ModalHeader>
                                 <ModalCloseButton color={'white'} />
                                 <ModalBody>
@@ -351,24 +353,44 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                     </Card>
                                 </ModalBody>
                                 <ModalFooter display={'flex'} justifyContent={'flex-start'}>
-                                    <HStack>
-                                        <Button as='a'
-                                            href={urlNequi}
-                                            width={'full'}
-                                            colorScheme={'blue'}
-                                            color={'white'}
-                                            variant={'solid'}
-                                            mt={3}
-                                            target='_blank'
-                                        >Paga con QR Nequi</Button>
-                                        <Button as='a'
-                                            href={urlMercadoPago}
-                                            width={'full'}
-                                            colorScheme={'blue'}
-                                            variant={'outline'}
-                                            mt={3}
-                                            target='_blank'
-                                        >Paga con Mercado Pago</Button>
+                                    <HStack height={200}>
+                                        <Box>
+                                            <Card>
+                                                <CardBody margin={'auto'}>
+                                                    <Image src={Nequi} height={70} />
+                                                </CardBody>
+                                                <CardFooter>
+                                                    <Button as='a'
+                                                        href={urlNequi}
+                                                        width={'full'}
+                                                        colorScheme={'blue'}
+                                                        color={'white'}
+                                                        variant={'solid'}
+                                                        target='_blank'
+                                                    >
+                                                        Paga con QR Nequi
+                                                    </Button>
+                                                </CardFooter>
+                                            </Card>
+                                        </Box>
+                                        <Box>
+                                            <Card>
+                                                <CardBody margin={'auto'}>
+                                                    <Image src={MercadoPago} height={75} width={170} />
+                                                </CardBody>
+                                                <CardFooter>
+                                                    <Button as='a'
+                                                        href={urlMercadoPago}
+                                                        width={'full'}
+                                                        colorScheme={'blue'}
+                                                        variant={'solid'}
+                                                        target='_blank'
+                                                    >
+                                                        Paga con Mercado Pago
+                                                    </Button>
+                                                </CardFooter>
+                                            </Card>
+                                        </Box>
                                     </HStack>
                                 </ModalFooter>
                             </HStack>
