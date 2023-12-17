@@ -138,10 +138,6 @@ function Register() {
             sendEmailVerification(auth.currentUser)
                 .then(() => {
                     setShowConfetti(true);
-                    // toast.success("Revisa tu correo electrónico " + user?.email + " para activar tu cuenta en UP. !Ya casi estas dentro!", {
-                    //     theme: "colored",
-                    //     position: "top-center"
-                    // })
                     Swal.fire({
                         icon: 'success',
                         title: 'Activa tu cuenta unipensiones',

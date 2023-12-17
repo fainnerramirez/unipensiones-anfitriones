@@ -32,7 +32,7 @@ const AvisoPage = () => {
                         userAuth != null ? <Heading
                             as="h2"
                             size={'lg'}
-                            marginLeft={10}
+                            marginLeft={{base: 5, md: 10}}
                             display={'flex'}
                             textTransform={'capitalize'}>
                             Bienvenido de nuevo {userAuth && userAuth?.displayName}

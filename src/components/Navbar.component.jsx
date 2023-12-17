@@ -1,10 +1,4 @@
 import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  CloseIcon,
-  HamburgerIcon,
-} from '@chakra-ui/icons'
-import {
   Box,
   Button,
   HStack,
@@ -18,7 +12,6 @@ import { AuthContext } from '../context/authContext';
 const Navbar = () => {
 
   const { auth, userAuth } = useContext(AuthContext);
-  console.log()
 
   const handleSignOut = () => {
     auth.signOut();
