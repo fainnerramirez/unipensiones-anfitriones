@@ -18,6 +18,7 @@ import { deleteAdvertAnfitrion, getAllAdvertsAnfitrionByUserId } from '../fireba
 import { AuthContext } from '../context/authContext'
 import { ConvertPrice } from "../utils/PriceConvert";
 import { deleteFilePensionAnfitrion } from '../firebase/collections/querys/pensions';
+import "../styles/glass.css"
 
 const CardAviso = ({ anuncio }) => {
     const { userAuth, isSuperanfitrion } = useContext(AuthContext);
@@ -32,7 +33,7 @@ const CardAviso = ({ anuncio }) => {
     }
 
     return (
-        <Card maxW='sm'>
+        <Card maxW='sm' className='card-glass'>
             <CardBody>
                 {
                     isSuperanfitrion && <Badge bg={'#e6b219'} position="absolute" top="6" right="7">
@@ -86,14 +87,14 @@ const CardAviso = ({ anuncio }) => {
                         <SkeletonText mt='4' noOfLines={2} spacing='4' skeletonHeight='2' />
                 }
             </CardBody>
-            <Divider />
+            {/* <Divider />
             <CardFooter>
                 <ButtonGroup spacing='2'>
                     <Button variant='outline' colorScheme='red' onClick={handleDeleteAnuncio}>
                         Eliminar anuncio
                     </Button>
                 </ButtonGroup>
-            </CardFooter>
+            </CardFooter> */}
         </Card>
     )
 }
