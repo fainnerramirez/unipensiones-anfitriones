@@ -180,7 +180,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                                         </InputLeftElement>
                                                         <Input
                                                             type='text'
-                                                            placeholder='Agrega un titulo llamativo al anuncio. 
+                                                            placeholder='Agrega un titulo llamativo al anuncio.
                                                     Ej: Un ambiente acogedor para estudiantes: Tu mejor opción'
                                                             onChange={(e) => setTitle(e.target.value)} />
                                                     </InputGroup>
@@ -322,7 +322,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                             </Heading>
                                         </CardHeader>
                                         <CardBody>
-                                            <List spacing={3} fontSize={20}>
+                                            <List spacing={3} fontSize={{ base: 15, md: 20 }}>
                                                 <ListItem>
                                                     <ListIcon as={FaCheck} color='blue.500' />
                                                     Publicación ilimitada
@@ -352,49 +352,42 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                         </CardBody>
                                     </Card>
                                 </ModalBody>
-                                <ModalFooter display={'flex'} justifyContent={'flex-start'}>
-                                    <HStack height={200}>
+                                <ModalFooter display={'flex'} justifyContent={'flex-start'} height={310}>
+                                    <HStack height={200} flexDir={{ base: 'column', md: 'row' }}>
                                         <Box>
-                                            <Card>
-                                                <CardBody margin={'auto'}>
-                                                    <Image src={Nequi} height={70} />
-                                                </CardBody>
-                                                <CardFooter>
-                                                    <Button as='a'
-                                                        href={urlNequi}
-                                                        width={'full'}
-                                                        colorScheme={'blue'}
-                                                        color={'white'}
-                                                        variant={'solid'}
-                                                        target='_blank'
-                                                    >
-                                                        Paga con QR Nequi
-                                                    </Button>
-                                                </CardFooter>
-                                            </Card>
+                                            <Image src={Nequi} height={70} width={170}/>
+                                            <Box>
+                                                <Button as='a'
+                                                    bg={'white'}
+                                                    href={urlNequi}
+                                                    width={'full'}
+                                                    colorScheme={'blue'}
+                                                    variant={'outline'}
+                                                    target='_blank'
+                                                >
+                                                    Paga con QR Nequi
+                                                </Button>
+                                            </Box>
                                         </Box>
                                         <Box>
-                                            <Card>
-                                                <CardBody margin={'auto'}>
-                                                    <Image src={MercadoPago} height={75} width={170} />
-                                                </CardBody>
-                                                <CardFooter>
-                                                    <Button as='a'
-                                                        href={urlMercadoPago}
-                                                        width={'full'}
-                                                        colorScheme={'blue'}
-                                                        variant={'solid'}
-                                                        target='_blank'
-                                                    >
-                                                        Paga con Mercado Pago
-                                                    </Button>
-                                                </CardFooter>
-                                            </Card>
+                                            <Image src={MercadoPago} height={{ md: 75 }} width={170} />
+                                            <Box>
+                                                <Button as='a'
+                                                    bg={'white'}
+                                                    href={urlMercadoPago}
+                                                    width={'full'}
+                                                    colorScheme={'blue'}
+                                                    variant={'outline'}
+                                                    target='_blank'
+                                                >
+                                                    Paga con Mercado Pago
+                                                </Button>
+                                            </Box>
                                         </Box>
                                     </HStack>
                                 </ModalFooter>
                             </HStack>
-                        </ModalContent>
+                        </ModalContent >
                     </Modal >
             }
         </>
