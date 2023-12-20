@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route, Navigate } from "react-router-dom";
 import { PATHS } from "./utils/PathsRouter";
 import HeroHost from "./components/Hero.component";
 import ErrorPage from "./components/ErrorPage.component";
@@ -15,20 +15,46 @@ import 'moment/locale/es'
 import './styles/global.css';
 import Homepage from "./pages/Home.page";
 import { ToastContainer } from "react-toastify";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "./context/authContext";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 moment.locale('es');
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<Root />}>
-      <Route index element={<Homepage />} />
-      <Route path="resetpassword" element={<ResetPassword />} />
-      <Route path="user/:userId" element={<AvisoPage />} />
-      <Route path="user/:userId/profile" element={<ProfileUser />} />
-    </Route>
-  )
-);
-
 const App = () => {
+
+  const auth = getAuth();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (userCredentials) => {
+      if (userCredentials) {
+        setIsAuthenticated(true)
+      } else {
+        setIsAuthenticated(false)
+      }
+    });
+  }, [isAuthenticated])
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<Root />}>
+        <Route
+          index
+          element={isAuthenticated ? <AvisoPage /> : <Homepage />}
+        />
+        <Route path="resetpassword" element={<ResetPassword />} />
+        <Route
+          path="user/:userId"
+          element={isAuthenticated ? <AvisoPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="user/:userId/profile"
+          element={isAuthenticated ? <ProfileUser /> : <Navigate to="/" />}
+        />
+      </Route>
+    )
+  );
+
   return (
     <Layout>
       <RouterProvider router={router} />

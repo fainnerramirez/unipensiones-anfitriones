@@ -12,6 +12,7 @@ import { AuthContext } from '../context/authContext';
 const Navbar = () => {
 
   const { auth, userAuth } = useContext(AuthContext);
+  console.log("Auth: ", auth, userAuth)
 
   const handleSignOut = () => {
     auth.signOut();
@@ -25,7 +26,7 @@ const Navbar = () => {
         <Heading size={'lg'} display={{base: userAuth ? 'none': 'block', md: 'block'}}>Unipensiones</Heading>
       </HStack>
       <Box display={userAuth ? 'block' : 'none'}>
-        <Button colorScheme='blue' onClick={handleSignOut}>Cerrar Sesión</Button>
+        <Button colorScheme='blue' onClick={handleSignOut} display={userAuth ? 'block' : 'none'}>Cerrar Sesión</Button>
       </Box>
     </HStack>
   )
