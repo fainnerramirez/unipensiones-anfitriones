@@ -11,9 +11,8 @@ import {
   VisuallyHidden,
 } from '@chakra-ui/react'
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
-import { FcHome, FcAdvertising, FcPlus } from "react-icons/fc";
-import { MdOutlineSettings } from "react-icons/md";
-import { FaRegUser } from "react-icons/fa";
+import { RiHome2Line, RiNotification2Line, RiUser3Line, RiSettingsLine } from "react-icons/ri";
+import { BsFillPlusCircleFill } from "react-icons/bs";
 
 const Logo = (props) => {
   return (
@@ -57,35 +56,34 @@ const Footer = () => {
       position="fixed"
       bottom="0"
       width="100%"
-      backgroundColor="blue.100"
-      color="white"
-      zIndex="1"
-      display={{base: 'block', md: 'none'}}
+      backgroundColor="white"
+      zIndex="2"
+      display={{ base: 'block', md: 'none' }}
     >
       <HStack width={'full'} justifyContent={'center'} spacing={5}>
         <Box>
-          <Button>
-            <FcHome />
+          <Button bg="transparent" border={'none'}>
+            <RiHome2Line />
           </Button>
         </Box>
         <Box>
-          <Button>
-            <FcAdvertising />
+          <Button bg="transparent" border={'none'}>
+            <RiNotification2Line />
           </Button>
         </Box>
         <Box>
-          <Button>
-            <FcPlus fontSize={40} />
+          <Button bg="transparent" borderRadius={'full'}>
+            <BsFillPlusCircleFill fontSize={40} />
           </Button>
         </Box>
         <Box>
-          <Button>
-            <MdOutlineSettings />
+          <Button bg="transparent" border={'none'}>
+            <RiSettingsLine />
           </Button>
         </Box>
         <Box>
-          <Button>
-            <FaRegUser />
+          <Button bg="transparent" border={'none'}>
+            <RiUser3Line />
           </Button>
         </Box>
       </HStack>
