@@ -18,6 +18,7 @@ import { ToastContainer } from "react-toastify";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./context/authContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { PlansPage } from "./pages/Plans.page";
 moment.locale('es');
 
 const App = () => {
@@ -43,6 +44,7 @@ const App = () => {
           element={isAuthenticated ? <AvisoPage /> : <Homepage />}
         />
         <Route path="resetpassword" element={<ResetPassword />} />
+        <Route path="plans" element={<PlansPage />} />
         <Route
           path="user/:userId"
           element={isAuthenticated ? <AvisoPage /> : <Navigate to="/" />}

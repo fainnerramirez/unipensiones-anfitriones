@@ -1,14 +1,19 @@
 import React from 'react'
 import {
   Box,
+  Button,
   chakra,
   Container,
+  HStack,
   Stack,
   Text,
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react'
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { FcHome, FcAdvertising, FcPlus } from "react-icons/fc";
+import { MdOutlineSettings } from "react-icons/md";
+import { FaRegUser } from "react-icons/fa";
 
 const Logo = (props) => {
   return (
@@ -46,30 +51,44 @@ const SocialButton = ({
 const Footer = () => {
   return (
     <Box
-      bg={useColorModeValue('blue.500', 'blue.900')}
-      color={useColorModeValue('white', 'white')}>
-      <Container
-        as={Stack}
-        maxW={'6xl'}
-        py={4}
-        direction={{ base: 'column', md: 'row' }}
-        spacing={4}
-        justify={{ base: 'center', md: 'space-between' }}
-        textAlign={{ base: 'center', md: 'center' }}>
-        <Logo />
-        <Text>© 2023 Unipensiones. Todos los derechos reservados</Text>
-        <Stack direction={'row'} spacing={6} alignItems={'center'} justifyContent={'center'}>
-          <SocialButton label={'Twitter'} href={'#'}>
-            <FaTwitter />
-          </SocialButton>
-          <SocialButton label={'YouTube'} href={'#'}>
-            <FaYoutube />
-          </SocialButton>
-          <SocialButton label={'Instagram'} href={'#'}>
-            <FaInstagram />
-          </SocialButton>
-        </Stack>
-      </Container>
+      as="footer"
+      p="4"
+      textAlign="center"
+      position="fixed"
+      bottom="0"
+      width="100%"
+      backgroundColor="blue.100"
+      color="white"
+      zIndex="1"
+      display={{base: 'block', md: 'none'}}
+    >
+      <HStack width={'full'} justifyContent={'center'} spacing={5}>
+        <Box>
+          <Button>
+            <FcHome />
+          </Button>
+        </Box>
+        <Box>
+          <Button>
+            <FcAdvertising />
+          </Button>
+        </Box>
+        <Box>
+          <Button>
+            <FcPlus fontSize={40} />
+          </Button>
+        </Box>
+        <Box>
+          <Button>
+            <MdOutlineSettings />
+          </Button>
+        </Box>
+        <Box>
+          <Button>
+            <FaRegUser />
+          </Button>
+        </Box>
+      </HStack>
     </Box>
   )
 }

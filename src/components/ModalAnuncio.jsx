@@ -64,6 +64,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Nequi from "../assets/nequi.png";
 import MercadoPago from "../assets/mercadopago.png"
 import { FaCheck } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const ModalAnuncio = ({ isvalidPublished }) => {
 
@@ -325,7 +326,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                             <List spacing={3} fontSize={{ base: 15, md: 20 }}>
                                                 <ListItem>
                                                     <ListIcon as={FaCheck} color='blue.500' />
-                                                    Publicación ilimitada
+                                                    Publicación de pensiones ilimitada
                                                 </ListItem>
                                                 <ListItem>
                                                     <ListIcon as={FaCheck} color='blue.500' />
@@ -352,39 +353,10 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                         </CardBody>
                                     </Card>
                                 </ModalBody>
-                                <ModalFooter display={'flex'} justifyContent={'flex-start'} height={290} mt={0} pt={0}>
-                                    <HStack height={200} flexDir={{ base: 'column', md: 'row' }}>
-                                        <Box>
-                                            <Image src={Nequi} height={70} width={170}/>
-                                            <Box>
-                                                <Button as='a'
-                                                    bg={'white'}
-                                                    href={urlNequi}
-                                                    width={'full'}
-                                                    colorScheme={'blue'}
-                                                    variant={'outline'}
-                                                    target='_blank'
-                                                >
-                                                    Paga con QR Nequi
-                                                </Button>
-                                            </Box>
-                                        </Box>
-                                        <Box>
-                                            <Image src={MercadoPago} height={{ md: 75 }} width={170} />
-                                            <Box>
-                                                <Button as='a'
-                                                    bg={'white'}
-                                                    href={urlMercadoPago}
-                                                    width={'full'}
-                                                    colorScheme={'blue'}
-                                                    variant={'outline'}
-                                                    target='_blank'
-                                                >
-                                                    Paga con Mercado Pago
-                                                </Button>
-                                            </Box>
-                                        </Box>
-                                    </HStack>
+                                <ModalFooter display={'flex'} justifyContent={'center'} alignItems={'center'} bg={'white'} width={'full'}>
+                                    <Link to={'plans'}>
+                                    <Button colorScheme='blue' size={'lg'}>Ver Planes</Button>
+                                    </Link>
                                 </ModalFooter>
                             </HStack>
                         </ModalContent >

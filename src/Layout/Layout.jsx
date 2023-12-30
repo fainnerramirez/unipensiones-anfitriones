@@ -40,8 +40,8 @@ const Layout = ({ children }) => {
         <Box height={'86vh'}>
           {children}
         </Box>
+        <Footer />
       </Box>
-      {/* <Footer /> */}
     </AuthContext.Provider>
   )
 }
