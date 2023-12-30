@@ -63,12 +63,12 @@ const Footer = () => {
       <HStack width={'full'} justifyContent={'center'} spacing={5}>
         <Box>
           <Button bg="transparent" border={'none'}>
-            <RiHome2Line />
+            <RiHome2Line fontSize={20}/>
           </Button>
         </Box>
         <Box>
           <Button bg="transparent" border={'none'}>
-            <RiNotification2Line />
+            <RiNotification2Line fontSize={20}/>
           </Button>
         </Box>
         <Box>
@@ -78,12 +78,12 @@ const Footer = () => {
         </Box>
         <Box>
           <Button bg="transparent" border={'none'}>
-            <RiSettingsLine />
+            <RiSettingsLine fontSize={20} />
           </Button>
         </Box>
         <Box>
           <Button bg="transparent" border={'none'}>
-            <RiUser3Line />
+            <RiUser3Line fontSize={20}/>
           </Button>
         </Box>
       </HStack>
