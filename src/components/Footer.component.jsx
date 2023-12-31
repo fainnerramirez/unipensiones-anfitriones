@@ -9,6 +9,7 @@ import {
   Text,
   useColorModeValue,
   VisuallyHidden,
+  Link
 } from '@chakra-ui/react'
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { RiHome2Line, RiNotification2Line, RiUser3Line, RiSettingsLine } from "react-icons/ri";
@@ -63,27 +64,35 @@ const Footer = () => {
     >
       <HStack width={'full'} justifyContent={'center'} spacing={5}>
         <Box>
-          <Button bg="transparent" border={'none'}>
-            <RiHome2Line fontSize={20} />
-          </Button>
+          <Link href="/">
+            <Button bg="transparent" border={'none'}>
+              <RiHome2Line fontSize={20} />
+            </Button>
+          </Link>
         </Box>
         <Box>
-          <Button bg="transparent" border={'none'}>
-            <RiNotification2Line fontSize={20} />
-          </Button>
+          <Link href="/notifications">
+            <Button bg="transparent" border={'none'}>
+              <RiNotification2Line fontSize={20} />
+            </Button>
+          </Link>
         </Box>
         <Box>
           <AddPension />
         </Box>
         <Box>
-          <Button bg="transparent" border={'none'}>
-            <RiSettingsLine fontSize={20} />
-          </Button>
+          <Link href='/settings'>
+            <Button bg="transparent" border={'none'}>
+              <RiSettingsLine fontSize={20} />
+            </Button>
+          </Link>
         </Box>
         <Box>
-          <Button bg="transparent" border={'none'}>
-            <RiUser3Line fontSize={20} />
-          </Button>
+          <Link href="/profile">
+            <Button bg="transparent" border={'none'}>
+              <RiUser3Line fontSize={20} />
+            </Button>
+          </Link>
         </Box>
       </HStack>
     </Box>

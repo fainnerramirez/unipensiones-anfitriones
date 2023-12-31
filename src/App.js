@@ -19,6 +19,8 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./context/authContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { PlansPage } from "./pages/Plans.page";
+import SettingsPage from "./pages/Settings.page";
+import NotificationsPage from "./pages/Notifications.page";
 moment.locale('es');
 
 const App = () => {
@@ -43,6 +45,8 @@ const App = () => {
           index
           element={isAuthenticated ? <AvisoPage /> : <Homepage />}
         />
+        <Route path="settings" element={<SettingsPage />} />
+        <Route path="notifications" element={<NotificationsPage />} />
         <Route path="resetpassword" element={<ResetPassword />} />
         <Route path="plans" element={<PlansPage />} />
         <Route
