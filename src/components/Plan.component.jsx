@@ -47,7 +47,7 @@ const Plan = () => {
                     </CardBody>
                 </Card>
             </Box>
-            <Box>
+            <Box width={'100%'}>
                 <Card align='center' pt={5} bg={'blue'} bgGradient='linear(to-l,#0D41E1, #07C8F9)'>
                     <Box>
                         <Image src={Premio} height={100} width={100} />
