@@ -13,6 +13,7 @@ import {
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { RiHome2Line, RiNotification2Line, RiUser3Line, RiSettingsLine } from "react-icons/ri";
 import { BsFillPlusCircleFill } from "react-icons/bs";
+import { AddPension } from './AddPension.component';
 
 const Logo = (props) => {
   return (
@@ -63,18 +64,16 @@ const Footer = () => {
       <HStack width={'full'} justifyContent={'center'} spacing={5}>
         <Box>
           <Button bg="transparent" border={'none'}>
-            <RiHome2Line fontSize={20}/>
+            <RiHome2Line fontSize={20} />
           </Button>
         </Box>
         <Box>
           <Button bg="transparent" border={'none'}>
-            <RiNotification2Line fontSize={20}/>
+            <RiNotification2Line fontSize={20} />
           </Button>
         </Box>
         <Box>
-          <Button bg="transparent" borderRadius={'full'}>
-            <BsFillPlusCircleFill fontSize={40} />
-          </Button>
+          <AddPension />
         </Box>
         <Box>
           <Button bg="transparent" border={'none'}>
@@ -83,7 +82,7 @@ const Footer = () => {
         </Box>
         <Box>
           <Button bg="transparent" border={'none'}>
-            <RiUser3Line fontSize={20}/>
+            <RiUser3Line fontSize={20} />
           </Button>
         </Box>
       </HStack>
