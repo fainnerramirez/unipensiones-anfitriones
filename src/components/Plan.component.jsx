@@ -13,9 +13,9 @@ const Plan = () => {
     console.log("isSuperanfitrion", isSuperanfitrion)
 
     return (
-        <HStack spacing={10} flexDir={'row'} justifyContent={'flex-start'} alignItems={'center'}>
-            <Box>
-                <Card align='center' className="card-glass" bg={'transparent'} height={600} width={500} pt={5}>
+        <HStack spacing={10} flexDir={{base: 'column', md: 'row'}} justifyContent={'flex-start'} alignItems={'center'}>
+            <Box width={'100%'}>
+                <Card align='center' className="card-glass" bg={'transparent'} height={{base: 'auto', md: '600'}} pt={5}>
                     <Box>
                         <Image src={RedesSociales} height={100} width={100} />
                     </Box>
@@ -48,7 +48,7 @@ const Plan = () => {
                 </Card>
             </Box>
             <Box>
-                <Card align='center' width={500} pt={5} bg={'blue'} bgGradient='linear(to-l, #2323ff, #00d4ff)'>
+                <Card align='center' pt={5} bg={'blue'} bgGradient='linear(to-l,#0D41E1, #07C8F9)'>
                     <Box>
                         <Image src={Premio} height={100} width={100} />
                     </Box>
@@ -58,7 +58,7 @@ const Plan = () => {
                             <Stat textAlign={'center'}>
                                 <StatNumber fontSize={40}>$29.900 pesos</StatNumber>
                                 <StatHelpText fontSize={20}>
-                                    semestral
+                                    Semestral
                                 </StatHelpText>
                             </Stat>
                         </Box>
