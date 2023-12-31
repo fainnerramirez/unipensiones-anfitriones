@@ -13,9 +13,9 @@ const Plan = () => {
     console.log("isSuperanfitrion", isSuperanfitrion)
 
     return (
-        <HStack spacing={10} flexDir={{base: 'column', md: 'row'}} justifyContent={'flex-start'} alignItems={'center'}>
+        <HStack spacing={10} flexDir={{base: 'column', md: 'row'}} justifyContent={'center'} alignItems={'flex-start'}>
             <Box width={'100%'}>
-                <Card align='center' className="card-glass" bg={'transparent'} height={{base: 'auto', md: '600'}} pt={5}>
+                <Card align='center' className="card-glass" bg={'white'} height={{base: 'auto', md: '600'}} pt={5}>
                     <Box>
                         <Image src={RedesSociales} height={100} width={100} />
                     </Box>
