@@ -25,7 +25,7 @@ const AvisoPage = () => {
 
     return (
         <Box width={'90%'} margin={'auto'}>
-            <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} marginTop={20} marginBottom={5}>
+            <Box display={{base: 'none', md: 'flex'}} justifyContent={'space-between'} alignItems={'center'} marginTop={20} marginBottom={5}>
                 <Box display={'flex'} alignItems={'center'} width={'full'}>
                     <Sidebar />
                     {
