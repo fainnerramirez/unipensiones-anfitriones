@@ -25,7 +25,7 @@ const AvisoPage = () => {
 
     return (
         <Box width={'90%'} margin={'auto'}>
-            <Box display={{base: 'none', md: 'flex'}} justifyContent={'space-between'} alignItems={'center'} marginTop={20} marginBottom={5}>
+            <Box display={{base: 'none', md: 'flex'}} justifyContent={'space-between'} alignItems={'center'} marginBottom={5}>
                 <Box display={'flex'} alignItems={'center'} width={'full'}>
                     <Sidebar />
                     {
@@ -50,7 +50,7 @@ const AvisoPage = () => {
                     <ModalAnuncio isvalidPublished={documentAdvert != null ? false : true} />
                 </Box>
             </Box>
-            <Divider color={'blue.900'} height={2} bg={'blue.400'} borderRadius={35} />
+            <Divider color={'blue.900'} height={2} bg={'blue.400'} borderRadius={35} display={{base: 'none' , md: 'block'}}/>
             {documentAdvert != null ?
                 <Heading as="h4" marginTop={10} size={'lg'} textAlign={'center'}>Tus anuncios</Heading>
                 :
