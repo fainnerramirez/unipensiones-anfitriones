@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   Box,
   Button,
@@ -15,6 +15,7 @@ import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { RiHome2Line, RiNotification2Line, RiUser3Line, RiSettingsLine } from "react-icons/ri";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import { AddPension } from './AddPension.component';
+import { AuthContext } from '../context/authContext';
 
 const Logo = (props) => {
   return (
@@ -27,6 +28,7 @@ const SocialButton = ({
   label,
   href,
 }) => {
+
   return (
     <chakra.button
       bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
@@ -50,6 +52,14 @@ const SocialButton = ({
 }
 
 const Footer = () => {
+  const [state, setState] = useState(false);
+  const { userAuth } = useContext(AuthContext);
+
+  useEffect(() => {
+    console.log("state: ", state)
+    setState(userAuth);
+  }, [userAuth])
+
   return (
     <Box
       as="footer"
@@ -60,7 +70,7 @@ const Footer = () => {
       width="100%"
       backgroundColor="white"
       zIndex="2"
-      display={{ base: 'block', md: 'none' }}
+      display={{ base: state != null ? 'block' : 'none', md: 'none' }}
     >
       <HStack width={'full'} justifyContent={'center'} spacing={5}>
         <Box>
