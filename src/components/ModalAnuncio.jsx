@@ -65,6 +65,7 @@ import Nequi from "../assets/nequi.png";
 import MercadoPago from "../assets/mercadopago.png"
 import { FaCheck } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import Planes from "../assets/planes.png"
 
 const ModalAnuncio = ({ isvalidPublished }) => {
 
@@ -305,57 +306,28 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                     :
                     <Modal borderRadius={15} isOpen={isOpen} size={'xl'} onClose={onClose} isCentered motionPreset='slideInBottom' bgGradient='linear(to-l, #87C4FF, #0174BE)'>
                         <ModalOverlay />
-                        <ModalContent bgGradient='linear(to-l, #87C4FF, #0174BE)' borderRadius={15}>
+                        <ModalContent borderRadius={15}>
                             <HStack display={'flex'} flexDir={'column'}>
-                                <ModalHeader textAlign={'center'} width={'100%'} bgGradient='linear(to-l, #87C4FF, #0174BE)' color={'white'}>
-                                    <Heading fontSize={30}>Convierte en un Superanfitrión</Heading>
+                                <ModalHeader textAlign={'center'} width={'100%'}>
+                                    <Heading fontSize={30}>Conviertete en un Superanfitrión</Heading>
                                 </ModalHeader>
                                 <ModalCloseButton color={'white'} />
-                                <ModalBody width={{base: '100%', md: '95%'}}>
-                                    <Card variant={'elevated'}>
-                                        <CardHeader textAlign={'center'}>
-                                            <Heading fontSize={'5xl'}>
-                                                <Stat>
-                                                    <StatLabel fontSize={20}>Plan Superanfitrión</StatLabel>
-                                                    <StatNumber fontSize={{base: 34, md: 40}}>$49.000/semestral</StatNumber>
-                                                    <StatHelpText fontSize={18}>Un pago único por semestre</StatHelpText>
-                                                </Stat>
-                                            </Heading>
-                                        </CardHeader>
+                                <ModalBody width={{ base: '100%', md: '95%' }}>
+                                    <Card variant={'elevated'} borderRadius={15}>
                                         <CardBody>
-                                            <List spacing={3} fontSize={{ base: 15, md: 20 }}>
-                                                <ListItem>
-                                                    <ListIcon as={FaCheck} color='blue.500' />
-                                                    Publicación de pensiones ilimitada
-                                                </ListItem>
-                                                <ListItem>
-                                                    <ListIcon as={FaCheck} color='blue.500' />
-                                                    Destacado en Búsquedas
-                                                </ListItem>
-                                                <ListItem>
-                                                    <ListIcon as={FaCheck} color='blue.500' />
-                                                    Notificación a los estudiantes de tus anuncios
-                                                </ListItem>
-                                                <ListItem>
-                                                    <ListIcon as={FaCheck} color='blue.500' />
-                                                    Asesoramiento Personalizado
-                                                </ListItem>
-                                                {/* You can also use custom icons from react-icons */}
-                                                <ListItem>
-                                                    <ListIcon as={FaCheck} color='blue.500' />
-                                                    Integración de Redes Sociales
-                                                </ListItem>
-                                                <ListItem>
-                                                    <ListIcon as={FaCheck} color='blue.500' />
-                                                    Acceso a nuevas caracteristicas de la plataforma
-                                                </ListItem>
-                                            </List>
+                                            <Image src={Planes} />
                                         </CardBody>
+                                        <CardFooter textAlign={'center'}>
+                                            <Heading fontSize={'xl'}>
+                                                Publica de manera ilimitada tus pensiones,
+                                                obtén acceso a nuevas caracteristas integradas, búsqueda destacada y mucho más.
+                                            </Heading>
+                                        </CardFooter>
                                     </Card>
                                 </ModalBody>
                                 <ModalFooter display={'flex'} justifyContent={'center'} alignItems={'center'} bg={'white'} width={'full'}>
                                     <Link to={'plans'}>
-                                    <Button colorScheme='blue' size={'lg'}>Ver Planes</Button>
+                                        <Button colorScheme='blue' size={'lg'}>Ver Planes</Button>
                                     </Link>
                                 </ModalFooter>
                             </HStack>
