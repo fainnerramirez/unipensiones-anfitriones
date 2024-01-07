@@ -28,13 +28,15 @@ const Homepage = () => {
                 <Box mt={10}>
                     <LogoRow />
                 </Box>
-                <Image src={CardAnfitrion} borderRadius={10} mt={10} width={{ base: '90%', md: 800 }} />
+                <Box>
+                    <Image src={CardAnfitrion} borderRadius={10} mt={10} width={{ base: '90%', md: 800 }} />
+                </Box>
                 <Box color={'white'} textAlign={'center'} mt={{ base: 2, md: 10 }}>
                     <Heading fontWeight={'bold'} p={1}>
                         Personaliza Tu Anuncio
                     </Heading>
-                    <Text width={{ base: '90%', md: '50%' }} margin={'auto'}>
-                        Agrega una foto llamativa de tu pensión, un titulo divertido, el precio, entre otros;
+                    <Text width={{ base: '90%', md: '50%' }} margin={'auto'} fontSize={20}>
+                        Agrega una foto llamativa de tu pensión, un titulo divertido, el precio, entre otros datos;
                         y nosotros nos encargamos de que cientos de estudiantes puedan encontrarte!
                     </Text>
                 </Box>
