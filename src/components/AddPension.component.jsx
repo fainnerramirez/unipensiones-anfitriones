@@ -145,7 +145,7 @@ const AddPension = () => {
 
     const steps = [
         { title: 'Paso 1', description: 'Datos básicos' },
-        { title: 'Paso 2', description: 'Políticas' },
+        { title: 'Paso 2', description: 'Normas' },
         { title: 'Final', description: 'Previsualización' },
     ];
 
