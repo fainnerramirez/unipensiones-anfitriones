@@ -311,7 +311,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                 <ModalHeader textAlign={'center'} width={'100%'}>
                                     <Heading fontSize={30}>Conviértete en un Superanfitrión</Heading>
                                 </ModalHeader>
-                                <ModalCloseButton color={'gray'} mt={2}/>
+                                <ModalCloseButton color={'gray'} mt={2} />
                                 <ModalBody width={{ base: '100%', md: '95%' }}>
                                     <Card variant={'elevated'} borderRadius={15}>
                                         <CardBody>
@@ -320,7 +320,9 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                         <CardFooter textAlign={'center'}>
                                             <Heading fontSize={'xl'}>
                                                 Publica de manera ilimitada tus pensiones,
-                                                destaca tu publicación, notificación a los estudiantes y mucho más.
+                                                destaca entre todas las publicaciones, 
+                                                los estudiantes recibirán una notificación directa de tus pensiones 
+                                                y mucho más.
                                             </Heading>
                                         </CardFooter>
                                     </Card>
