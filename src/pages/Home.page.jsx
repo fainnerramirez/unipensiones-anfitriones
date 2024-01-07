@@ -43,6 +43,7 @@ const Homepage = () => {
             </Box>
             <Box height={'100vh'} width={{ base: '100%', md: '50%' }}>
                 <Box pt={10} pb={10} pr={{ base: 5, md: 20 }} pl={{ base: 5, md: 20 }}>
+                    <Heading p={10} fontWeight={'bold'} fontSize={40} textAlign={'center'}>Haz parte de la comunidad Unipensiones</Heading>
                     <Register />
                 </Box>
             </Box>
