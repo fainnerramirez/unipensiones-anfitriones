@@ -349,6 +349,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
         { value: '10', label: 'Terraza' },
         { value: '11', label: 'Lavado de ropa' }
     ]
+ 
     const steps = [
         { title: 'First', description: 'Contact Info' },
         { title: 'Second', description: 'Date & Time' },
@@ -373,7 +374,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
     const handlePreviousStep = () => {
         goToPrevious();
     }
-
+ 
     const handleFileAnuncio = () => {
         fileInputUpdaloadRef.current.click();
     };
@@ -416,7 +417,6 @@ const ModalAnuncio = ({ isvalidPublished }) => {
     }
 
     const currentStepComponent = stepComponents[activeStep];
-
 
     return (
         <>

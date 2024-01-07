@@ -43,7 +43,9 @@ const CardAvisoPreview = ({ image, ciudad, pais, precio, services }) => {
                             <HStack spacing={5}>
                                 <Image boxSize='50px'
                                     objectFit='cover'
-                                    alt={userAuth?.displayName} src={userAuth?.photoURL} borderRadius={'50%'} />
+                                    alt={userAuth?.displayName} 
+                                    src={userAuth?.photoURL ?? `https://ui-avatars.com/api/?name=${userAuth?.displayName}&background=0D8ABC&color=fff`} 
+                                    borderRadius={'50%'} />
                                 <Box>
                                     <Text>{userAuth?.displayName}</Text>
                                     <Text fontWeight={'bold'} textTransform={'capitalize'}>{ciudad}, {pais}</Text>
