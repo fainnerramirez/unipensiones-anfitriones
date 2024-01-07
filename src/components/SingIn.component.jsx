@@ -161,12 +161,18 @@ const SingInUser = () => {
                                             <InputLeftElement pointerEvents='none'>
                                                 <BiUser color='gray.300' />
                                             </InputLeftElement>
-                                            <Input type='email' variant={'filled'} placeholder='Correo electrónico' size='lg' onChange={(e) => setEmail(e.target.value)} />
+                                            <Input 
+                                                type='email' 
+                                                variant={'filled'} 
+                                                placeholder='Correo electrónico' 
+                                                size='lg' 
+                                                autoComplete='true'
+                                                onChange={(e) => setEmail(e.target.value)} />
                                         </InputGroup>
                                     </FormControl>
 
                                     <FormControl width={'90%'} isRequired>
-                                    <FormLabel>Contraseña</FormLabel>
+                                        <FormLabel>Contraseña</FormLabel>
                                         <InputGroup >
                                             <InputLeftElement pointerEvents='none'>
                                                 <MdPassword color='gray.300' />

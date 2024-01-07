@@ -170,7 +170,7 @@ function Register() {
                         <Image
                             borderRadius='full'
                             objectFit={'cover'}
-                            boxSize={{base: '80px', md: '100px'}}
+                            boxSize={{ base: '80px', md: '100px' }}
                             src={selectedImage}
                             alt='Foto del usuario'
                         />
@@ -199,6 +199,7 @@ function Register() {
                                     <BiUser color='gray.300' />
                                 </InputLeftElement>
                                 <Input type='text' placeholder='Apellidos' variant='filled' onChange={(e) => setUserlastname(e.target.value)} />
+
                             </InputGroup>
                         </FormControl>
                     </HStack>
@@ -221,6 +222,7 @@ function Register() {
                                     Tiene WhatsApp
                                 </Checkbox>
                             </InputGroup>
+                            <FormHelperText>Con este número te contactarán los estudiantes interesados en tus pensiones</FormHelperText>
                         </FormControl>
                     </HStack>
                     <FormControl>
