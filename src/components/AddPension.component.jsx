@@ -159,6 +159,10 @@ const AddPension = () => {
         goToNext();
     };
 
+    const handlePrevious = () => {
+        goToPrevious();
+    };
+
     const currentStepComponent = stepComponents[activeStep];
 
     return (
@@ -194,6 +198,7 @@ const AddPension = () => {
                         </Stepper>
                         {currentStepComponent}
                         <ButtonGroup display={'flex'} justifyContent={'end'} pb={3}>
+                            {activeStep != 0 && <Button colorScheme="blue" variant={'outline'} onClick={handlePrevious}>Atrás</Button>}
                             {activeStep < steps.length - 1 ? (
                                 <Button colorScheme="blue" onClick={handleNext}>
                                     Siguiente
