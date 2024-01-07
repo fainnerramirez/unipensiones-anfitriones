@@ -12,7 +12,6 @@ const Homepage = () => {
             justifyContent={'center'}
             alignItems={'center'}
             flexDir={{ base: 'column', md: 'row' }}
-            className='card-glass'
             pt={10}
             pb={10}
             height={'100vh'}>
