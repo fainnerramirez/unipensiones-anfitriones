@@ -24,15 +24,123 @@ import {
     Textarea,
     useDisclosure,
     useSteps,
-    HStack
+    HStack,
+    Image
 } from "@chakra-ui/react";
 import { BsFillPlusCircleFill } from "react-icons/bs";
+import imagen from "../assets/cardAfitrion.png"
+
+
+const DatosBasicos = () => {
+    return (
+        <Stack spacing='10px' mt={10}>
+            <Box>
+                <Input
+                    placeholder='Escribe un título llamativo'
+                />
+            </Box>
+            <Box>
+                <Textarea id='desc' placeholder="Escribe una descripción que resalte tu pensión" />
+            </Box>
+            <HStack spacing={5}>
+                <Box>
+                    <Select id='owner' defaultValue='Seleccione e tipo de espacio'>
+                        <option value='segun'>Segun Adebayo</option>
+                        <option value='kola'>Kola Tioluwani</option>
+                    </Select>
+                </Box>
+                <Box>
+                    <Select id='owner' defaultValue='seleccione el tipo de alojamiento'>
+                        <option value='segun'>Segun Adebayo</option>
+                        <option value='kola'>Kola Tioluwani</option>
+                    </Select>
+                </Box>
+            </HStack>
+            <HStack>
+                <Box>
+                    <Select id='owner' defaultValue='seleccione el tipo de cupo'>
+                        <option value='segun'>Segun Adebayo</option>
+                        <option value='kola'>Kola Tioluwani</option>
+                    </Select>
+                </Box>
+                <Box>
+                    <Input
+                        placeholder='Barrio de la pensión'
+                    />
+                </Box>
+            </HStack>
+            <Stack>
+                <Box>
+                    <Input
+                        placeholder='Dirección de la pensión'
+                    />
+                </Box>
+                <Box>
+                    <Input
+                        type="number"
+                        placeholder='Digite el precio'
+                    />
+                </Box>
+            </Stack>
+            <Box>
+                <Select id='owner' defaultValue='seleccione los servicios'>
+                    <option value='segun'>Segun Adebayo</option>
+                    <option value='kola'>Kola Tioluwani</option>
+                </Select>
+            </Box>
+        </Stack>
+    );
+}
+
+const Politicas = () => {
+    return (
+        <Stack spacing='10px' mt={10}>
+            <Box>
+                <Input
+                    placeholder='Escribe una politicas'
+                />
+            </Box>
+            <Box>
+                <Textarea id='desc' placeholder="Escribe una regla" />
+            </Box>
+            <HStack spacing={5}>
+                <Box>
+                    <Select id='owner' defaultValue='Seleccione e tipo de espacio'>
+                        <option value='segun'>Segun Adebayo</option>
+                        <option value='kola'>Kola Tioluwani</option>
+                    </Select>
+                </Box>
+                <Box>
+                    <Select id='owner' defaultValue='seleccione el tipo de alojamiento'>
+                        <option value='segun'>Segun Adebayo</option>
+                        <option value='kola'>Kola Tioluwani</option>
+                    </Select>
+                </Box>
+            </HStack>
+            <Box>
+                <Select id='owner' defaultValue='seleccione los servicios'>
+                    <option value='segun'>Segun Adebayo</option>
+                    <option value='kola'>Kola Tioluwani</option>
+                </Select>
+            </Box>
+        </Stack>
+    );
+}
+
+const Previsualizacion = () => {
+    return (
+        <Stack spacing='10px' mt={10}>
+            <Image src={imagen} size={400} />
+        </Stack>
+    );
+}
+
 
 const AddPension = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { goToNext, goToPrevious, activeStep } = useSteps({
         index: 0,
-        count: 3, // Número total de pasos
+        count: 3,
     });
 
     const steps = [
@@ -41,10 +149,17 @@ const AddPension = () => {
         { title: 'Final', description: 'Previsualización' },
     ];
 
+    const stepComponents = [
+        <DatosBasicos />,
+        <Politicas />,
+        <Previsualizacion />,
+    ];
+
     const handleNext = () => {
-        // Aquí puedes agregar lógica adicional antes de pasar al siguiente paso si es necesario
         goToNext();
     };
+
+    const currentStepComponent = stepComponents[activeStep];
 
     return (
         <>
@@ -77,62 +192,7 @@ const AddPension = () => {
                                 </Step>
                             ))}
                         </Stepper>
-                        <Stack spacing='10px' mt={10}>
-                            <Box>
-                                <Input
-                                    placeholder='Escribe un título llamativo'
-                                />
-                            </Box>
-                            <Box>
-                                <Textarea id='desc' placeholder="Escribe una descripción que resalte tu pensión" />
-                            </Box>
-                            <HStack spacing={5}>
-                                <Box>
-                                    <Select id='owner' defaultValue='Seleccione e tipo de espacio'>
-                                        <option value='segun'>Segun Adebayo</option>
-                                        <option value='kola'>Kola Tioluwani</option>
-                                    </Select>
-                                </Box>
-                                <Box>
-                                    <Select id='owner' defaultValue='seleccione el tipo de alojamiento'>
-                                        <option value='segun'>Segun Adebayo</option>
-                                        <option value='kola'>Kola Tioluwani</option>
-                                    </Select>
-                                </Box>
-                            </HStack>
-                            <HStack>
-                                <Box>
-                                    <Select id='owner' defaultValue='seleccione el tipo de cupo'>
-                                        <option value='segun'>Segun Adebayo</option>
-                                        <option value='kola'>Kola Tioluwani</option>
-                                    </Select>
-                                </Box>
-                                <Box>
-                                    <Input
-                                        placeholder='Barrio de la pensión'
-                                    />
-                                </Box>
-                            </HStack>
-                            <Stack>
-                                <Box>
-                                    <Input
-                                        placeholder='Dirección de la pensión'
-                                    />
-                                </Box>
-                                <Box>
-                                    <Input
-                                        type="number"
-                                        placeholder='Digite el precio'
-                                    />
-                                </Box>
-                            </Stack>
-                            <Box>
-                                <Select id='owner' defaultValue='seleccione los servicios'>
-                                    <option value='segun'>Segun Adebayo</option>
-                                    <option value='kola'>Kola Tioluwani</option>
-                                </Select>
-                            </Box>
-                        </Stack>
+                        {currentStepComponent}
                         <ButtonGroup display={'flex'} justifyContent={'end'} pb={3}>
                             {activeStep < steps.length - 1 ? (
                                 <Button colorScheme="blue" onClick={handleNext}>
