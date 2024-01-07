@@ -309,7 +309,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                         <ModalContent borderRadius={15}>
                             <HStack display={'flex'} flexDir={'column'}>
                                 <ModalHeader textAlign={'center'} width={'100%'}>
-                                    <Heading fontSize={30}>Conviertete en un Superanfitrión</Heading>
+                                    <Heading fontSize={30}>Conviértete en un Superanfitrión</Heading>
                                 </ModalHeader>
                                 <ModalCloseButton color={'white'} />
                                 <ModalBody width={{ base: '100%', md: '95%' }}>
