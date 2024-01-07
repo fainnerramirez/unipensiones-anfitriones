@@ -278,7 +278,7 @@ function Register() {
                 </Box>
                 <Box position='relative' padding='6'>
                     <Divider />
-                    <AbsoluteCenter bg='white' px='4'>
+                    <AbsoluteCenter bg='transparent' px='4'>
                         ¿Ya tienes cuenta?
                     </AbsoluteCenter>
                 </Box>
