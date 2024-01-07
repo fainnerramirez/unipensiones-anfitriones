@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Box, Button, ButtonGroup, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, FormLabel, HStack, Input, InputGroup, InputLeftAddon, InputRightAddon, Radio, RadioGroup, Select, Stack, Step, StepDescription, StepIndicator, StepSeparator, StepStatus, StepTitle, Stepper, Textarea, useDisclosure, useSteps } from "@chakra-ui/react"
+import { Box, Button, ButtonGroup, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, FormLabel, HStack, Input, InputGroup, InputLeftAddon, InputRightAddon, Radio, RadioGroup, Select, Stack, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, Textarea, useDisclosure, useSteps } from "@chakra-ui/react"
 import { BsFillPlusCircleFill } from "react-icons/bs"
 
 const AddPension = () => {
@@ -24,19 +24,25 @@ const AddPension = () => {
             <Drawer placement={'bottom'} onClose={onClose} isOpen={isOpen}>
                 <DrawerOverlay />
                 <DrawerContent>
+                    <DrawerCloseButton />
                     <DrawerHeader borderBottomWidth='1px'>Publica tu pensión</DrawerHeader>
                     <DrawerBody>
-                        <Stepper size={{ base: 'sm', md: 'md', lg: 'lg' }} colorScheme='blue' index={activeStep}>
+                        <Stepper size={{base: 'sm'}} index={activeStep}>
                             {steps.map((step, index) => (
                                 <Step key={index}>
                                     <StepIndicator>
-                                        <StepStatus complete={`✅`} incomplete={`😅`} active={`📍`} />
+                                        <StepStatus
+                                            complete={<StepIcon />}
+                                            incomplete={<StepNumber />}
+                                            active={<StepNumber />}
+                                        />
                                     </StepIndicator>
 
                                     <Box flexShrink='0'>
                                         <StepTitle>{step.title}</StepTitle>
                                         <StepDescription>{step.description}</StepDescription>
                                     </Box>
+
                                     <StepSeparator />
                                 </Step>
                             ))}
