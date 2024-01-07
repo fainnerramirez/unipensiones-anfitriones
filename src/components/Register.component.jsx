@@ -32,7 +32,7 @@ import { AiFillPhone } from "react-icons/ai";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai"
 import { TbEdit } from "react-icons/tb"
 import { HiOutlineMail } from "react-icons/hi";
-import UserNotFound from "../assets/userNotFound.png"
+import UserNotFound from "../assets/icon-photo.png"
 import { LoadFileProfileUser } from "../firebase/references/users/profiles";
 import { auth } from "../firebase/authentication/auth";
 import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
