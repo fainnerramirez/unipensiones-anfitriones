@@ -17,7 +17,7 @@ const Homepage = () => {
             height={'100vh'}>
             <Box
                 bgGradient='linear(to-l, #87C4FF, #0174BE)'
-                height={'100vh'}
+                height={'auto'}
                 width={{ base: '100%', md: '50%' }}
                 display={'flex'}
                 alignItems={'center'}
