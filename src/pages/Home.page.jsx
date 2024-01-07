@@ -32,7 +32,7 @@ const Homepage = () => {
                     <Heading fontWeight={'bold'} p={1}>
                         Personaliza Tu Anuncio
                     </Heading>
-                    <Text width={{ base: '90%', md: '50%' }} margin={'auto'} fontSize={20}>
+                    <Text width={{ base: '90%', md: '50%' }} margin={'auto'} fontSize={20} pb={5}>
                         Agrega una foto llamativa de tu pensión, un titulo divertido, el precio, entre otros datos;
                         y nosotros nos encargamos de que cientos de estudiantes puedan encontrarte!
                     </Text>

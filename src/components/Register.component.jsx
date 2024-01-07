@@ -170,7 +170,7 @@ function Register() {
                         <Image
                             borderRadius='full'
                             objectFit={'cover'}
-                            boxSize='100px'
+                            boxSize={{base: '80px', md: '100px'}}
                             src={selectedImage}
                             alt='Foto del usuario'
                         />
