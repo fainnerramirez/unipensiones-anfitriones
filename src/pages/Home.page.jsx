@@ -12,7 +12,7 @@ const Homepage = () => {
             justifyContent={'center'}
             alignItems={'center'}
             flexDir={{ base: 'column', md: 'row' }}
-            height={{base: 'auto', md: '100vh'}}>
+            height={{ base: 'auto', md: '100vh' }}>
             <Box
                 bgGradient='linear(to-l, #87C4FF, #0174BE)'
                 height={'100%'}
@@ -40,7 +40,14 @@ const Homepage = () => {
             </Box>
             <Box height={'100%'} width={{ base: '100%', md: '50%' }}>
                 <Box pr={{ base: 5, md: 20 }} pl={{ base: 5, md: 20 }}>
-                    <Heading width={'100%'} p={{base: 5, md: 10}} fontWeight={'bold'} fontSize={{base: 30, xl: 40}} textAlign={'center'}>Haz parte de la comunidad Unipensiones</Heading>
+                    <Heading
+                        width={'100%'}
+                        p={{ base: 5, md: 10 }}
+                        fontWeight={'bold'}
+                        fontSize={{ base: 30, xl: 40 }}
+                        textAlign={'center'}>
+                        Cientos de estudiantes listos para encontrar tu pensión universitaria
+                    </Heading>
                     <Register />
                 </Box>
             </Box>

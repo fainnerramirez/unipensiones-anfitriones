@@ -38,6 +38,7 @@ import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { getAnfitrionByUserId } from '../firebase/collections/querys/anfitriones';
 import { AuthContext } from '../context/authContext';
+import LogoUP from "../assets/logoUP.png"
 
 const SingInUser = () => {
 
@@ -103,7 +104,7 @@ const SingInUser = () => {
                 }
 
                 const user = userCredential.user;
-                
+
                 try {
                     const documentAnfitrion = await getAnfitrionByUserId(user.uid);
 
@@ -144,14 +145,18 @@ const SingInUser = () => {
                 <ModalOverlay />
                 <ModalContent>
                     <form onSubmit={handleSubmitFormUser}>
-                        <ModalHeader pt={5} pb={5} bgGradient='linear(to-l, #87C4FF, #0174BE)' color={'whiteAlpha.900'}>
-                            <Heading textAlign={'center'}>Ingresa a tu cuenta</Heading>
+                        <ModalHeader pt={5} pb={5}>
+                            <Box display={'flex'} justifyContent={'center'}>
+                                <Image src={LogoUP} height={50} width={50} borderRadius={5} />
+                            </Box>
+                            <Heading textAlign={'center'}>Bienvenido a Unipensiones</Heading>
                         </ModalHeader>
-                        <ModalCloseButton color={'whiteAlpha.900'} />
+                        <ModalCloseButton />
                         <ModalBody>
                             <Stack spacing={4} mt="5">
                                 <VStack spacing={'20px'} mt={'10px'}>
                                     <FormControl width={'90%'} isRequired>
+                                        <FormLabel>Correo electrónico</FormLabel>
                                         <InputGroup>
                                             <InputLeftElement pointerEvents='none'>
                                                 <BiUser color='gray.300' />
@@ -161,6 +166,7 @@ const SingInUser = () => {
                                     </FormControl>
 
                                     <FormControl width={'90%'} isRequired>
+                                    <FormLabel>Contraseña</FormLabel>
                                         <InputGroup >
                                             <InputLeftElement pointerEvents='none'>
                                                 <MdPassword color='gray.300' />
@@ -174,7 +180,7 @@ const SingInUser = () => {
                                         </InputGroup>
                                     </FormControl>
                                     <Box color={'blue.600'} fontSize={18}>
-                                        <a href="/resetpassword">Restablecer mi contraseña</a>
+                                        <a href="/resetpassword">¿Olvidaste tu contraseña?</a>
                                     </Box>
                                 </VStack>
                             </Stack>
@@ -187,18 +193,11 @@ const SingInUser = () => {
                                 loadingText='Cargando'
                                 mt={3}
                                 type='submit'
-                            >Ingresar</Button>
-                            {/* <Divider mt="5" />
-                            <Box>
-                                <Box mt="5">
-                                    <Text textAlign={'center'}>ó inicia sesión con</Text>
-                                </Box>
-                                <Box mt="5" display={'flex'} justifyContent={'center'}>
-                                    <Button rightIcon={<FcGoogle />} colorScheme='blue' variant={'outline'} onClick={handleClickGooglePopup}>
-                                        Google
-                                    </Button>
-                                </Box>
-                            </Box> */}
+                            >Iniciar Sesión</Button>
+                            <Text fontSize={12} width={{ base: '90%', md: '50%' }} textAlign={'center'}>
+                                Si continúas, aceptas los <Text fontWeight={'bold'}>Términos del servicio;</Text>
+                                y confirmas que has leído nuestra <Text fontWeight={'bold'}>Política de privacidad</Text>
+                            </Text>
                         </ModalFooter>
                     </form>
                 </ModalContent>
