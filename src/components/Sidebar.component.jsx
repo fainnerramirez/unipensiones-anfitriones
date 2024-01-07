@@ -50,22 +50,22 @@ const Sidebar = () => {
                                 borderRadius={'full'}
                                 boxSize='100px'
                                 objectFit='cover'
-                                src={userAuth?.photoURL}
+                                src={userAuth?.photoURL ?? `https://ui-avatars.com/api/?name=${userAuth?.displayName}&background=0D8ABC&color=fff`}
                                 alt={userAuth?.username}
                             />
                         </Box>
                         {
                             <Box display={'flex'} justifyContent={'center'} mt={5}>
-                                <Badge 
-                                    ml='1' 
-                                    bg={isSuperanfitrion ? '#e6b219' : 'gray.300'} 
-                                    borderRadius={5} 
-                                    textAlign={'center'} 
-                                    display={'flex'} 
-                                    alignItems={'center'} 
+                                <Badge
+                                    ml='1'
+                                    bg={isSuperanfitrion ? '#e6b219' : 'gray.300'}
+                                    borderRadius={5}
+                                    textAlign={'center'}
+                                    display={'flex'}
+                                    alignItems={'center'}
                                     p={1}>
-                                    {isSuperanfitrion ? 'Plan SuperAnfitrión' : 'Plan Anfitrión' }
-                                    { isSuperanfitrion && <MdWorkspacePremium ml={20} fontSize={20} />}
+                                    {isSuperanfitrion ? 'Plan SuperAnfitrión' : 'Plan Anfitrión'}
+                                    {isSuperanfitrion && <MdWorkspacePremium ml={20} fontSize={20} />}
                                 </Badge>
                             </Box>
                         }
