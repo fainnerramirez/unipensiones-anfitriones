@@ -135,7 +135,6 @@ const Previsualizacion = () => {
     );
 }
 
-
 const AddPension = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { goToNext, goToPrevious, activeStep } = useSteps({
@@ -144,9 +143,9 @@ const AddPension = () => {
     });
 
     const steps = [
-        { title: 'Paso 1', description: 'Datos básicos' },
-        { title: 'Paso 2', description: 'Normas' },
-        { title: 'Final', description: 'Previsualización' },
+        { title: 'Datos', description: 'Básicos' },
+        { title: 'Normas', description: 'Convivencia' },
+        { title: 'Vista', description: 'Previa' },
     ];
 
     const stepComponents = [
@@ -197,7 +196,7 @@ const AddPension = () => {
                             ))}
                         </Stepper>
                         {currentStepComponent}
-                        <ButtonGroup display={'flex'} justifyContent={'end'} pb={3}>
+                        <ButtonGroup display={'flex'} justifyContent={'end'} pb={3} pt={3}>
                             {activeStep != 0 && <Button colorScheme="blue" variant={'outline'} onClick={handlePrevious}>Atrás</Button>}
                             {activeStep < steps.length - 1 ? (
                                 <Button colorScheme="blue" onClick={handleNext}>
