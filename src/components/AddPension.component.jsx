@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Box, Button, ButtonGroup, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, FormLabel, Input, InputGroup, InputLeftAddon, InputRightAddon, Radio, RadioGroup, Select, Stack, Step, StepDescription, StepIndicator, StepSeparator, StepStatus, StepTitle, Stepper, Textarea, useDisclosure, useSteps } from "@chakra-ui/react"
+import { Box, Button, ButtonGroup, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, FormLabel, HStack, Input, InputGroup, InputLeftAddon, InputRightAddon, Radio, RadioGroup, Select, Stack, Step, StepDescription, StepIndicator, StepSeparator, StepStatus, StepTitle, Stepper, Textarea, useDisclosure, useSteps } from "@chakra-ui/react"
 import { BsFillPlusCircleFill } from "react-icons/bs"
 
 const AddPension = () => {
@@ -41,7 +41,7 @@ const AddPension = () => {
                                 </Step>
                             ))}
                         </Stepper>
-                        <Stack spacing='24px'>
+                        <Stack spacing='10px' mt={10}>
                             <Box>
                                 <Input
                                     placeholder='Escribe un título llamativo'
@@ -50,40 +50,46 @@ const AddPension = () => {
                             <Box>
                                 <Textarea id='desc' placeholder="Escribe una descripción que resalte tu pensión" />
                             </Box>
-                            <Box>
-                                <Select id='owner' defaultValue='Seleccione e tipo de espacio'>
-                                    <option value='segun'>Segun Adebayo</option>
-                                    <option value='kola'>Kola Tioluwani</option>
-                                </Select>
-                            </Box>
-                            <Box>
-                                <Select id='owner' defaultValue='seleccione el tipo de alojamiento'>
-                                    <option value='segun'>Segun Adebayo</option>
-                                    <option value='kola'>Kola Tioluwani</option>
-                                </Select>
-                            </Box>
-                            <Box>
-                                <Select id='owner' defaultValue='seleccione el tipo de cupo'>
-                                    <option value='segun'>Segun Adebayo</option>
-                                    <option value='kola'>Kola Tioluwani</option>
-                                </Select>
-                            </Box>
-                            <Box>
-                                <Input
-                                    placeholder='Barrio'
-                                />
-                            </Box>
-                            <Box>
-                                <Input
-                                    placeholder='Dirección de la pensión'
-                                />
-                            </Box>
-                            <Box>
-                                <Input
-                                    type="number"
-                                    placeholder='Digite el precio'
-                                />
-                            </Box>
+                            <HStack spacing={5}>
+                                <Box>
+                                    <Select id='owner' defaultValue='Seleccione e tipo de espacio'>
+                                        <option value='segun'>Segun Adebayo</option>
+                                        <option value='kola'>Kola Tioluwani</option>
+                                    </Select>
+                                </Box>
+                                <Box>
+                                    <Select id='owner' defaultValue='seleccione el tipo de alojamiento'>
+                                        <option value='segun'>Segun Adebayo</option>
+                                        <option value='kola'>Kola Tioluwani</option>
+                                    </Select>
+                                </Box>
+                            </HStack>
+                            <HStack>
+                                <Box>
+                                    <Select id='owner' defaultValue='seleccione el tipo de cupo'>
+                                        <option value='segun'>Segun Adebayo</option>
+                                        <option value='kola'>Kola Tioluwani</option>
+                                    </Select>
+                                </Box>
+                                <Box>
+                                    <Input
+                                        placeholder='Barrio de la pensión'
+                                    />
+                                </Box>
+                            </HStack>
+                            <Stack>
+                                <Box>
+                                    <Input
+                                        placeholder='Dirección de la pensión'
+                                    />
+                                </Box>
+                                <Box>
+                                    <Input
+                                        type="number"
+                                        placeholder='Digite el precio'
+                                    />
+                                </Box>
+                            </Stack>
                             <Box>
                                 <Select id='owner' defaultValue='seleccione los servicios'>
                                     <option value='segun'>Segun Adebayo</option>
