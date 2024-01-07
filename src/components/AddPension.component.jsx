@@ -1,20 +1,50 @@
-import React, { useState } from "react"
-import { Box, Button, ButtonGroup, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, FormLabel, HStack, Input, InputGroup, InputLeftAddon, InputRightAddon, Radio, RadioGroup, Select, Stack, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, Textarea, useDisclosure, useSteps } from "@chakra-ui/react"
-import { BsFillPlusCircleFill } from "react-icons/bs"
+import React, { useState } from "react";
+import {
+    Box,
+    Button,
+    ButtonGroup,
+    Drawer,
+    DrawerBody,
+    DrawerCloseButton,
+    DrawerContent,
+    DrawerHeader,
+    DrawerOverlay,
+    Input,
+    Select,
+    Stack,
+    Step,
+    StepDescription,
+    StepIcon,
+    StepIndicator,
+    StepNumber,
+    StepSeparator,
+    StepStatus,
+    StepTitle,
+    Stepper,
+    Textarea,
+    useDisclosure,
+    useSteps,
+    HStack
+} from "@chakra-ui/react";
+import { BsFillPlusCircleFill } from "react-icons/bs";
 
 const AddPension = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const [placement, setPlacement] = useState('right')
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { goToNext, goToPrevious, activeStep } = useSteps({
+        index: 0,
+        count: 3, // Número total de pasos
+    });
+
     const steps = [
         { title: 'Paso 1', description: 'Datos básicos' },
         { title: 'Paso 2', description: 'Políticas' },
         { title: 'Final', description: 'Previsualización' },
-    ]
+    ];
 
-    const { activeStep } = useSteps({
-        index: 1,
-        count: steps.length,
-    })
+    const handleNext = () => {
+        // Aquí puedes agregar lógica adicional antes de pasar al siguiente paso si es necesario
+        goToNext();
+    };
 
     return (
         <>
@@ -27,7 +57,7 @@ const AddPension = () => {
                     <DrawerCloseButton />
                     <DrawerHeader borderBottomWidth='1px'>Publica tu pensión</DrawerHeader>
                     <DrawerBody>
-                        <Stepper size={{base: 'sm'}} index={activeStep}>
+                        <Stepper size={{ base: 'sm' }} index={activeStep}>
                             {steps.map((step, index) => (
                                 <Step key={index}>
                                     <StepIndicator>
@@ -102,15 +132,22 @@ const AddPension = () => {
                                     <option value='kola'>Kola Tioluwani</option>
                                 </Select>
                             </Box>
-                            <ButtonGroup display={'flex'} justifyContent={'end'} pb={3}>
-                                <Button colorScheme="blue">Siguiente</Button>
-                            </ButtonGroup>
                         </Stack>
+                        <ButtonGroup display={'flex'} justifyContent={'end'} pb={3}>
+                            {activeStep < steps.length - 1 ? (
+                                <Button colorScheme="blue" onClick={handleNext}>
+                                    Siguiente
+                                </Button>
+                            )
+                                :
+                                <Button colorScheme="green">Publicar</Button>
+                            }
+                        </ButtonGroup>
                     </DrawerBody>
                 </DrawerContent>
             </Drawer>
         </>
-    )
-}
+    );
+};
 
-export { AddPension }
+export { AddPension };
