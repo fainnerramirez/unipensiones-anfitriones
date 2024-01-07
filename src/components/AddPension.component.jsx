@@ -34,7 +34,7 @@ import {
     Checkbox
 } from "@chakra-ui/react";
 import { BsFillPlusCircleFill } from "react-icons/bs";
-import imagen from "../assets/cardAfitrion.png"
+import imagen from "../assets/preview.png"
 
 
 const DatosBasicos = () => {
@@ -216,7 +216,7 @@ const Politicas = () => {
 const Previsualizacion = () => {
     return (
         <Stack spacing='10px' mt={10}>
-            <Image src={imagen} size={400} />
+            <Image src={imagen} height={350}/>
         </Stack>
     );
 }
