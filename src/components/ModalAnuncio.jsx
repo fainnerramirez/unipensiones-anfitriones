@@ -52,6 +52,12 @@ import {
     useSteps,
     VStack,
     ButtonGroup,
+    Accordion,
+    AccordionItem,
+    AccordionButton,
+    AccordionPanel,
+    Checkbox,
+    AccordionIcon,
 
 } from '@chakra-ui/react'
 import { useState, useRef, useContext, useEffect } from 'react';
@@ -268,10 +274,187 @@ const DatosBasicos = (
 }
 
 const Politicas = () => {
+
+    const [checkedItems, setCheckedItems] = useState([true, true, true, true, true])
+
+    console.log(checkedItems)
+
+    const allChecked = checkedItems.every(Boolean)
+    const isIndeterminate = checkedItems.some(Boolean) && !allChecked
+
+    console.log("all: ", allChecked)
+    console.log("isIndeterminate: ", isIndeterminate)
+
+    const handleCheckboxChange = (index) => {
+        const newCheckedItems = [...checkedItems];
+        newCheckedItems[index] = !newCheckedItems[index];
+        setCheckedItems(newCheckedItems);
+    };
+
     return (
-        <h1>Politicas 123</h1>
-    )
+        <Stack spacing='10px' mt={10}>
+            <Accordion allowToggle>
+                <AccordionItem>
+                    <h2>
+                        <AccordionButton>
+                            <Box as="span" flex='1' textAlign='left'>
+                                Normas de convivencia
+                            </Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                        <Checkbox
+                            isChecked={allChecked}
+                            isIndeterminate={isIndeterminate}
+                            onChange={(e) => setCheckedItems([e.target.checked, e.target.checked])}
+                        >
+                            Normas de convivencia
+                        </Checkbox>
+                        <Stack pl={6} mt={1} spacing={1}>
+                            <Checkbox
+                                isChecked={checkedItems[0]}
+                                onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1]])}
+                            >
+                                Tratar a los demás residentes con cortesía y consideración en todo momento.
+                            </Checkbox>
+                            <Checkbox
+                                isChecked={checkedItems[1]}
+                                onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
+                            >
+                                Establecer horarios en los que se debe mantener un ambiente tranquilo, especialmente durante las horas de estudio y descanso.
+                            </Checkbox>
+                            <Checkbox
+                                isChecked={checkedItems[2]}
+                                onChange={(e) => setCheckedItems([checkedItems[2], e.target.checked])}
+                            >
+                                Respetar y cuidar las áreas comunes, como la cocina, el baño y las zonas de estar. Limpiar y guardar los utensilios y equipos después de su uso.
+                            </Checkbox>
+                            <Checkbox
+                                isChecked={checkedItems[3]}
+                                onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
+                            >
+                                Respetar la privacidad de los demás, evitando entrar en las habitaciones de los compañeros sin su permiso.
+                            </Checkbox>
+                            <Checkbox
+                                isChecked={checkedItems[4]}
+                                onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
+                            >
+                                Notificar a la administración o compañeros de habitación sobre la llegada de visitantes y respetar las normas establecidas para las visitas
+                            </Checkbox>
+                        </Stack>
+                    </AccordionPanel>
+                </AccordionItem>
+
+                <AccordionItem>
+                    <h2>
+                        <AccordionButton>
+                            <Box as="span" flex='1' textAlign='left'>
+                                Normas de seguridad
+                            </Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                        <Checkbox
+                            isChecked={allChecked}
+                            isIndeterminate={isIndeterminate}
+                            onChange={(e) => setCheckedItems([e.target.checked, e.target.checked])}
+                        >
+                            Todas las normas
+                        </Checkbox>
+                        <Stack pl={6} mt={1} spacing={1}>
+                            <Checkbox
+                                isChecked={checkedItems[0]}
+                                onChange={() => handleCheckboxChange(0)}
+                            >
+                                Limpiar después de usar los espacios comunes, incluyendo la cocina, áreas de estar y baños.
+                            </Checkbox>
+                            <Checkbox
+                                isChecked={checkedItems[1]}
+                                onChange={() => handleCheckboxChange(1)}
+                            >
+                                Guardar los objetos y utensilios en su lugar correspondiente.
+                            </Checkbox>
+                            <Checkbox
+                                isChecked={checkedItems[2]}
+                                onChange={() => handleCheckboxChange(2)}
+                            >
+                                Compartir los espacios comunes de manera equitativa y respetar el derecho de los demás a utilizarlos.
+                            </Checkbox>
+                            <Checkbox
+                                isChecked={checkedItems[3]}
+                                onChange={() => handleCheckboxChange(3)}
+                            >
+                                Respetar la privacidad de los demás al utilizar espacios comunes y no interferir con actividades privadas.
+                            </Checkbox>
+                            <Checkbox
+                                isChecked={checkedItems[4]}
+                                onChange={() => handleCheckboxChange(4)}
+                            >
+                                Reportar cualquier problema o daño a la administración de la pensión.
+                            </Checkbox>
+                        </Stack>
+
+                    </AccordionPanel>
+                </AccordionItem>
+                <AccordionItem>
+                    <h2>
+                        <AccordionButton>
+                            <Box as="span" flex='1' textAlign='left'>
+                                Normas de uso de espacios comunes
+                            </Box>
+                            <AccordionIcon />
+                        </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                        <Checkbox
+                            isChecked={allChecked}
+                            isIndeterminate={isIndeterminate}
+                            onChange={(e) => setCheckedItems([e.target.checked, e.target.checked])}
+                        >
+                            Todas las normas
+                        </Checkbox>
+                        <Stack pl={6} mt={1} spacing={1}>
+                            <Checkbox
+                                isChecked={checkedItems[0]}
+                                onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1]])}
+                            >
+                                Limpiar después de usar los espacios comunes, incluyendo la cocina, áreas de estar y baños.
+                            </Checkbox>
+                            <Checkbox
+                                isChecked={checkedItems[1]}
+                                onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
+                            >
+                                Guardar los objetos y utensilios en su lugar correspondiente.
+                            </Checkbox>
+                            <Checkbox
+                                isChecked={checkedItems[1]}
+                                onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
+                            >
+                                Compartir los espacios comunes de manera equitativa y respetar el derecho de los demás a utilizarlos.
+                            </Checkbox>
+                            <Checkbox
+                                isChecked={checkedItems[1]}
+                                onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
+                            >
+                                Respetar la privacidad de los demás al utilizar espacios comunes y no interferir con actividades privadas.
+                            </Checkbox>
+
+                            <Checkbox
+                                isChecked={checkedItems[1]}
+                                onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
+                            >
+                                Reportar cualquier problema o daño a la administración de la pensión.
+                            </Checkbox>
+                        </Stack>
+                    </AccordionPanel>
+                </AccordionItem>
+            </Accordion>
+        </Stack>
+    );
 }
+
 
 const Previsualizacion = () => {
     return (
