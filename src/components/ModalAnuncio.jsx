@@ -80,7 +80,12 @@ import { FaCheck } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Planes from "../assets/planes.png"
 
-const DatosBasicos = () => {
+const DatosBasicos = (
+    { 
+        handleFilePensionChange
+    }
+    ) => {
+
     const { isOpen, onOpen, onClose } = useDisclosure()
     const fileInputUpdaloadRef = useRef(null);
     const [image, setImage] = useState("");
@@ -100,17 +105,9 @@ const DatosBasicos = () => {
     const [urlMercadoPago, setUrlMercadoPago] = useState("https://www.mercadopago.com.co/subscriptions/checkout?preapproval_plan_id=2c9380848c6efe38018c78e268e70389");
 
     const handleFileAnuncio = () => {
+        console.log("Entro en ref ", fileInputUpdaloadRef)
         fileInputUpdaloadRef.current.click();
     };
-
-    const handleFilePensionChange = async (e) => {
-        setImage("")
-        const file = e.target.files[0];
-        if (file) {
-            const url = await LoadFilePension(file, userAuth?.uid);
-            setImage(url);
-        }
-    }
 
     const handleSubmitPublicForm = async (event) => {
         event.preventDefault();
@@ -155,24 +152,6 @@ const DatosBasicos = () => {
         { value: '10', label: 'Terraza' },
         { value: '11', label: 'Lavado de ropa' }
     ]
-    const steps = [
-        { title: 'First', description: 'Contact Info' },
-        { title: 'Second', description: 'Date & Time' },
-        { title: 'Third', description: 'Select Rooms' },
-    ]
-
-    const { activeStep, goToNext, goToPrevious } = useSteps({
-        index: 1,
-        count: steps.length,
-    })
-
-    const handleNextStep = () => {
-        goToNext();
-    }
-
-    const handlePreviousStep = () => {
-        goToPrevious();
-    }
 
     return (
         <HStack spacing={10} display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
@@ -317,7 +296,6 @@ const Previsualizacion = () => {
 const ModalAnuncio = ({ isvalidPublished }) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const fileInputUpdaloadRef = useRef(null);
     const [image, setImage] = useState("");
     const { userAuth, isSuperanfitrion } = useContext(AuthContext);
     const [valueSelectService, setValueSelect] = useState([])
@@ -349,42 +327,21 @@ const ModalAnuncio = ({ isvalidPublished }) => {
         { value: '10', label: 'Terraza' },
         { value: '11', label: 'Lavado de ropa' }
     ]
- 
+
     const steps = [
         { title: 'First', description: 'Contact Info' },
         { title: 'Second', description: 'Date & Time' },
         { title: 'Third', description: 'Select Rooms' },
     ]
 
-    const { activeStep, goToNext, goToPrevious } = useSteps({
-        index: 1,
-        count: steps.length,
-    })
-
-    const stepComponents = [
-        <DatosBasicos />,
-        <Politicas />,
-        <Previsualizacion />,
-    ];
-
-    const handleNextStep = () => {
-        goToNext();
-    }
-
-    const handlePreviousStep = () => {
-        goToPrevious();
-    }
- 
-    const handleFileAnuncio = () => {
-        fileInputUpdaloadRef.current.click();
-    };
-
     const handleFilePensionChange = async (e) => {
         setImage("")
         const file = e.target.files[0];
         if (file) {
             const url = await LoadFilePension(file, userAuth?.uid);
+            console.log("Imagen modal anuncio 1: ", image)
             setImage(url);
+            console.log("Imagen modal anuncio: ", image)
         }
     }
 
@@ -415,6 +372,26 @@ const ModalAnuncio = ({ isvalidPublished }) => {
 
         await createAdvertForAnfitrion(userAuth?.uid, nuevoAnuncio);
     }
+
+    const { activeStep, goToNext, goToPrevious } = useSteps({
+        index: 1,
+        count: steps.length,
+    })
+
+    const stepComponents = [
+        <DatosBasicos handleFilePensionChange={handleFilePensionChange} />,
+        <Politicas />,
+        <Previsualizacion />,
+    ];
+
+    const handleNextStep = () => {
+        goToNext();
+    }
+
+    const handlePreviousStep = () => {
+        goToPrevious();
+    }
+
 
     const currentStepComponent = stepComponents[activeStep];
 
