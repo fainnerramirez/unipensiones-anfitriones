@@ -458,7 +458,7 @@ const Politicas = () => {
 
 const Previsualizacion = () => {
     return (
-        <h1>Vista previa</h1>
+        <Heading>Tu pensión esta lista para ser publicada</Heading>
     )
 }
 
