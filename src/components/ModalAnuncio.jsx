@@ -293,6 +293,7 @@ const Politicas = () => {
 
     return (
         <Stack spacing='10px' mt={10}>
+            <Heading textAlign={'center'}>Selecciona todas las normas que quieras <br /> que los estudiantes cumplan</Heading>
             <Accordion allowToggle>
                 <AccordionItem>
                     <h2>
