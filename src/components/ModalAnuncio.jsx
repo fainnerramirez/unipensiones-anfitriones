@@ -188,6 +188,7 @@ const DatosBasicos = (
                                         type='text'
                                         placeholder='Agrega un titulo llamativo al anuncio.
                                     Ej: Un ambiente acogedor para estudiantes: Tu mejor opción'
+                                        value={title}
                                         onChange={(e) => setTitle(e.target.value)} />
                                 </InputGroup>
                             </FormControl>
@@ -196,6 +197,7 @@ const DatosBasicos = (
                             <FormControl isRequired>
                                 <Textarea
                                     placeholder='Agrega una descripción: Comparte lo que hace tu pensión tan especial'
+                                    value={desc}
                                     onChange={(e) => setDesc(e.target.value)}
                                 />
                             </FormControl>
@@ -203,7 +205,12 @@ const DatosBasicos = (
                         <HStack spacing={'5px'} mt={'10px'}>
                             <FormControl isRequired>
                                 <InputGroup>
-                                    <Select icon={<MdArrowDropDown />} placeholder='Seleccione el tipo de espacio' color={'gray'} onChange={(e) => setTipoEspacio(e.target.value)}>
+                                    <Select
+                                        value={tipoEspacio}
+                                        icon={<MdArrowDropDown />}
+                                        placeholder='Seleccione el tipo de espacio'
+                                        color={'gray'}
+                                        onChange={(e) => setTipoEspacio(e.target.value)}>
                                         <option value='casa'>Casa</option>
                                         <option value='apartamento'>Apartamento</option>
                                         <option value='apartaestudios'>ApartaEstudio</option>
@@ -212,7 +219,7 @@ const DatosBasicos = (
                             </FormControl>
                             <FormControl isRequired>
                                 <InputGroup>
-                                    <Select icon={<MdArrowDropDown />} placeholder='Seleccione el tipo de alojamiento' color={'gray'} onChange={(e) => setTipoAlojamiento(e.target.value)}>
+                                    <Select value={tipoAlojamiento} icon={<MdArrowDropDown />} placeholder='Seleccione el tipo de alojamiento' color={'gray'} onChange={(e) => setTipoAlojamiento(e.target.value)}>
                                         <option value='una habitacion'>Una habitación</option>
                                         <option value='habitacion compartida'>Habitación compartida</option>
                                     </Select>
@@ -220,7 +227,7 @@ const DatosBasicos = (
                             </FormControl>
                             <FormControl isRequired>
                                 <InputGroup >
-                                    <Select icon={<MdArrowDropDown />} placeholder='Seleccione el tipo de cupo' color={'gray'} onChange={(e) => setTipoCupo(e.target.value)}>
+                                    <Select value={tipoCupo} icon={<MdArrowDropDown />} placeholder='Seleccione el tipo de cupo' color={'gray'} onChange={(e) => setTipoCupo(e.target.value)}>
                                         <option value='solo cupo'>Solo cupo (habitación)</option>
                                         <option value='cupo completo'>Cupo completo (habitación y comida)</option>
                                     </Select>
@@ -230,14 +237,14 @@ const DatosBasicos = (
                         <HStack spacing={'5px'} mt={'10px'}>
                             <FormControl isRequired>
                                 <InputGroup>
-                                    <Select icon={<MdArrowDropDown />} placeholder='Seleccione el país' color={'gray'} onChange={(e) => setPais(e.target.value)}>
+                                    <Select value={pais} icon={<MdArrowDropDown />} placeholder='Seleccione el país' color={'gray'} onChange={(e) => setPais(e.target.value)}>
                                         <option value='colombia'>Colombia</option>
                                     </Select>
                                 </InputGroup>
                             </FormControl>
                             <FormControl isRequired>
                                 <InputGroup>
-                                    <Select icon={<MdArrowDropDown />} placeholder='Seleccione la ciudad' color={'gray'} onChange={(e) => setCiudad(e.target.value)}>
+                                    <Select value={ciudad} icon={<MdArrowDropDown />} placeholder='Seleccione la ciudad' color={'gray'} onChange={(e) => setCiudad(e.target.value)}>
                                         <option value='santa marta'>Santa Marta</option>
                                     </Select>
                                 </InputGroup>
@@ -247,7 +254,7 @@ const DatosBasicos = (
                                     <InputLeftElement pointerEvents='none'>
                                         <CiLocationOn color='gray.300' />
                                     </InputLeftElement>
-                                    <Input type='text' placeholder='Barrio' onChange={(e) => setBarrio(e.target.value)} />
+                                    <Input value={barrio} type='text' placeholder='Barrio' onChange={(e) => setBarrio(e.target.value)} />
                                 </InputGroup>
                             </FormControl>
                         </HStack>
@@ -257,7 +264,7 @@ const DatosBasicos = (
                                     <InputLeftElement pointerEvents='none'>
                                         <GrDirections color='gray.300' />
                                     </InputLeftElement>
-                                    <Input type='text' placeholder='Agrega la dirección' onChange={(e) => setDireccion(e.target.value)} />
+                                    <Input value={direccion} type='text' placeholder='Agrega la dirección' onChange={(e) => setDireccion(e.target.value)} />
                                 </InputGroup>
                             </FormControl>
                         </HStack>
@@ -338,9 +345,8 @@ const ModalAnuncio = ({ isvalidPublished }) => {
     ]
 
     const steps = [
-        { title: 'First', description: 'Contact Info' },
-        { title: 'Second', description: 'Date & Time' },
-        { title: 'Third', description: 'Select Rooms' },
+        { title: 'Datos', description: 'Básicos' },
+        { title: 'Normas', description: 'Reglas' },
     ]
 
     const handleFilePensionChange = async (e) => {
@@ -356,6 +362,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
 
     const handleSubmitPublicForm = async (event) => {
         event.preventDefault();
+        console.log("Entro a publicar", event);
         // const document = await getAdvertsAnfitrionByUserId(userAuth?.uid);
         // let responseDelete = null;
         // if (document != null) {
@@ -469,32 +476,30 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                             ))}
                                         </Stepper>
                                     </Box>
-                                    <form style={{ width: "100%" }} onSubmit={handleSubmitPublicForm}>
-                                        <ModalCloseButton color={'blue.900'} />
-                                        <ModalBody>
-                                            {currentStepComponent}
-                                        </ModalBody>
-                                        <ModalFooter display={'flex'} justifyContent={'end'}>
-                                            <ButtonGroup pb={3} pt={3}>
-                                                {activeStep != 0 && <Button colorScheme="blue" variant={'outline'} onClick={handlePreviousStep}>Atrás</Button>}
-                                                {activeStep < steps.length - 1 ? (
-                                                    <Button colorScheme="blue" onClick={handleNextStep}>
-                                                        Siguiente
-                                                    </Button>
-                                                )
-                                                    :
-                                                    <Button
-                                                        // isLoading={isLoading}
-                                                        width={'full'}
-                                                        colorScheme='green'
-                                                        loadingText='Cargando'
-                                                        _hover={{ backgroundColor: 'blue.800', color: "white" }}
-                                                        type='submit'
-                                                    >Publicar</Button>
-                                                }
-                                            </ButtonGroup>
-                                        </ModalFooter>
-                                    </form>
+                                    <ModalCloseButton color={'blue.900'} />
+                                    <ModalBody>
+                                        {currentStepComponent}
+                                    </ModalBody>
+                                    <ModalFooter display={'flex'} justifyContent={'end'}>
+                                        <ButtonGroup pb={3} pt={3}>
+                                            {activeStep != 0 && <Button colorScheme="blue" variant={'outline'} onClick={handlePreviousStep}>Atrás</Button>}
+                                            {activeStep < steps.length - 1 ? (
+                                                <Button colorScheme="blue" onClick={handleNextStep}>
+                                                    Siguiente
+                                                </Button>
+                                            )
+                                                :
+                                                <Button
+                                                    // isLoading={isLoading}
+                                                    width={'full'}
+                                                    colorScheme='green'
+                                                    loadingText='Cargando'
+                                                    _hover={{ backgroundColor: 'blue.800', color: "white" }}
+                                                    type='submit'
+                                                >Publicar</Button>
+                                            }
+                                        </ButtonGroup>
+                                    </ModalFooter>
                                 </VStack>
                                 <Box marginTop={20}>
                                     <Text textAlign={'center'}>Vista previa de tu anuncio</Text>
