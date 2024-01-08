@@ -105,14 +105,14 @@ const DatosBasicos = (
         ciudad,
         precio,
         image,
-        direccion
+        direccion,
+        steps,
+        activeStep
     }
 ) => {
 
     const { userAuth } = useContext(AuthContext);
-
     const fileInputUpdaloadRef = useRef(null);
-
     const handleFileAnuncio = () => {
         console.log("Entro en ref ", fileInputUpdaloadRef)
         fileInputUpdaloadRef.current.click();
@@ -120,11 +120,11 @@ const DatosBasicos = (
 
     const handleSubmitPublicForm = async (event) => {
         event.preventDefault();
-        // const document = await getAdvertsAnfitrionByUserId(userAuth?.uid);
-        // let responseDelete = null;
-        // if (document != null) {
-        //     responseDelete = await deleteAdvertAnfitrion(document?.id);
-        // }
+        const document = await getAdvertsAnfitrionByUserId(userAuth?.uid);
+        let responseDelete = null;
+        if (document != null) {
+            responseDelete = await deleteAdvertAnfitrion(document?.id);
+        }
         const nuevoAnuncio = {
             username: userAuth?.displayName ?? "",
             userPhoto: userAuth?.photoURL ?? "",
@@ -290,6 +290,14 @@ const DatosBasicos = (
                                 />
                             </FormControl>
                         </HStack>
+                        <Button
+                            // isLoading={isLoading}
+                            width={'full'}
+                            colorScheme='green'
+                            loadingText='Cargando'
+                            _hover={{ backgroundColor: 'blue.800', color: "white" }}
+                            type='submit'
+                        >Publicar</Button>
                     </Stack>
                 </form>
             </VStack>
@@ -360,41 +368,14 @@ const ModalAnuncio = ({ isvalidPublished }) => {
         }
     }
 
-    const handleSubmitPublicForm = async (event) => {
-        event.preventDefault();
-        console.log("Entro a publicar", event);
-        // const document = await getAdvertsAnfitrionByUserId(userAuth?.uid);
-        // let responseDelete = null;
-        // if (document != null) {
-        //     responseDelete = await deleteAdvertAnfitrion(document?.id);
-        // }
-        const nuevoAnuncio = {
-            username: userAuth?.displayName ?? "",
-            userPhoto: userAuth?.photoURL ?? "",
-            phone: userAuth?.phone ?? "",
-            urlFotoAnuncio: image,
-            titulo: title,
-            descripcion: desc,
-            pais: pais,
-            ciudad: ciudad,
-            barrio: barrio,
-            direccion: direccion,
-            tipoEspacio: tipoEspacio,
-            tipoAlojamiento: tipoAlojamiento,
-            tipoCupo: tipoCupo,
-            precio: precio,
-            Servicios: valueSelectService
-        };
-
-        await createAdvertForAnfitrion(userAuth?.uid, nuevoAnuncio);
-    }
-
     const { activeStep, goToNext, goToPrevious } = useSteps({
         index: 1,
         count: steps.length,
     })
 
     const PropsDatosBasicos = {
+        steps,
+        activeStep,
         handleFilePensionChange,
         setValueSelect,
         setTitle,
@@ -482,21 +463,14 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                                     </ModalBody>
                                     <ModalFooter display={'flex'} justifyContent={'end'}>
                                         <ButtonGroup pb={3} pt={3}>
-                                            {activeStep != 0 && <Button colorScheme="blue" variant={'outline'} onClick={handlePreviousStep}>Atrás</Button>}
-                                            {activeStep < steps.length - 1 ? (
-                                                <Button colorScheme="blue" onClick={handleNextStep}>
-                                                    Siguiente
-                                                </Button>
-                                            )
-                                                :
-                                                <Button
-                                                    // isLoading={isLoading}
-                                                    width={'full'}
-                                                    colorScheme='green'
-                                                    loadingText='Cargando'
-                                                    _hover={{ backgroundColor: 'blue.800', color: "white" }}
-                                                    type='submit'
-                                                >Publicar</Button>
+                                            <h1>{activeStep} - {steps.length}</h1>
+                                            {(activeStep != 0) && <Button colorScheme="blue" variant={'outline'} onClick={handlePreviousStep}>Atrás</Button>}
+                                            {
+                                                activeStep <= steps.length - 1 && (
+                                                    <Button colorScheme="blue" onClick={handleNextStep}>
+                                                        Siguiente
+                                                    </Button>
+                                                )
                                             }
                                         </ButtonGroup>
                                     </ModalFooter>
