@@ -57,7 +57,7 @@ const AvisoPage = () => {
             {documentAdvert != null ?
                 <Heading as="h4" marginTop={10} size={'lg'} textAlign={'center'}>Tus anuncios</Heading>
                 :
-                <Heading as="h4" marginTop={10} size={'lg'} textAlign={'center'}>Aún no tienes anuncios</Heading>}
+                <Heading as="h4" marginTop={10} size={'lg'} textAlign={'center'}>Publica tu primer anuncio</Heading>}
             <Box display={'flex'} justifyContent={'start'} marginTop={10}>
                 {documentAdvert != null &&
                     <HStack spacing={10} display={'flex'} justifyContent={'flex-start'} alignItems={'flex-start'} flexWrap={'wrap'}>
