@@ -25,6 +25,9 @@ const AvisoPage = () => {
 
     return (
         <Box width={'90%'} margin={'auto'}>
+            <Box>
+                <Heading textAlign={'center'} p={10}>Panel Principal</Heading>
+            </Box>
             <Box display={{base: 'none', md: 'flex'}} justifyContent={'space-between'} alignItems={'center'} marginBottom={5}>
                 <Box display={'flex'} alignItems={'center'} width={'full'}>
                     <Sidebar />
