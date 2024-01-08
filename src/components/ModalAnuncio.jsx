@@ -118,34 +118,6 @@ const DatosBasicos = (
         fileInputUpdaloadRef.current.click();
     };
 
-    const handleSubmitPublicForm = async (event) => {
-        event.preventDefault();
-        const document = await getAdvertsAnfitrionByUserId(userAuth?.uid);
-        let responseDelete = null;
-        if (document != null) {
-            responseDelete = await deleteAdvertAnfitrion(document?.id);
-        }
-        const nuevoAnuncio = {
-            username: userAuth?.displayName ?? "",
-            userPhoto: userAuth?.photoURL ?? "",
-            phone: userAuth?.phone ?? "",
-            urlFotoAnuncio: image,
-            titulo: title,
-            descripcion: desc,
-            pais: pais,
-            ciudad: ciudad,
-            barrio: barrio,
-            direccion: direccion,
-            tipoEspacio: tipoEspacio,
-            tipoAlojamiento: tipoAlojamiento,
-            tipoCupo: tipoCupo,
-            precio: precio,
-            Servicios: valueSelectService
-        };
-
-        await createAdvertForAnfitrion(userAuth?.uid, nuevoAnuncio);
-    }
-
     const format = (val) => `$` + val
     const parse = (val) => val.replace(/^\$/, '')
     const optionsMultiService = [
@@ -165,141 +137,131 @@ const DatosBasicos = (
     return (
         <HStack spacing={10} display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
             <VStack>
-                <form style={{ width: "100%" }} onSubmit={handleSubmitPublicForm}>
-                    <Stack spacing={4}>
-                        <Flex justifyContent={'center'} alignItems={'end'}>
-                            <Button colorScheme='blue' rightIcon={<FiUpload />} onClick={handleFileAnuncio}>
-                                Subir foto
-                            </Button>
-                            <Input
-                                type="file"
-                                ref={fileInputUpdaloadRef}
-                                style={{ display: 'none' }}
-                                onChange={(e) => handleFilePensionChange(e)}
-                            />
-                        </Flex>
-                        <HStack spacing={'5px'} mt={'10px'}>
-                            <FormControl isRequired>
-                                <InputGroup>
-                                    <InputLeftElement pointerEvents='none'>
-                                        <LuSubtitles color='gray.300' />
-                                    </InputLeftElement>
-                                    <Input
-                                        type='text'
-                                        placeholder='Agrega un titulo llamativo al anuncio.
+                <Stack spacing={4}>
+                    <Flex justifyContent={'center'} alignItems={'end'}>
+                        <Button colorScheme='blue' rightIcon={<FiUpload />} onClick={handleFileAnuncio}>
+                            Subir foto
+                        </Button>
+                        <Input
+                            type="file"
+                            ref={fileInputUpdaloadRef}
+                            style={{ display: 'none' }}
+                            onChange={(e) => handleFilePensionChange(e)}
+                        />
+                    </Flex>
+                    <HStack spacing={'5px'} mt={'10px'}>
+                        <FormControl isRequired>
+                            <InputGroup>
+                                <InputLeftElement pointerEvents='none'>
+                                    <LuSubtitles color='gray.300' />
+                                </InputLeftElement>
+                                <Input
+                                    type='text'
+                                    placeholder='Agrega un titulo llamativo al anuncio.
                                     Ej: Un ambiente acogedor para estudiantes: Tu mejor opción'
-                                        value={title}
-                                        onChange={(e) => setTitle(e.target.value)} />
-                                </InputGroup>
-                            </FormControl>
-                        </HStack>
-                        <HStack spacing={'5px'} mt={'10px'}>
-                            <FormControl isRequired>
-                                <Textarea
-                                    placeholder='Agrega una descripción: Comparte lo que hace tu pensión tan especial'
-                                    value={desc}
-                                    onChange={(e) => setDesc(e.target.value)}
-                                />
-                            </FormControl>
-                        </HStack>
-                        <HStack spacing={'5px'} mt={'10px'}>
-                            <FormControl isRequired>
-                                <InputGroup>
-                                    <Select
-                                        value={tipoEspacio}
-                                        icon={<MdArrowDropDown />}
-                                        placeholder='Seleccione el tipo de espacio'
-                                        color={'gray'}
-                                        onChange={(e) => setTipoEspacio(e.target.value)}>
-                                        <option value='casa'>Casa</option>
-                                        <option value='apartamento'>Apartamento</option>
-                                        <option value='apartaestudios'>ApartaEstudio</option>
-                                    </Select>
-                                </InputGroup>
-                            </FormControl>
-                            <FormControl isRequired>
-                                <InputGroup>
-                                    <Select value={tipoAlojamiento} icon={<MdArrowDropDown />} placeholder='Seleccione el tipo de alojamiento' color={'gray'} onChange={(e) => setTipoAlojamiento(e.target.value)}>
-                                        <option value='una habitacion'>Una habitación</option>
-                                        <option value='habitacion compartida'>Habitación compartida</option>
-                                    </Select>
-                                </InputGroup>
-                            </FormControl>
-                            <FormControl isRequired>
-                                <InputGroup >
-                                    <Select value={tipoCupo} icon={<MdArrowDropDown />} placeholder='Seleccione el tipo de cupo' color={'gray'} onChange={(e) => setTipoCupo(e.target.value)}>
-                                        <option value='solo cupo'>Solo cupo (habitación)</option>
-                                        <option value='cupo completo'>Cupo completo (habitación y comida)</option>
-                                    </Select>
-                                </InputGroup>
-                            </FormControl>
-                        </HStack>
-                        <HStack spacing={'5px'} mt={'10px'}>
-                            <FormControl isRequired>
-                                <InputGroup>
-                                    <Select value={pais} icon={<MdArrowDropDown />} placeholder='Seleccione el país' color={'gray'} onChange={(e) => setPais(e.target.value)}>
-                                        <option value='colombia'>Colombia</option>
-                                    </Select>
-                                </InputGroup>
-                            </FormControl>
-                            <FormControl isRequired>
-                                <InputGroup>
-                                    <Select value={ciudad} icon={<MdArrowDropDown />} placeholder='Seleccione la ciudad' color={'gray'} onChange={(e) => setCiudad(e.target.value)}>
-                                        <option value='santa marta'>Santa Marta</option>
-                                    </Select>
-                                </InputGroup>
-                            </FormControl>
-                            <FormControl isRequired>
-                                <InputGroup>
-                                    <InputLeftElement pointerEvents='none'>
-                                        <CiLocationOn color='gray.300' />
-                                    </InputLeftElement>
-                                    <Input value={barrio} type='text' placeholder='Barrio' onChange={(e) => setBarrio(e.target.value)} />
-                                </InputGroup>
-                            </FormControl>
-                        </HStack>
-                        <HStack spacing={'5px'}>
-                            <FormControl isRequired>
-                                <InputGroup>
-                                    <InputLeftElement pointerEvents='none'>
-                                        <GrDirections color='gray.300' />
-                                    </InputLeftElement>
-                                    <Input value={direccion} type='text' placeholder='Agrega la dirección' onChange={(e) => setDireccion(e.target.value)} />
-                                </InputGroup>
-                            </FormControl>
-                        </HStack>
-                        <HStack spacing={5}>
-                            <FormControl>
-                                <NumberInput
-                                    onChange={(valueString) => setPrecio(parse(valueString))}
-                                    value={format(precio)}
-                                >
-                                    <NumberInputField />
-                                    <NumberInputStepper>
-                                        <NumberIncrementStepper />
-                                        <NumberDecrementStepper />
-                                    </NumberInputStepper>
-                                </NumberInput>
-                            </FormControl>
-                            <FormControl isRequired width={600} minWidth={600} maxWidth={600}>
-                                <MultiSelect
-                                    value={valueSelectService}
-                                    options={optionsMultiService}
-                                    onChange={(e) => setValueSelect(e)}
-                                    placeholder='Seleccione los servicios'
-                                />
-                            </FormControl>
-                        </HStack>
-                        <Button
-                            // isLoading={isLoading}
-                            width={'full'}
-                            colorScheme='green'
-                            loadingText='Cargando'
-                            _hover={{ backgroundColor: 'blue.800', color: "white" }}
-                            type='submit'
-                        >Publicar</Button>
-                    </Stack>
-                </form>
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)} />
+                            </InputGroup>
+                        </FormControl>
+                    </HStack>
+                    <HStack spacing={'5px'} mt={'10px'}>
+                        <FormControl isRequired>
+                            <Textarea
+                                placeholder='Agrega una descripción: Comparte lo que hace tu pensión tan especial'
+                                value={desc}
+                                onChange={(e) => setDesc(e.target.value)}
+                            />
+                        </FormControl>
+                    </HStack>
+                    <HStack spacing={'5px'} mt={'10px'}>
+                        <FormControl isRequired>
+                            <InputGroup>
+                                <Select
+                                    value={tipoEspacio}
+                                    icon={<MdArrowDropDown />}
+                                    placeholder='Seleccione el tipo de espacio'
+                                    color={'gray'}
+                                    onChange={(e) => setTipoEspacio(e.target.value)}>
+                                    <option value='casa'>Casa</option>
+                                    <option value='apartamento'>Apartamento</option>
+                                    <option value='apartaestudios'>ApartaEstudio</option>
+                                </Select>
+                            </InputGroup>
+                        </FormControl>
+                        <FormControl isRequired>
+                            <InputGroup>
+                                <Select value={tipoAlojamiento} icon={<MdArrowDropDown />} placeholder='Seleccione el tipo de alojamiento' color={'gray'} onChange={(e) => setTipoAlojamiento(e.target.value)}>
+                                    <option value='una habitacion'>Una habitación</option>
+                                    <option value='habitacion compartida'>Habitación compartida</option>
+                                </Select>
+                            </InputGroup>
+                        </FormControl>
+                        <FormControl isRequired>
+                            <InputGroup >
+                                <Select value={tipoCupo} icon={<MdArrowDropDown />} placeholder='Seleccione el tipo de cupo' color={'gray'} onChange={(e) => setTipoCupo(e.target.value)}>
+                                    <option value='solo cupo'>Solo cupo (habitación)</option>
+                                    <option value='cupo completo'>Cupo completo (habitación y comida)</option>
+                                </Select>
+                            </InputGroup>
+                        </FormControl>
+                    </HStack>
+                    <HStack spacing={'5px'} mt={'10px'}>
+                        <FormControl isRequired>
+                            <InputGroup>
+                                <Select value={pais} icon={<MdArrowDropDown />} placeholder='Seleccione el país' color={'gray'} onChange={(e) => setPais(e.target.value)}>
+                                    <option value='colombia'>Colombia</option>
+                                </Select>
+                            </InputGroup>
+                        </FormControl>
+                        <FormControl isRequired>
+                            <InputGroup>
+                                <Select value={ciudad} icon={<MdArrowDropDown />} placeholder='Seleccione la ciudad' color={'gray'} onChange={(e) => setCiudad(e.target.value)}>
+                                    <option value='santa marta'>Santa Marta</option>
+                                </Select>
+                            </InputGroup>
+                        </FormControl>
+                        <FormControl isRequired>
+                            <InputGroup>
+                                <InputLeftElement pointerEvents='none'>
+                                    <CiLocationOn color='gray.300' />
+                                </InputLeftElement>
+                                <Input value={barrio} type='text' placeholder='Barrio' onChange={(e) => setBarrio(e.target.value)} />
+                            </InputGroup>
+                        </FormControl>
+                    </HStack>
+                    <HStack spacing={'5px'}>
+                        <FormControl isRequired>
+                            <InputGroup>
+                                <InputLeftElement pointerEvents='none'>
+                                    <GrDirections color='gray.300' />
+                                </InputLeftElement>
+                                <Input value={direccion} type='text' placeholder='Agrega la dirección' onChange={(e) => setDireccion(e.target.value)} />
+                            </InputGroup>
+                        </FormControl>
+                    </HStack>
+                    <HStack spacing={5}>
+                        <FormControl>
+                            <NumberInput
+                                onChange={(valueString) => setPrecio(parse(valueString))}
+                                value={format(precio)}
+                            >
+                                <NumberInputField />
+                                <NumberInputStepper>
+                                    <NumberIncrementStepper />
+                                    <NumberDecrementStepper />
+                                </NumberInputStepper>
+                            </NumberInput>
+                        </FormControl>
+                        <FormControl isRequired width={600} minWidth={600} maxWidth={600}>
+                            <MultiSelect
+                                value={valueSelectService}
+                                options={optionsMultiService}
+                                onChange={(e) => setValueSelect(e)}
+                                placeholder='Seleccione los servicios'
+                            />
+                        </FormControl>
+                    </HStack>
+                </Stack>
             </VStack>
         </HStack>
     )
@@ -357,6 +319,11 @@ const ModalAnuncio = ({ isvalidPublished }) => {
         { title: 'Normas', description: 'Reglas' },
     ]
 
+    const { activeStep, goToNext, goToPrevious } = useSteps({
+        index: 1,
+        count: steps.length,
+    })
+
     const handleFilePensionChange = async (e) => {
         setImage("")
         const file = e.target.files[0];
@@ -367,11 +334,6 @@ const ModalAnuncio = ({ isvalidPublished }) => {
             console.log("Imagen modal anuncio: ", image)
         }
     }
-
-    const { activeStep, goToNext, goToPrevious } = useSteps({
-        index: 1,
-        count: steps.length,
-    })
 
     const PropsDatosBasicos = {
         steps,
@@ -418,6 +380,33 @@ const ModalAnuncio = ({ isvalidPublished }) => {
         goToPrevious();
     }
 
+    const handleSubmitPublicForm = async (event) => {
+        event.preventDefault();
+        const document = await getAdvertsAnfitrionByUserId(userAuth?.uid);
+        let responseDelete = null;
+        if (document != null) {
+            responseDelete = await deleteAdvertAnfitrion(document?.id);
+        }
+        const nuevoAnuncio = {
+            username: userAuth?.displayName ?? "",
+            userPhoto: userAuth?.photoURL ?? "",
+            phone: userAuth?.phone ?? "",
+            urlFotoAnuncio: image,
+            titulo: title,
+            descripcion: desc,
+            pais: pais,
+            ciudad: ciudad,
+            barrio: barrio,
+            direccion: direccion,
+            tipoEspacio: tipoEspacio,
+            tipoAlojamiento: tipoAlojamiento,
+            tipoCupo: tipoCupo,
+            precio: precio,
+            Servicios: valueSelectService
+        };
+
+        await createAdvertForAnfitrion(userAuth?.uid, nuevoAnuncio);
+    }
 
     const currentStepComponent = stepComponents[activeStep];
 
@@ -435,52 +424,64 @@ const ModalAnuncio = ({ isvalidPublished }) => {
                         <ModalOverlay />
                         <ModalContent>
                             <ModalHeader>Nueva Publicación</ModalHeader>
-                            <HStack spacing={10} display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
-                                <VStack>
-                                    <Box margin={'auto'} width={'100%'}>
-                                        <Stepper index={activeStep} minWidth={'100%'}>
-                                            {steps.map((step, index) => (
-                                                <Step key={index}>
-                                                    <StepIndicator>
-                                                        <StepStatus
-                                                            complete={<StepIcon />}
-                                                            incomplete={<StepNumber />}
-                                                            active={<StepNumber />}
-                                                        />
-                                                    </StepIndicator>
-                                                    <Box flexShrink='0'>
-                                                        <StepTitle>{step.title}</StepTitle>
-                                                        <StepDescription>{step.description}</StepDescription>
-                                                    </Box>
-                                                    <StepSeparator />
-                                                </Step>
-                                            ))}
-                                        </Stepper>
+                            <form style={{ width: "100%" }} onSubmit={handleSubmitPublicForm}>
+                                <HStack spacing={10} display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
+                                    <VStack>
+                                        <Box margin={'auto'} width={'100%'}>
+                                            <Stepper index={activeStep} minWidth={'100%'}>
+                                                {steps.map((step, index) => (
+                                                    <Step key={index}>
+                                                        <StepIndicator>
+                                                            <StepStatus
+                                                                complete={<StepIcon />}
+                                                                incomplete={<StepNumber />}
+                                                                active={<StepNumber />}
+                                                            />
+                                                        </StepIndicator>
+                                                        <Box flexShrink='0'>
+                                                            <StepTitle>{step.title}</StepTitle>
+                                                            <StepDescription>{step.description}</StepDescription>
+                                                        </Box>
+                                                        <StepSeparator />
+                                                    </Step>
+                                                ))}
+                                            </Stepper>
+                                        </Box>
+                                        <ModalCloseButton color={'blue.900'} />
+                                        <ModalBody>
+                                            {currentStepComponent}
+                                        </ModalBody>
+                                        <ModalFooter width={'100%'}>
+                                            <ButtonGroup display={'flex'} justifyContent={'end'} pb={3} pt={3} width={'100%'} >
+                                                {(activeStep != 0) && <Button colorScheme="blue" variant={'outline'} onClick={handlePreviousStep}>Atrás</Button>}
+                                                {
+                                                    activeStep <= steps.length - 1 ? (
+                                                        <Button colorScheme="blue" onClick={handleNextStep}>
+                                                            Siguiente
+                                                        </Button>
+                                                    )
+                                                        :
+                                                        (
+                                                            <Button
+                                                                // isLoading={isLoading}
+                                                                width={'full'}
+                                                                colorScheme='green'
+                                                                loadingText='Cargando'
+                                                                _hover={{ backgroundColor: 'blue.800', color: "white" }}
+                                                                type='submit'
+                                                            >Publicar</Button>
+                                                        )
+                                                }
+                                            </ButtonGroup>
+                                        </ModalFooter>
+                                    </VStack>
+                                    <Box marginTop={20}>
+                                        <Text textAlign={'center'}>Vista previa de tu anuncio</Text>
+                                        <Divider color={'blue.900'} />
+                                        <CardAvisoPreview image={image} ciudad={ciudad} pais={pais} precio={precio} services={valueSelectService} />
                                     </Box>
-                                    <ModalCloseButton color={'blue.900'} />
-                                    <ModalBody>
-                                        {currentStepComponent}
-                                    </ModalBody>
-                                    <ModalFooter display={'flex'} justifyContent={'end'}>
-                                        <ButtonGroup pb={3} pt={3}>
-                                            <h1>{activeStep} - {steps.length}</h1>
-                                            {(activeStep != 0) && <Button colorScheme="blue" variant={'outline'} onClick={handlePreviousStep}>Atrás</Button>}
-                                            {
-                                                activeStep <= steps.length - 1 && (
-                                                    <Button colorScheme="blue" onClick={handleNextStep}>
-                                                        Siguiente
-                                                    </Button>
-                                                )
-                                            }
-                                        </ButtonGroup>
-                                    </ModalFooter>
-                                </VStack>
-                                <Box marginTop={20}>
-                                    <Text textAlign={'center'}>Vista previa de tu anuncio</Text>
-                                    <Divider color={'blue.900'} />
-                                    <CardAvisoPreview image={image} ciudad={ciudad} pais={pais} precio={precio} services={valueSelectService} />
-                                </Box>
-                            </HStack>
+                                </HStack>
+                            </form>
                         </ModalContent>
                     </Modal >
                     :
