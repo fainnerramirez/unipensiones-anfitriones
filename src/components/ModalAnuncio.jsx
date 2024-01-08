@@ -274,7 +274,7 @@ const DatosBasicos = (
                                     </NumberInputStepper>
                                 </NumberInput>
                             </FormControl>
-                            <FormControl isRequired>
+                            <FormControl isRequired width={600} minWidth={600} maxWidth={600}>
                                 <MultiSelect
                                     value={valueSelectService}
                                     options={optionsMultiService}
@@ -387,32 +387,36 @@ const ModalAnuncio = ({ isvalidPublished }) => {
         count: steps.length,
     })
 
+    const PropsDatosBasicos = {
+        handleFilePensionChange,
+        setValueSelect,
+        setTitle,
+        setDesc,
+        setBarrio,
+        setTipoEspacio,
+        setTipoAlojamiento,
+        setTipoCupo,
+        setPais,
+        setCiudad,
+        setDireccion,
+        setPrecio,
+        valueSelectService,
+        title,
+        desc,
+        barrio,
+        tipoEspacio,
+        tipoAlojamiento,
+        tipoCupo,
+        pais,
+        ciudad,
+        precio,
+        image,
+        direccion
+    }
+
     const stepComponents = [
         <DatosBasicos
-            handleFilePensionChange={handleFilePensionChange}
-            setValueSelect={setValueSelect}
-            setTitle={setTitle}
-            setDesc={setDesc}
-            setBarrio={setBarrio}
-            setTipoEspacio={setTipoEspacio}
-            setTipoAlojamiento={setTipoAlojamiento}
-            setTipoCupo={setTipoCupo}
-            setPais={setPais}
-            setCiudad={setCiudad}
-            setDireccion={setDireccion}
-            setPrecio={setPrecio}
-            valueSelectService={valueSelectService}
-            title={title}
-            desc={desc}
-            barrio={barrio}
-            tipoEspacio={tipoEspacio}
-            tipoAlojamiento={tipoAlojamiento}
-            tipoCupo={tipoCupo}
-            pais={pais}
-            ciudad={ciudad}
-            precio={precio}
-            image={image}
-            direccion={direccion}
+            {...PropsDatosBasicos}
         />,
         <Politicas />,
         <Previsualizacion />,
