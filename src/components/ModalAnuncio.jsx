@@ -81,28 +81,37 @@ import { Link } from 'react-router-dom';
 import Planes from "../assets/planes.png"
 
 const DatosBasicos = (
-    { 
-        handleFilePensionChange
+    {
+        handleFilePensionChange,
+        setValueSelect,
+        setTitle,
+        setDesc,
+        setBarrio,
+        setTipoEspacio,
+        setTipoAlojamiento,
+        setTipoCupo,
+        setPais,
+        setCiudad,
+        setDireccion,
+        setPrecio,
+        valueSelectService,
+        title,
+        desc,
+        barrio,
+        tipoEspacio,
+        tipoAlojamiento,
+        tipoCupo,
+        pais,
+        ciudad,
+        precio,
+        image,
+        direccion
     }
-    ) => {
+) => {
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { userAuth } = useContext(AuthContext);
+
     const fileInputUpdaloadRef = useRef(null);
-    const [image, setImage] = useState("");
-    const { userAuth, isSuperanfitrion } = useContext(AuthContext);
-    const [valueSelectService, setValueSelect] = useState([])
-    const [title, setTitle] = useState("");
-    const [desc, setDesc] = useState("");
-    const [barrio, setBarrio] = useState("");
-    const [tipoEspacio, setTipoEspacio] = useState("");
-    const [tipoAlojamiento, setTipoAlojamiento] = useState("");
-    const [tipoCupo, setTipoCupo] = useState("");
-    const [pais, setPais] = useState("")
-    const [ciudad, setCiudad] = useState("")
-    const [direccion, setDireccion] = useState("")
-    const [precio, setPrecio] = useState("")
-    const [urlNequi, setUrlNequi] = useState("https://drive.google.com/file/d/1N6zX2sp-FPdoNA1xUaVoJScS53DqBtq8/view?usp=drive_link")
-    const [urlMercadoPago, setUrlMercadoPago] = useState("https://www.mercadopago.com.co/subscriptions/checkout?preapproval_plan_id=2c9380848c6efe38018c78e268e70389");
 
     const handleFileAnuncio = () => {
         console.log("Entro en ref ", fileInputUpdaloadRef)
@@ -295,9 +304,9 @@ const Previsualizacion = () => {
 
 const ModalAnuncio = ({ isvalidPublished }) => {
 
+    const { userAuth, isSuperanfitrion } = useContext(AuthContext);
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [image, setImage] = useState("");
-    const { userAuth, isSuperanfitrion } = useContext(AuthContext);
     const [valueSelectService, setValueSelect] = useState([])
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
@@ -379,7 +388,32 @@ const ModalAnuncio = ({ isvalidPublished }) => {
     })
 
     const stepComponents = [
-        <DatosBasicos handleFilePensionChange={handleFilePensionChange} />,
+        <DatosBasicos
+            handleFilePensionChange={handleFilePensionChange}
+            setValueSelect={setValueSelect}
+            setTitle={setTitle}
+            setDesc={setDesc}
+            setBarrio={setBarrio}
+            setTipoEspacio={setTipoEspacio}
+            setTipoAlojamiento={setTipoAlojamiento}
+            setTipoCupo={setTipoCupo}
+            setPais={setPais}
+            setCiudad={setCiudad}
+            setDireccion={setDireccion}
+            setPrecio={setPrecio}
+            valueSelectService={valueSelectService}
+            title={title}
+            desc={desc}
+            barrio={barrio}
+            tipoEspacio={tipoEspacio}
+            tipoAlojamiento={tipoAlojamiento}
+            tipoCupo={tipoCupo}
+            pais={pais}
+            ciudad={ciudad}
+            precio={precio}
+            image={image}
+            direccion={direccion}
+        />,
         <Politicas />,
         <Previsualizacion />,
     ];
