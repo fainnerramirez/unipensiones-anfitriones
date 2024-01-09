@@ -14,7 +14,7 @@ const ModalNota = () => {
             <Modal isOpen={isOpen} onClose={onClose} size={'xl'}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Para que lo tengas en cuenta</ModalHeader>
+                    <ModalHeader>¡Bienvenido a Unipensiones!</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         <Text>Estamos encantados de que desees mejorar tu experiencia como anfitrión con nuestro Plan Super Anfitrión.
