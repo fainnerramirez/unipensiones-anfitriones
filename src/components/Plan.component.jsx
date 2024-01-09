@@ -5,6 +5,7 @@ import { AuthContext } from "../context/authContext";
 import "../styles/glass.css";
 import Premio from "../assets/premio.png";
 import RedesSociales from "../assets/redes-sociales.png";
+import { ModalNota } from "./ModalNota.component";
 
 const Plan = () => {
 
@@ -13,9 +14,9 @@ const Plan = () => {
     console.log("isSuperanfitrion", isSuperanfitrion)
 
     return (
-        <HStack spacing={10} flexDir={{base: 'column', md: 'row'}} justifyContent={'center'} alignItems={'flex-start'}>
+        <HStack spacing={10} flexDir={{ base: 'column', md: 'row' }} justifyContent={'center'} alignItems={'flex-start'}>
             <Box width={'100%'}>
-                <Card align='center' className="card-glass" bg={'white'} height={{base: 'auto', md: '600'}} pt={5}>
+                <Card align='center' className="card-glass" bg={'white'} height={{ base: 'auto', md: '600' }} pt={5}>
                     <Box>
                         <Image src={RedesSociales} height={100} width={100} />
                     </Box>
@@ -96,9 +97,7 @@ const Plan = () => {
                         </List>
                     </CardBody>
                     <CardFooter width={'full'} pb={2} pt={0}>
-                        <Button width={'full'} colorScheme='purple' size={'lg'} mb={2}>
-                            Elejir Plan
-                        </Button>
+                        <ModalNota />
                     </CardFooter>
                 </Card>
             </Box>
