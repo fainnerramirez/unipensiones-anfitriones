@@ -1,8 +1,11 @@
 import { Box, Button, List, ListIcon, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react"
+import { useState } from "react";
 import { MdCheckCircle } from "react-icons/md"
 
 const ModalNota = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [urlMercadoPago, setUrlMercadoPago] = useState("https://www.mercadopago.com.co/subscriptions/checkout?preapproval_plan_id=2c9380848c6efe38018c78e268e70389");
+
     return (
         <>
             <Button width={'full'} colorScheme='purple' size={'lg'} mb={2} onClick={onOpen}>
@@ -26,7 +29,7 @@ const ModalNota = () => {
                                 Captura la pantalla del comprobante de pago.
                             </ListItem>
                         </List>
-                        <Text mt={5}> ¡Listo! Ahora solo falta que nos envíes la captura de pantalla al número oficial de WhatsApp de Unipensiones: <span style={{fontWeight: 'bold'}}>3206389215</span>.</Text>
+                        <Text mt={5}> ¡Listo! Ahora solo falta que nos envíes la captura de pantalla al número oficial de WhatsApp de Unipensiones: <span style={{ fontWeight: 'bold' }}>3206389215</span>.</Text>
                         <Text>Una vez recibamos la confirmación de tu pago, nuestro equipo se compromete a habilitar tu plan de Super Anfitrión en un plazo máximo de una hora (1 h).
                         </Text>
                         <Text>Si tienes alguna pregunta o inconveniente, no dudes en contactarnos a través de WhatsApp para brindarte asistencia inmediata.</Text>
@@ -36,7 +39,7 @@ const ModalNota = () => {
                         <Button variant='ghost' mr={3} onClick={onClose}>
                             Cancelar pago
                         </Button>
-                        <Button colorScheme='blue'>Pagar con Mercado pago</Button>
+                        <Button as="a" target="_blank" href={urlMercadoPago} colorScheme='blue'>Pagar con Mercado pago</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal >
