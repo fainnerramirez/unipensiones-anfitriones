@@ -92,8 +92,6 @@ const SingInUser = () => {
         setIsLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then(async (userCredential) => {
-                setIsLoading(false);
-
                 if (!auth.currentUser?.emailVerified) {
                     toast.error("Aún no has verificado tu corrreo electrónico para activar tu cuenta UP", {
                         theme: "colored",
@@ -109,13 +107,13 @@ const SingInUser = () => {
                     const documentAnfitrion = await getAnfitrionByUserId(user.uid);
 
                     if (documentAnfitrion) {
-                        toast.success("Accediendo a tu perfil " + (user.displayName ?? user.email), {
-                            theme: "colored",
-                            position: "top-center"
-                        })
-                        setTimeout(function () {
-                            window.location.href = "user/" + documentAnfitrion?.id;
-                        }, 1000);
+                        // toast.success("Accediendo a tu perfil " + (user.displayName ?? user.email), {
+                        //     theme: "colored",
+                        //     position: "top-center"
+                        // })
+                        // setTimeout(function () {
+                        //     window.location.href = "user/" + documentAnfitrion?.id;
+                        // }, 1000);
                     }
                     else {
                         console.log("Documento no encontrado!");
@@ -129,6 +127,9 @@ const SingInUser = () => {
                 const errorCode = error.code;
                 console.log("Error email, password: ", error)
                 //errorManagment(errorCode);
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
     }
 

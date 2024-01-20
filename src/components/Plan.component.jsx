@@ -57,7 +57,7 @@ const Plan = () => {
                         <Heading size='lg'>Super Anfitrión</Heading>
                         <Box>
                             <Stat textAlign={'center'}>
-                                <StatNumber fontSize={40} color={'white'}>$29.900 pesos</StatNumber>
+                                <StatNumber fontSize={40} color={'white'}>$49.900 pesos</StatNumber>
                                 <StatHelpText fontSize={20} color={'white'}>
                                     Semestral
                                 </StatHelpText>

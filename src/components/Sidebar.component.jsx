@@ -72,13 +72,13 @@ const Sidebar = () => {
                         <Box display={'flex'} justifyContent={'center'} mt={3}>
                             <Heading size="sm" textTransform={'capitalize'}>{userAuth?.displayName}</Heading>
                         </Box>
-                        <Stack spacing='24px' marginTop={'30px'}>
+                        {/* <Stack spacing='24px' marginTop={'30px'}>
                             <Box>
                                 <Button colorScheme="blue" width={'full'} onClick={() => navigate("profile", { replace: true })}>
                                     Mi Perfil
                                 </Button>
                             </Box>
-                        </Stack>
+                        </Stack> */}
                     </DrawerBody>
                     <DrawerFooter borderTopWidth='1px' display={'flex'} justifyContent={'center'}>
                         <Heading size={'md'}>Unipensiones</Heading>

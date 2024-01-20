@@ -81,19 +81,9 @@ function Register() {
         }
     };
 
-    const handleSubmitForm = async (event) => {
-        event.preventDefault();
+    const handleSubmitForm = async (ev) => {
+        ev.preventDefault();
         setIsLoading(true)
-
-        if (userPassword.length < 7 || userPasswordTwo.length < 7) {
-            setIsLoading(false)
-            console.log("Error contraseñas")
-            toast.error("Las contraseñas deben tener por lo menos 7 caracteres o letras", {
-                theme: "colored",
-                position: "top-center"
-            })
-            return;
-        }
 
         if (userPassword !== userPasswordTwo) {
             setIsLoading(false)
@@ -246,7 +236,7 @@ function Register() {
                             >
                                 <MdPassword color='green.500' />
                             </InputLeftElement>
-                            <Input type={show ? 'text' : 'password'} placeholder='Ingresa contraseña' variant='filled' onChange={(e) => setUserPassword(e.target.value)} />
+                            <Input type={show ? 'text' : 'password'} placeholder='Ingresa contraseña' variant='filled' minLength={7} onChange={(e) => setUserPassword(e.target.value)} />
                             <InputRightElement width='4.5rem'>
                                 <Button h='1.75rem' size='sm' onClick={handleClick}>
                                     {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
@@ -264,7 +254,7 @@ function Register() {
                             >
                                 <MdPassword color='green.500' />
                             </InputLeftElement>
-                            <Input type={show ? 'text' : 'password'} placeholder='Confirma tu contraseña' variant='filled' onChange={(e) => setUserPasswordTwo(e.target.value)} />
+                            <Input type={show ? 'text' : 'password'} placeholder='Confirma tu contraseña' minLength={7} variant='filled' onChange={(e) => setUserPasswordTwo(e.target.value)} />
                             <InputRightElement width='4.5rem'>
                                 <Button h='1.75rem' size='sm' onClick={handleClick}>
                                     {show ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
