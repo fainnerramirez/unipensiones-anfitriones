@@ -277,13 +277,8 @@ const Politicas = () => {
 
     const [checkedItems, setCheckedItems] = useState([true, true, true, true, true])
 
-    console.log(checkedItems)
-
     const allChecked = checkedItems.every(Boolean)
     const isIndeterminate = checkedItems.some(Boolean) && !allChecked
-
-    console.log("all: ", allChecked)
-    console.log("isIndeterminate: ", isIndeterminate)
 
     const handleCheckboxChange = (index) => {
         const newCheckedItems = [...checkedItems];
@@ -346,7 +341,6 @@ const Politicas = () => {
                         </Stack>
                     </AccordionPanel>
                 </AccordionItem>
-
                 <AccordionItem>
                     <h2>
                         <AccordionButton>
@@ -456,10 +450,9 @@ const Politicas = () => {
     );
 }
 
-
 const Previsualizacion = () => {
     return (
-        <Heading>Tu pensión esta lista para ser publicada</Heading>
+        <Heading p={20}>Tu pensión esta lista para ser publicada</Heading>
     )
 }
 
@@ -503,7 +496,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
         { title: 'Normas', description: 'Reglas' },
     ]
 
-    const { activeStep, goToNext, goToPrevious } = useSteps({
+    const { activeStep, goToNext, goToPrevious, setActiveStep } = useSteps({
         index: 1,
         count: steps.length,
     })
@@ -513,9 +506,7 @@ const ModalAnuncio = ({ isvalidPublished }) => {
         const file = e.target.files[0];
         if (file) {
             const url = await LoadFilePension(file, userAuth?.uid);
-            console.log("Imagen modal anuncio 1: ", image)
             setImage(url);
-            console.log("Imagen modal anuncio: ", image)
         }
     }
 
@@ -591,6 +582,10 @@ const ModalAnuncio = ({ isvalidPublished }) => {
 
         await createAdvertForAnfitrion(userAuth?.uid, nuevoAnuncio);
     }
+
+    useEffect(() => {
+        setActiveStep(0)
+    }, [])
 
     const currentStepComponent = stepComponents[activeStep];
 

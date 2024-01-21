@@ -41,14 +41,15 @@ import { AuthContext } from '../context/authContext';
 import LogoUP from "../assets/logoUP.png"
 
 const SingInUser = () => {
+    
+    const { auth } = useContext(AuthContext);
+    const handleClick = () => setShow(!show)
 
     const [show, setShow] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading2, setisLoading2] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { auth } = useContext(AuthContext);
-    const handleClick = () => setShow(!show)
 
     const handleClickGooglePopup = () => {
         const provider = new GoogleAuthProvider();
@@ -60,7 +61,7 @@ const SingInUser = () => {
                 getDocs(q)
                     .then(async (querySnapshot) => {
                         if (!querySnapshot.empty) {
-                            setIsLoading(false)
+                            setisLoading2(false)
                             const doc = querySnapshot.docs[0];
                             toast.success("Accediendo a tu perfil " + (user.displayName ?? user.email), {
                                 theme: "colored",
@@ -89,7 +90,7 @@ const SingInUser = () => {
 
     const handleSubmitFormUser = (event) => {
         event.preventDefault();
-        setIsLoading(true);
+        setisLoading2(true);
         signInWithEmailAndPassword(auth, email, password)
             .then(async (userCredential) => {
                 if (!auth.currentUser?.emailVerified) {
@@ -123,13 +124,13 @@ const SingInUser = () => {
                     //errorManagment(error.code);
                 }
             }).catch((error) => {
-                setIsLoading(false);
+                setisLoading2(false);
                 const errorCode = error.code;
                 console.log("Error email, password: ", error)
                 //errorManagment(errorCode);
             })
             .finally(() => {
-                setIsLoading(false);
+                setisLoading2(false);
             });
     }
 
@@ -195,7 +196,7 @@ const SingInUser = () => {
                         <ModalFooter display={'flex'} justifyContent={'center'} alignItems={'center'} flexDir={'column'}>
                             <Button
                                 width={{ base: 'full', md: '50%' }}
-                                isLoading={isLoading}
+                                isLoading={isLoading2}
                                 colorScheme='blue'
                                 loadingText='Cargando'
                                 mt={3}
