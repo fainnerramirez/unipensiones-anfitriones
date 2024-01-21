@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
     Box,
     Button,
@@ -31,15 +31,64 @@ import {
     AccordionButton,
     AccordionIcon,
     AccordionPanel,
-    Checkbox
+    Checkbox,
+    Flex
 } from "@chakra-ui/react";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import imagen from "../assets/preview.png"
+import { FiUpload } from "react-icons/fi";
+import { LoadFilePension } from "../firebase/references/images/pensions";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
 
+const DatosBasicos = ({
+    handleFilePensionChange,
+    setValueSelect,
+    setTitle,
+    setDesc,
+    setBarrio,
+    setTipoEspacio,
+    setTipoAlojamiento,
+    setTipoCupo,
+    setPais,
+    setCiudad,
+    setDireccion,
+    setPrecio,
+    valueSelectService,
+    title,
+    desc,
+    barrio,
+    tipoEspacio,
+    tipoAlojamiento,
+    tipoCupo,
+    pais,
+    ciudad,
+    precio,
+    image,
+    direccion,
+    steps,
+    activeStep
+}) => {
 
-const DatosBasicos = () => {
+    const fileInputUpdaloadRef = useRef(null);
+    const handleFileAnuncio = () => {
+        console.log("Entro en ref ", fileInputUpdaloadRef)
+        fileInputUpdaloadRef.current.click();
+    };
+
     return (
         <Stack spacing='10px' mt={10}>
+            <Flex justifyContent={'center'} alignItems={'end'}>
+                <Button colorScheme='blue' rightIcon={<FiUpload />} onClick={handleFileAnuncio}>
+                    Subir foto
+                </Button>
+                <Input
+                    type="file"
+                    ref={fileInputUpdaloadRef}
+                    style={{ display: 'none' }}
+                    onChange={(e) => handleFilePensionChange(e)}
+                />
+            </Flex>
             <Box>
                 <Input
                     placeholder='Escribe un título llamativo'
@@ -226,14 +275,22 @@ const Previsualizacion = () => {
 }
 
 const AddPension = () => {
-    const [title, setTitle] = useState(null);
-    const [description, setDescription] = useState(null);
-
-
-
-
 
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [image, setImage] = useState("");
+    const [valueSelectService, setValueSelect] = useState([])
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
+    const [barrio, setBarrio] = useState("");
+    const [tipoEspacio, setTipoEspacio] = useState("");
+    const [tipoAlojamiento, setTipoAlojamiento] = useState("");
+    const [tipoCupo, setTipoCupo] = useState("");
+    const [pais, setPais] = useState("")
+    const [ciudad, setCiudad] = useState("")
+    const [direccion, setDireccion] = useState("")
+    const [precio, setPrecio] = useState("")
+    const {userAuth} = useContext(AuthContext);
+
     const { goToNext, goToPrevious, activeStep } = useSteps({
         index: 0,
         count: 3,
@@ -245,8 +302,46 @@ const AddPension = () => {
         { title: 'Vista', description: 'Previa' },
     ];
 
+    const handleFilePensionChange = async (e) => {
+        setImage("")
+        const file = e.target.files[0];
+        if (file) {
+            const url = await LoadFilePension(file, userAuth?.uid);
+            setImage(url);
+        }
+    }
+
+    const PropsDatosBasicos = {
+        steps,
+        activeStep,
+        handleFilePensionChange,
+        setValueSelect,
+        setTitle,
+        setDesc,
+        setBarrio,
+        setTipoEspacio,
+        setTipoAlojamiento,
+        setTipoCupo,
+        setPais,
+        setCiudad,
+        setDireccion,
+        setPrecio,
+        valueSelectService,
+        title,
+        desc,
+        barrio,
+        tipoEspacio,
+        tipoAlojamiento,
+        tipoCupo,
+        pais,
+        ciudad,
+        precio,
+        image,
+        direccion
+    }
+
     const stepComponents = [
-        <DatosBasicos />,
+        <DatosBasicos {...PropsDatosBasicos} />,
         <Politicas />,
         <Previsualizacion />,
     ];
