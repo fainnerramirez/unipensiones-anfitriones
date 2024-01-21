@@ -32,7 +32,19 @@ import {
     AccordionIcon,
     AccordionPanel,
     Checkbox,
-    Flex
+    Flex,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    Heading,
+    ModalCloseButton,
+    ModalBody,
+    Card,
+    CardBody,
+    CardFooter,
+    ModalFooter,
+    Link
 } from "@chakra-ui/react";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import imagen from "../assets/preview.png"
@@ -41,6 +53,9 @@ import { LoadFilePension } from "../firebase/references/images/pensions";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import { MultiSelect } from "chakra-multiselect";
+import { getAllAdvertsAnfitrionByUserId } from "../firebase/collections/querys/anfitriones";
+import { useEffect } from "react";
+import Planes from "../assets/planes.png"
 
 const DatosBasicos = ({
     handleFilePensionChange,
@@ -283,6 +298,7 @@ const Previsualizacion = () => {
 
 const AddPension = () => {
 
+    const [documentAdvert, setDocumentAdvert] = useState(null);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [image, setImage] = useState("");
     const [valueSelectService, setValueSelect] = useState([])
@@ -296,7 +312,15 @@ const AddPension = () => {
     const [ciudad, setCiudad] = useState("")
     const [direccion, setDireccion] = useState("")
     const [precio, setPrecio] = useState("")
-    const { userAuth } = useContext(AuthContext);
+    const { userAuth, isSuperanfitrion } = useContext(AuthContext);
+
+    useEffect(() => {
+        const getAverts = async () => {
+            const advertsAnfitrion = await getAllAdvertsAnfitrionByUserId(userAuth?.uid, 10);
+            setDocumentAdvert(advertsAnfitrion);
+        }
+        getAverts();
+    }, [image, userAuth])
 
     const optionsMultiService = [
         { value: '1', label: 'Wifi' },
@@ -383,47 +407,82 @@ const AddPension = () => {
             <Button bg="transparent" borderRadius={'full'} onClick={onOpen}>
                 <BsFillPlusCircleFill fontSize={40} />
             </Button>
-            <Drawer placement={'bottom'} onClose={onClose} isOpen={isOpen}>
-                <DrawerOverlay />
-                <DrawerContent>
-                    <DrawerCloseButton />
-                    <DrawerHeader borderBottomWidth='1px'>Nueva publicación</DrawerHeader>
-                    <DrawerBody>
-                        <Stepper size={{ base: 'sm' }} index={activeStep}>
-                            {steps.map((step, index) => (
-                                <Step key={index}>
-                                    <StepIndicator>
-                                        <StepStatus
-                                            complete={<StepIcon />}
-                                            incomplete={<StepNumber />}
-                                            active={<StepNumber />}
-                                        />
-                                    </StepIndicator>
+            {
+                (documentAdvert != null ? false : true) || isSuperanfitrion ?
+                    <Drawer placement={'bottom'} onClose={onClose} isOpen={isOpen}>
+                        <DrawerOverlay />
+                        <DrawerContent>
+                            <DrawerCloseButton />
+                            <DrawerHeader borderBottomWidth='1px'>Nueva publicación</DrawerHeader>
+                            <DrawerBody>
+                                <Stepper size={{ base: 'sm' }} index={activeStep}>
+                                    {steps.map((step, index) => (
+                                        <Step key={index}>
+                                            <StepIndicator>
+                                                <StepStatus
+                                                    complete={<StepIcon />}
+                                                    incomplete={<StepNumber />}
+                                                    active={<StepNumber />}
+                                                />
+                                            </StepIndicator>
 
-                                    <Box flexShrink='0'>
-                                        <StepTitle>{step.title}</StepTitle>
-                                        <StepDescription>{step.description}</StepDescription>
-                                    </Box>
+                                            <Box flexShrink='0'>
+                                                <StepTitle>{step.title}</StepTitle>
+                                                <StepDescription>{step.description}</StepDescription>
+                                            </Box>
 
-                                    <StepSeparator />
-                                </Step>
-                            ))}
-                        </Stepper>
-                        {currentStepComponent}
-                        <ButtonGroup display={'flex'} justifyContent={'end'} pb={3} pt={3}>
-                            {activeStep != 0 && <Button colorScheme="blue" variant={'outline'} onClick={handlePrevious}>Atrás</Button>}
-                            {activeStep < steps.length - 1 ? (
-                                <Button colorScheme="blue" onClick={handleNext}>
-                                    Siguiente
-                                </Button>
-                            )
-                                :
-                                <Button colorScheme="green">Publicar</Button>
-                            }
-                        </ButtonGroup>
-                    </DrawerBody>
-                </DrawerContent>
-            </Drawer>
+                                            <StepSeparator />
+                                        </Step>
+                                    ))}
+                                </Stepper>
+                                {currentStepComponent}
+                                <ButtonGroup display={'flex'} justifyContent={'end'} pb={3} pt={3}>
+                                    {activeStep != 0 && <Button colorScheme="blue" variant={'outline'} onClick={handlePrevious}>Atrás</Button>}
+                                    {activeStep < steps.length - 1 ? (
+                                        <Button colorScheme="blue" onClick={handleNext}>
+                                            Siguiente
+                                        </Button>
+                                    )
+                                        :
+                                        <Button colorScheme="green">Publicar</Button>
+                                    }
+                                </ButtonGroup>
+                            </DrawerBody>
+                        </DrawerContent>
+                    </Drawer>
+                    :
+                    <Modal borderRadius={15} isOpen={isOpen} size={'xl'} onClose={onClose} isCentered motionPreset='slideInBottom' bgGradient='linear(to-l, #87C4FF, #0174BE)'>
+                        <ModalOverlay />
+                        <ModalContent borderRadius={15}>
+                            <HStack display={'flex'} flexDir={'column'}>
+                                <ModalHeader textAlign={'center'} width={'100%'}>
+                                    <Heading fontSize={30}>Conviértete en un Superanfitrión</Heading>
+                                </ModalHeader>
+                                <ModalCloseButton color={'gray'} mt={2} />
+                                <ModalBody width={{ base: '100%', md: '95%' }}>
+                                    <Card variant={'elevated'} borderRadius={15}>
+                                        <CardBody>
+                                            <Image src={Planes} />
+                                        </CardBody>
+                                        <CardFooter textAlign={'center'}>
+                                            <Heading fontSize={'xl'}>
+                                                Publica de manera ilimitada tus pensiones,
+                                                destaca entre todas las publicaciones,
+                                                los estudiantes recibirán una notificación directa de tus pensiones
+                                                y mucho más.
+                                            </Heading>
+                                        </CardFooter>
+                                    </Card>
+                                </ModalBody>
+                                <ModalFooter display={'flex'} justifyContent={'center'} alignItems={'center'} bg={'white'} width={'full'}>
+                                    <Link href={'/plans'}>
+                                        <Button colorScheme='blue' size={'lg'}>Ver Planes</Button>
+                                    </Link>
+                                </ModalFooter>
+                            </HStack>
+                        </ModalContent >
+                    </Modal >
+            }
         </>
     );
 };
