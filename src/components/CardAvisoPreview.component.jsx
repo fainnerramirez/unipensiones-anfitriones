@@ -22,10 +22,7 @@ const CardAvisoPreview = ({ image, ciudad, pais, precio, services }) => {
     const { userAuth } = useContext(AuthContext);
 
     useEffect(() => {
-        console.log("renderizado de card aviso preview");
     }, [precio, ciudad, pais]);
-
-    console.log("Imagen cargada: ", image)
 
     return (
         <Card maxW='md'>

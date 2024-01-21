@@ -98,8 +98,6 @@ function Register() {
 
             const { user } = await createUserWithEmailAndPassword(auth, userEmail, userPassword);
 
-            console.log("User: ", user)
-
             const options = {
                 user: {
                     id: user.uid,

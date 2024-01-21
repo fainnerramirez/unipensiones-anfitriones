@@ -11,8 +11,6 @@ const Plan = () => {
 
     const { isSuperanfitrion } = useContext(AuthContext);
 
-    console.log("isSuperanfitrion", isSuperanfitrion)
-
     return (
         <HStack spacing={10} flexDir={{ base: 'column', md: 'row' }} justifyContent={'center'} alignItems={'flex-start'}>
             <Box width={'100%'}>

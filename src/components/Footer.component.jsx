@@ -56,7 +56,6 @@ const Footer = () => {
   const { userAuth } = useContext(AuthContext);
 
   useEffect(() => {
-    console.log("state: ", state)
     setState(userAuth);
   }, [userAuth])
 

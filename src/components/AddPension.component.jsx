@@ -90,7 +90,6 @@ const DatosBasicos = ({
 
     const fileInputUpdaloadRef = useRef(null);
     const handleFileAnuncio = () => {
-        console.log("Entro en ref ", fileInputUpdaloadRef)
         fileInputUpdaloadRef.current.click();
     };
 

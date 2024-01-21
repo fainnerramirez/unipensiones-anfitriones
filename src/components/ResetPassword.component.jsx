@@ -18,7 +18,6 @@ const ResetPassword = () => {
             setIsLoading(true);
             await sendPasswordResetEmail(auth, email);
             setIsLoading(false);
-            console.log("correo enviado")
             toast.success("Correo enviado exitosamente", {
                 theme: "colored",
                 position: "top-center"

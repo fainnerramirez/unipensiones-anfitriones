@@ -20,7 +20,6 @@ export const LoadFilePension = async (file, userId) => {
     if (file) {
         const imagesRef = ref(storageRef, `images/pensions/${userId}/${file.name}`);
         await uploadBytes(imagesRef, file).then((snapshot) => {
-            console.log('Archivo cargado: ', snapshot);
         });
         let urlGet = getDownloadURLPension(imagesRef);
         return urlGet;

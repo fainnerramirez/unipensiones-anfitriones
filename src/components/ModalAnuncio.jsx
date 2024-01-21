@@ -120,7 +120,6 @@ const DatosBasicos = (
     const { userAuth } = useContext(AuthContext);
     const fileInputUpdaloadRef = useRef(null);
     const handleFileAnuncio = () => {
-        console.log("Entro en ref ", fileInputUpdaloadRef)
         fileInputUpdaloadRef.current.click();
     };
 

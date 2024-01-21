@@ -14,7 +14,6 @@ export const createAnfitrion = async (options) => {
 export const getAnfitrionByUserId = async (userId) => {
 
     try {
-        console.log("Entro getAnfitrionByUserId: ", userId)
         if(userId != null && userId != undefined && userId){
             const q = query(collection(db, 'anfitriones'), where('user.id', '==', userId), limit(1));
             const querySnapshot = await getDocs(q);
@@ -109,7 +108,6 @@ export const createAdvertForAnfitrion = async (userId, options) => {
             return nuevaPublicacionRef.id;
         }
         else {
-            console.log("Operación de publicación cancelada!");
             return null;
         }
     } catch (error) {

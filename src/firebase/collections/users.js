@@ -14,24 +14,3 @@ export const obtenerPublicacionesDeUsuario = async (userId) => {
         throw error;
     }
 }
-
-// // Ejemplo de uso
-// crearPublicacion("userId123", "Título de la publicación", "Contenido de la publicación")
-//   .then((postId) => {
-//     console.log("ID de la publicación relacionada:", postId);
-//   })
-//   .catch((error) => {
-//     console.error("Error al crear la publicación:", error);
-//   });
-
-// // Obtén las publicaciones de un usuario específico
-// obtenerPublicacionesDeUsuario("userId123")
-//   .then((querySnapshot) => {
-//     querySnapshot.forEach((doc) => {
-//       const postId = doc.data().postId;
-//       console.log("ID de la publicación relacionada:", postId);
-//     });
-//   })
-//   .catch((error) => {
-//     console.error("Error al obtener las publicaciones del usuario:", error);
-//   });
