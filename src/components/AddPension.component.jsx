@@ -44,7 +44,9 @@ import {
     CardBody,
     CardFooter,
     ModalFooter,
-    Link
+    Link,
+    Text,
+    VStack
 } from "@chakra-ui/react";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import imagen from "../assets/preview.png"
@@ -89,21 +91,31 @@ const DatosBasicos = ({
 }) => {
 
     const fileInputUpdaloadRef = useRef(null);
+    const [filename, setFilename] = useState("");
     const handleFileAnuncio = () => {
         fileInputUpdaloadRef.current.click();
+    };
+
+    const handleFilePension = (e) => {
+        handleFilePensionChange(e);
+        setFilename(e.target.files[0].name)
     };
 
     return (
         <Stack spacing='10px' mt={10}>
             <Flex justifyContent={'center'} alignItems={'end'}>
-                <Button colorScheme='blue' rightIcon={<FiUpload />} onClick={handleFileAnuncio}>
-                    Subir foto
-                </Button>
+                <VStack spacing={4}>
+                    <Text>{filename}</Text>
+                    <Button colorScheme='blue' rightIcon={<FiUpload />} onClick={handleFileAnuncio}>
+                        Subir foto
+                    </Button>
+                </VStack>
                 <Input
+                    id="file"
                     type="file"
                     ref={fileInputUpdaloadRef}
                     style={{ display: 'none' }}
-                    onChange={(e) => handleFilePensionChange(e)}
+                    onChange={(e) => handleFilePension(e)}
                 />
             </Flex>
             <Box>
@@ -486,7 +498,7 @@ const AddPension = () => {
                                             </Button>
                                         )
                                             :
-                                            <Button colorScheme="green"  type='submit'>Publicar</Button>
+                                            <Button colorScheme="green" type='submit'>Publicar</Button>
                                         }
                                     </ButtonGroup>
                                 </form>
