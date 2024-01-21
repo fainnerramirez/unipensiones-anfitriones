@@ -53,7 +53,7 @@ import { LoadFilePension } from "../firebase/references/images/pensions";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import { MultiSelect } from "chakra-multiselect";
-import { getAllAdvertsAnfitrionByUserId } from "../firebase/collections/querys/anfitriones";
+import { createAdvertForAnfitrion, deleteAdvertAnfitrion, getAdvertsAnfitrionByUserId, getAllAdvertsAnfitrionByUserId } from "../firebase/collections/querys/anfitriones";
 import { useEffect } from "react";
 import Planes from "../assets/planes.png"
 import CardAvisoPreview from "./CardAvisoPreview.component";
@@ -110,6 +110,8 @@ const DatosBasicos = ({
             <Box>
                 <Input
                     placeholder='Escribe un título llamativo'
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                 />
             </Box>
             <Box>
@@ -414,6 +416,34 @@ const AddPension = () => {
 
     const currentStepComponent = stepComponents[activeStep];
 
+    const handleSubmitPublicForm = async (event) => {
+        event.preventDefault();
+        const document = await getAdvertsAnfitrionByUserId(userAuth?.uid);
+        let responseDelete = null;
+        if (document != null) {
+            responseDelete = await deleteAdvertAnfitrion(document?.id);
+        }
+        const nuevoAnuncio = {
+            username: userAuth?.displayName ?? "",
+            userPhoto: userAuth?.photoURL ?? "",
+            phone: userAuth?.phone ?? "",
+            urlFotoAnuncio: image,
+            titulo: title,
+            descripcion: desc,
+            pais: pais,
+            ciudad: ciudad,
+            barrio: barrio,
+            direccion: direccion,
+            tipoEspacio: tipoEspacio,
+            tipoAlojamiento: tipoAlojamiento,
+            tipoCupo: tipoCupo,
+            precio: precio,
+            Servicios: valueSelectService
+        };
+
+        await createAdvertForAnfitrion(userAuth?.uid, nuevoAnuncio);
+    }
+
     return (
         <>
             <Button bg="transparent" borderRadius={'full'} onClick={onOpen}>
@@ -427,38 +457,40 @@ const AddPension = () => {
                             <DrawerCloseButton />
                             <DrawerHeader borderBottomWidth='1px'>Nueva publicación</DrawerHeader>
                             <DrawerBody>
-                                <Stepper size={{ base: 'sm' }} index={activeStep}>
-                                    {steps.map((step, index) => (
-                                        <Step key={index}>
-                                            <StepIndicator>
-                                                <StepStatus
-                                                    complete={<StepIcon />}
-                                                    incomplete={<StepNumber />}
-                                                    active={<StepNumber />}
-                                                />
-                                            </StepIndicator>
+                                <form style={{ width: "100%" }} onSubmit={handleSubmitPublicForm}>
+                                    <Stepper size={{ base: 'sm' }} index={activeStep}>
+                                        {steps.map((step, index) => (
+                                            <Step key={index}>
+                                                <StepIndicator>
+                                                    <StepStatus
+                                                        complete={<StepIcon />}
+                                                        incomplete={<StepNumber />}
+                                                        active={<StepNumber />}
+                                                    />
+                                                </StepIndicator>
 
-                                            <Box flexShrink='0'>
-                                                <StepTitle>{step.title}</StepTitle>
-                                                <StepDescription>{step.description}</StepDescription>
-                                            </Box>
+                                                <Box flexShrink='0'>
+                                                    <StepTitle>{step.title}</StepTitle>
+                                                    <StepDescription>{step.description}</StepDescription>
+                                                </Box>
 
-                                            <StepSeparator />
-                                        </Step>
-                                    ))}
-                                </Stepper>
-                                {currentStepComponent}
-                                <ButtonGroup display={'flex'} justifyContent={'end'} pb={3} pt={3}>
-                                    {activeStep != 0 && <Button colorScheme="blue" variant={'outline'} onClick={handlePrevious}>Atrás</Button>}
-                                    {activeStep < steps.length - 1 ? (
-                                        <Button colorScheme="blue" onClick={handleNext}>
-                                            Siguiente
-                                        </Button>
-                                    )
-                                        :
-                                        <Button colorScheme="green">Publicar</Button>
-                                    }
-                                </ButtonGroup>
+                                                <StepSeparator />
+                                            </Step>
+                                        ))}
+                                    </Stepper>
+                                    {currentStepComponent}
+                                    <ButtonGroup display={'flex'} justifyContent={'end'} pb={3} pt={3}>
+                                        {activeStep != 0 && <Button colorScheme="blue" variant={'outline'} onClick={handlePrevious}>Atrás</Button>}
+                                        {activeStep < steps.length - 1 ? (
+                                            <Button colorScheme="blue" onClick={handleNext}>
+                                                Siguiente
+                                            </Button>
+                                        )
+                                            :
+                                            <Button colorScheme="green"  type='submit'>Publicar</Button>
+                                        }
+                                    </ButtonGroup>
+                                </form>
                             </DrawerBody>
                         </DrawerContent>
                     </Drawer>
