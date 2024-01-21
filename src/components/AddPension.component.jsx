@@ -113,11 +113,11 @@ const DatosBasicos = ({
                 />
             </Box>
             <Box>
-                <Textarea id='desc' placeholder="Escribe una descripción que resalte tu pensión" onChange={(e) => setDesc(e.target.value)} />
+                <Textarea id='desc' value={desc} placeholder="Escribe una descripción que resalte tu pensión" onChange={(e) => setDesc(e.target.value)} />
             </Box>
             <HStack spacing={5}>
                 <Box>
-                    <Select id='' defaultValue='Seleccione e tipo de espacio' onChange={(e) => setTipoEspacio(e.target.value)}>
+                    <Select id='' defaultValue='Seleccione e tipo de espacio' value={tipoEspacio} onChange={(e) => setTipoEspacio(e.target.value)}>
                         <option value=''>Tipo de Espacio</option>
                         <option value='casa'>Casa</option>
                         <option value='apartamento'>Apartamento</option>
@@ -125,7 +125,7 @@ const DatosBasicos = ({
                     </Select>
                 </Box>
                 <Box>
-                    <Select id='' defaultValue='seleccione el tipo de alojamiento' onChange={(e) => setTipoAlojamiento(e.target.value)}>
+                    <Select id='' defaultValue='seleccione el tipo de alojamiento' value={tipoAlojamiento} onChange={(e) => setTipoAlojamiento(e.target.value)}>
                         <option value=''>Tipo de Alojamiento</option>
                         <option value='una habitacion'>Una habitación</option>
                         <option value='habitacion compartida'>Habitación compartida</option>
@@ -134,7 +134,7 @@ const DatosBasicos = ({
             </HStack>
             <HStack>
                 <Box>
-                    <Select id='' defaultValue='seleccione el tipo de cupo' onChange={(e) => setTipoCupo(e.target.value)}>
+                    <Select id='' defaultValue='seleccione el tipo de cupo' value={tipoCupo} onChange={(e) => setTipoCupo(e.target.value)}>
                         <option value=''>Tipo de Cupo</option>
                         <option value='solo cupo'>Solo cupo (habitación)</option>
                         <option value='cupo completo'>Cupo completo (habitación y comida)</option>
@@ -144,6 +144,7 @@ const DatosBasicos = ({
                     <Input
                         placeholder='Barrio de la pensión'
                         onChange={(e) => setBarrio(e.target.value)}
+                        value={barrio}
                     />
                 </Box>
             </HStack>
@@ -152,6 +153,7 @@ const DatosBasicos = ({
                     <Input
                         placeholder='Dirección de la pensión'
                         onChange={(e) => setDireccion(e.target.value)}
+                        value={direccion}
                     />
                 </Box>
                 <Box>
@@ -159,6 +161,7 @@ const DatosBasicos = ({
                         type="number"
                         placeholder='Digite el precio'
                         onChange={(e) => setPrecio(e.target.value)}
+                        value={precio}
                     />
                 </Box>
             </Stack>
