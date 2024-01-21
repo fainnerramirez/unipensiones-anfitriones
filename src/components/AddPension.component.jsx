@@ -40,6 +40,7 @@ import { FiUpload } from "react-icons/fi";
 import { LoadFilePension } from "../firebase/references/images/pensions";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
+import { MultiSelect } from "chakra-multiselect";
 
 const DatosBasicos = ({
     handleFilePensionChange,
@@ -67,7 +68,8 @@ const DatosBasicos = ({
     image,
     direccion,
     steps,
-    activeStep
+    activeStep,
+    optionsMultiService
 }) => {
 
     const fileInputUpdaloadRef = useRef(null);
@@ -95,7 +97,7 @@ const DatosBasicos = ({
                 />
             </Box>
             <Box>
-                <Textarea id='desc' placeholder="Escribe una descripción que resalte tu pensión" onChange={(e) => setDesc(e.target.value)}/>
+                <Textarea id='desc' placeholder="Escribe una descripción que resalte tu pensión" onChange={(e) => setDesc(e.target.value)} />
             </Box>
             <HStack spacing={5}>
                 <Box>
@@ -145,11 +147,12 @@ const DatosBasicos = ({
                 </Box>
             </Stack>
             <Box>
-                <Select id='' defaultValue='seleccione los servicios' onChange={(e) => setValueSelect(e.target.value)}>
-                    <option value=''>Servicios</option>
-                    <option value='segun'>Segun Adebayo</option>
-                    <option value='kola'>Kola Tioluwani</option>
-                </Select>
+                <MultiSelect
+                    value={valueSelectService}
+                    options={optionsMultiService}
+                    onChange={(e) => setValueSelect(e)}
+                    placeholder='Seleccione los servicios'
+                />
             </Box>
         </Stack>
     );
@@ -293,7 +296,21 @@ const AddPension = () => {
     const [ciudad, setCiudad] = useState("")
     const [direccion, setDireccion] = useState("")
     const [precio, setPrecio] = useState("")
-    const {userAuth} = useContext(AuthContext);
+    const { userAuth } = useContext(AuthContext);
+
+    const optionsMultiService = [
+        { value: '1', label: 'Wifi' },
+        { value: '2', label: 'TV' },
+        { value: '3', label: 'Acceso a Cocina' },
+        { value: '4', label: 'Acceso a Lavadora' },
+        { value: '5', label: 'Estacionamiento' },
+        { value: '6', label: 'Aire acondicionado' },
+        { value: '7', label: 'Zona de estudio' },
+        { value: '8', label: 'Piscina' },
+        { value: '9', label: 'Gimnasio' },
+        { value: '10', label: 'Terraza' },
+        { value: '11', label: 'Lavado de ropa' }
+    ]
 
     const { goToNext, goToPrevious, activeStep } = useSteps({
         index: 0,
@@ -316,6 +333,7 @@ const AddPension = () => {
     }
 
     const PropsDatosBasicos = {
+        optionsMultiService,
         steps,
         activeStep,
         handleFilePensionChange,
