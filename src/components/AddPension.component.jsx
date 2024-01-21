@@ -199,25 +199,24 @@ const Politicas = () => {
                             isIndeterminate={isIndeterminate}
                             onChange={(e) => setCheckedItems([e.target.checked, e.target.checked])}
                         >
-                            Parent Checkbox
+                            Tratar a los demás con respeto y cortesía
                         </Checkbox>
                         <Stack pl={6} mt={1} spacing={1}>
                             <Checkbox
                                 isChecked={checkedItems[0]}
                                 onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1]])}
                             >
-                                Child Checkbox 1
+                                Respetar a las áreas comunes
                             </Checkbox>
                             <Checkbox
                                 isChecked={checkedItems[1]}
                                 onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
                             >
-                                Child Checkbox 2
+                                Respetar la privacidad de los demás
                             </Checkbox>
                         </Stack>
                     </AccordionPanel>
                 </AccordionItem>
-
                 <AccordionItem>
                     <h2>
                         <AccordionButton>
@@ -233,20 +232,20 @@ const Politicas = () => {
                             isIndeterminate={isIndeterminate}
                             onChange={(e) => setCheckedItems([e.target.checked, e.target.checked])}
                         >
-                            Parent Checkbox
+                            Normas de seguridad
                         </Checkbox>
                         <Stack pl={6} mt={1} spacing={1}>
                             <Checkbox
                                 isChecked={checkedItems[0]}
                                 onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1]])}
                             >
-                                Child Checkbox 1
+                                Guardar los utensilios en el lugar correspondiente
                             </Checkbox>
                             <Checkbox
                                 isChecked={checkedItems[1]}
                                 onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
                             >
-                                Child Checkbox 2
+                                Cualquier daño reportarlo con la administración
                             </Checkbox>
                         </Stack>
                     </AccordionPanel>
@@ -266,20 +265,20 @@ const Politicas = () => {
                             isIndeterminate={isIndeterminate}
                             onChange={(e) => setCheckedItems([e.target.checked, e.target.checked])}
                         >
-                            Parent Checkbox
+                            Espacios comunes
                         </Checkbox>
                         <Stack pl={6} mt={1} spacing={1}>
                             <Checkbox
                                 isChecked={checkedItems[0]}
                                 onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1]])}
                             >
-                                Child Checkbox 1
+                                Utilizar las áreas comunes de manera equitativa
                             </Checkbox>
                             <Checkbox
                                 isChecked={checkedItems[1]}
                                 onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
                             >
-                                Child Checkbox 2
+                                Limpiar las áreas comunes después de usarlos
                             </Checkbox>
                         </Stack>
                     </AccordionPanel>
