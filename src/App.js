@@ -21,6 +21,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { PlansPage } from "./pages/Plans.page";
 import SettingsPage from "./pages/Settings.page";
 import NotificationsPage from "./pages/Notifications.page";
+import ProfileMovil from "./pages/ProfileMovil.page";
 moment.locale('es');
 
 const App = () => {
@@ -56,6 +57,10 @@ const App = () => {
         <Route
           path="user/:userId/profile"
           element={isAuthenticated ? <ProfileUser /> : <Navigate to="/" />}
+        />
+        <Route
+          path="profile"
+          element={<ProfileMovil />}
         />
       </Route>
     )

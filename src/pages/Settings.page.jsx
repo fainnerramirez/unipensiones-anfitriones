@@ -1,8 +1,9 @@
+import { Heading } from '@chakra-ui/react'
 import React from 'react'
 
 const SettingsPage = () => {
     return (
-        <div style={{ textAlign: 'center' }}>Settings User</div>
+        <Heading textAlign={'center'}>Página en construcción</Heading>
     )
 }
 
