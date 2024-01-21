@@ -50,23 +50,26 @@ const DatosBasicos = () => {
             </Box>
             <HStack spacing={5}>
                 <Box>
-                    <Select id='owner' defaultValue='Seleccione e tipo de espacio'>
-                        <option value='segun'>Segun Adebayo</option>
-                        <option value='kola'>Kola Tioluwani</option>
+                    <Select id='' defaultValue='Seleccione e tipo de espacio'>
+                        <option value=''>Tipo de Espacio</option>
+                        <option value='apartamento'>Apartamento</option>
+                        <option value='apartaestudios'>ApartaEstudio</option>
                     </Select>
                 </Box>
                 <Box>
-                    <Select id='owner' defaultValue='seleccione el tipo de alojamiento'>
-                        <option value='segun'>Segun Adebayo</option>
-                        <option value='kola'>Kola Tioluwani</option>
+                    <Select id='' defaultValue='seleccione el tipo de alojamiento'>
+                        <option value=''>Tipo de Alojamiento</option>
+                        <option value='una habitacion'>Una habitación</option>
+                        <option value='habitacion compartida'>Habitación compartida</option>
                     </Select>
                 </Box>
             </HStack>
             <HStack>
                 <Box>
-                    <Select id='owner' defaultValue='seleccione el tipo de cupo'>
-                        <option value='segun'>Segun Adebayo</option>
-                        <option value='kola'>Kola Tioluwani</option>
+                    <Select id='' defaultValue='seleccione el tipo de cupo'>
+                        <option value=''>Tipo de Cupo</option>
+                        <option value='solo cupo'>Solo cupo (habitación)</option>
+                        <option value='cupo completo'>Cupo completo (habitación y comida)</option>
                     </Select>
                 </Box>
                 <Box>
@@ -89,7 +92,8 @@ const DatosBasicos = () => {
                 </Box>
             </Stack>
             <Box>
-                <Select id='owner' defaultValue='seleccione los servicios'>
+                <Select id='' defaultValue='seleccione los servicios'>
+                    <option value=''>Servicios</option>
                     <option value='segun'>Segun Adebayo</option>
                     <option value='kola'>Kola Tioluwani</option>
                 </Select>
@@ -216,12 +220,19 @@ const Politicas = () => {
 const Previsualizacion = () => {
     return (
         <Stack spacing='10px' mt={10}>
-            <Image src={imagen} height={350}/>
+            <Image src={imagen} height={350} />
         </Stack>
     );
 }
 
 const AddPension = () => {
+    const [title, setTitle] = useState(null);
+    const [description, setDescription] = useState(null);
+
+
+
+
+
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { goToNext, goToPrevious, activeStep } = useSteps({
         index: 0,
