@@ -56,6 +56,7 @@ import { MultiSelect } from "chakra-multiselect";
 import { getAllAdvertsAnfitrionByUserId } from "../firebase/collections/querys/anfitriones";
 import { useEffect } from "react";
 import Planes from "../assets/planes.png"
+import CardAvisoPreview from "./CardAvisoPreview.component";
 
 const DatosBasicos = ({
     handleFilePensionChange,
@@ -288,10 +289,10 @@ const Politicas = () => {
     );
 }
 
-const Previsualizacion = () => {
+const Previsualizacion = (props) => {
     return (
         <Stack spacing='10px' mt={10}>
-            <Image src={imagen} height={350} />
+            <CardAvisoPreview {...props} />
         </Stack>
     );
 }
@@ -386,10 +387,19 @@ const AddPension = () => {
         direccion
     }
 
+    const PropsPreview = {
+        image,
+        ciudad,
+        pais,
+        precio,
+        services: valueSelectService
+    }
+
+
     const stepComponents = [
         <DatosBasicos {...PropsDatosBasicos} />,
         <Politicas />,
-        <Previsualizacion />,
+        <Previsualizacion {...PropsPreview} />,
     ];
 
     const handleNext = () => {

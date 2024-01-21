@@ -35,9 +35,9 @@ const CardAvisoPreview = ({ image, ciudad, pais, precio, services }) => {
                         src={image}
                         alt='Imagen de la pensión'
                         borderRadius='lg'
-                        height={250}
-                        width={400}
-                    /> : <Skeleton height={250} width={400} />
+                        height={{ base: '100%', md: 250 }}
+                        width={{ base: '100%', md: 400 }}
+                    /> : <Skeleton height={{ base: 200, md: 250 }} width={{md: 400 }} />
                 }
                 <Box padding='6' boxShadow='lg' bg='white'>
                     {
@@ -45,8 +45,8 @@ const CardAvisoPreview = ({ image, ciudad, pais, precio, services }) => {
                             <HStack spacing={5}>
                                 <Image boxSize='50px'
                                     objectFit='cover'
-                                    alt={userAuth?.displayName} 
-                                    src={userAuth?.photoURL ?? `https://ui-avatars.com/api/?name=${userAuth?.displayName}&background=0D8ABC&color=fff`} 
+                                    alt={userAuth?.displayName}
+                                    src={userAuth?.photoURL ?? `https://ui-avatars.com/api/?name=${userAuth?.displayName}&background=0D8ABC&color=fff`}
                                     borderRadius={'50%'} />
                                 <Box>
                                     <Text>{userAuth?.displayName}</Text>
