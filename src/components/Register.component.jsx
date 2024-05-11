@@ -24,10 +24,9 @@ import {
     AbsoluteCenter,
     Checkbox
 } from '@chakra-ui/react'
-import { useState, useRef, useContext, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { BiUser } from "react-icons/bi"
 import { MdPassword } from "react-icons/md";
-import { BsCalendarDate } from "react-icons/bs";
 import { AiFillPhone } from "react-icons/ai";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai"
 import { TbEdit } from "react-icons/tb"
@@ -39,7 +38,6 @@ import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } 
 import { errorManagment } from '../firebase/errors/errorManagmentUser';
 import 'react-toastify/dist/ReactToastify.css';
 import { createAnfitrion } from '../firebase/collections/querys/anfitriones';
-import { FaCamera } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import SingInUser from './SingIn.component';
 import Confetti from 'react-confetti'

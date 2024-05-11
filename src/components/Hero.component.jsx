@@ -8,68 +8,74 @@ import {
   Icon,
   useColorModeValue,
   createIcon,
-} from '@chakra-ui/react'
-import Register from './Register.component'
-import { Link, redirect } from 'react-router-dom'
+} from "@chakra-ui/react";
+import RegisterNew from "./RegisterNew.component";
+import { Link, redirect } from "react-router-dom";
 import { PATHS } from "../utils/PathsRouter";
-import { useContext } from 'react';
-import { AuthContext } from '../context/authContext';
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
 
 const HeroHost = () => {
-
   const { userAuth, auth } = useContext(AuthContext);
 
   const user = auth.currentUser;
 
   return (
     <>
-      <Container maxW={'3xl'}>
+      <Container maxW={"3xl"}>
         <Stack
           as={Box}
-          textAlign={'center'}
+          textAlign={"center"}
           spacing={{ base: 8, md: 14 }}
-          py={{ base: 20, md: 36 }}>
+          py={{ base: 20, md: 36 }}
+        >
           <Heading
             fontWeight={600}
-            fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
-            lineHeight={'110%'}>
+            fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
+            lineHeight={"110%"}
+          >
             Bienvenido a Unipensiones <br />
-            <Text as={'span'} color={'blue.500'}>
+            <Text as={"span"} color={"blue.500"}>
               Comparte Tu Espacio con Estudiantes
             </Text>
           </Heading>
-          <Text color={'gray.500'} fontSize={{ base: '2xl', sm: '2xl', md: '2xl' }}>
-            En Unipensiones, creemos que cada hogar
-            puede ser un espacio de aprendizaje. Únete como anfitrión y ofrece tu pensión
-            a estudiantes que buscan un lugar inspirador para vivir mientras persiguen
-            sus metas académicas.
+          <Text
+            color={"gray.500"}
+            fontSize={{ base: "2xl", sm: "2xl", md: "2xl" }}
+          >
+            En Unipensiones, creemos que cada hogar puede ser un espacio de
+            aprendizaje. Únete como anfitrión y ofrece tu pensión a estudiantes
+            que buscan un lugar inspirador para vivir mientras persiguen sus
+            metas académicas.
           </Text>
           <Stack
-            direction={'column'}
+            direction={"column"}
             spacing={3}
-            align={'center'}
-            alignSelf={'center'}
-            position={'relative'}>
-            <Register />
-            <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
+            align={"center"}
+            alignSelf={"center"}
+            position={"relative"}
+          >
+            <RegisterNew />
+            <Button variant={"link"} colorScheme={"blue"} size={"sm"}>
               <Link to={PATHS.AVISO}>Ir a página principal</Link>
             </Button>
             <Box>
               <Icon
                 as={Arrow}
-                color={'gray.800'}
+                color={"gray.800"}
                 w={71}
-                position={'absolute'}
+                position={"absolute"}
                 right={-71}
-                top={'10px'}
+                top={"10px"}
               />
               <Text
-                fontSize={'xl'}
-                fontFamily={'Caveat'}
-                position={'absolute'}
-                right={'-160px'}
-                top={'-10px'}
-                transform={'rotate(20deg)'}>
+                fontSize={"xl"}
+                fontFamily={"Caveat"}
+                position={"absolute"}
+                right={"-160px"}
+                top={"-10px"}
+                transform={"rotate(20deg)"}
+              >
                 ¡Totalmente Gratis!
               </Text>
             </Box>
@@ -77,12 +83,12 @@ const HeroHost = () => {
         </Stack>
       </Container>
     </>
-  )
-}
+  );
+};
 
 const Arrow = createIcon({
-  displayName: 'Arrow',
-  viewBox: '0 0 72 24',
+  displayName: "Arrow",
+  viewBox: "0 0 72 24",
   path: (
     <path
       fillRule="evenodd"
@@ -91,6 +97,6 @@ const Arrow = createIcon({
       fill="currentColor"
     />
   ),
-})
+});
 
-export default HeroHost
+export default HeroHost;
