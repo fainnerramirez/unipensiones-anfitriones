@@ -18,6 +18,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
 import { useRef, useState } from "react";
@@ -33,6 +34,7 @@ import { auth } from "../firebase/authentication/auth";
 import { createAnfitrion } from "../firebase/collections/querys/anfitriones";
 import { errorManagment } from "../firebase/errors/errorManagmentUser";
 import { LoadFileProfileUser } from "../firebase/references/users/profiles";
+import SingInUser from "./SingIn.component";
 
 const RegisterNew = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,6 +57,14 @@ const RegisterNew = () => {
     try {
       const Google = new GoogleAuthProvider();
       await signInWithPopup(auth, Google);
+    } catch (error) {
+      errorManagment(error);
+    }
+  };
+
+  const handleSignInUser = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, userEmail, userPassword);
     } catch (error) {
       errorManagment(error);
     }
@@ -208,7 +218,7 @@ const RegisterNew = () => {
         <Box mt={50} position="relative" padding="6">
           <Divider />
           <AbsoluteCenter bg="transparent" px="4">
-            Ó ingresa con
+            Ó crea una cuenta con
           </AbsoluteCenter>
         </Box>
         <Box display={"flex"} justifyContent={"center"}>
@@ -220,6 +230,15 @@ const RegisterNew = () => {
           >
             Google
           </Button>
+        </Box>
+        <Box mt={30} position="relative" padding="6">
+          <Divider />
+          <AbsoluteCenter bg="transparent" px="4">
+            ¿Ya tienes una cuenta?
+          </AbsoluteCenter>
+        </Box>
+        <Box display={"flex"} justifyContent={"center"}>
+          <SingInUser />
         </Box>
       </form>
     </>

@@ -53,14 +53,6 @@ const Homepage = () => {
       </Box>
       <Box height={"100%"} width={{ base: "100%", md: "50%" }}>
         <Box pr={{ base: 5, md: 20 }} pl={{ base: 5, md: 20 }}>
-          <Box display={"flex"} justifyContent={"center"} mt={10}>
-            <Image
-              src={LogoMain}
-              width={40}
-              height={40}
-              borderRadius={"lg"}
-            ></Image>
-          </Box>
           <Heading
             width={"100%"}
             p={{ base: 5, md: 10 }}
