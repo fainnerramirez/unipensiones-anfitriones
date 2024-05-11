@@ -44,7 +44,7 @@ const RegisterNew = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showConfetti, setShowConfetti] = useState(false);
+  const [showConfetti2, setShowConfetti2] = useState(false);
   const fileInputRef = useRef(null);
 
   const handleClick = () => setShow(!show);
@@ -58,7 +58,7 @@ const RegisterNew = () => {
       const Google = new GoogleAuthProvider();
       await signInWithPopup(auth, Google);
     } catch (error) {
-      errorManagment(error);
+      errorManagment(error.code);
     }
   };
 
@@ -85,6 +85,7 @@ const RegisterNew = () => {
 
   const handleSubmitForm = async (ev) => {
     ev.preventDefault();
+    console.log("Confetti state: ", showConfetti2);
     setIsLoading(true);
     try {
       const { user } = await createUserWithEmailAndPassword(
@@ -107,9 +108,10 @@ const RegisterNew = () => {
         await LoadFileProfileUser(selectedFileProfile, doc?.id);
       }
 
-      //enviando email de verficación
       sendEmailVerification(auth.currentUser).then(() => {
-        setShowConfetti(true);
+        console.log("Confetti state: ", showConfetti2);
+        console.log("Confetti state after: ", showConfetti2);
+
         Swal.fire({
           icon: "success",
           title: "Activa tu cuenta unipensiones",
@@ -123,6 +125,7 @@ const RegisterNew = () => {
           iconColor: "#0174BE",
         });
         auth.signOut();
+        setShowConfetti2(true);
       });
 
       setIsLoading(false);
@@ -135,7 +138,7 @@ const RegisterNew = () => {
 
   return (
     <>
-      {showConfetti && <Confetti gravity={1} />}
+      {showConfetti2 && <Confetti gravity={1} />}
       <form onSubmit={handleSubmitForm}>
         <Stack spacing={4}>
           <Flex justifyContent={"center"} alignItems={"end"}>

@@ -1,10 +1,9 @@
-import React from "react";
-import RegisterNew from "../components/RegisterNew.component";
 import { Box, HStack, Heading, Image, Text } from "@chakra-ui/react";
-import "../styles/glass.css";
+import React from "react";
 import CardAnfitrion from "../assets/cardAfitrion.png";
 import LogoRow from "../components/LogoRow.component";
-import LogoMain from "../assets/logoUP.png";
+import RegisterNew from "../components/RegisterNew.component";
+import "../styles/glass.css";
 
 const Homepage = () => {
   return (
