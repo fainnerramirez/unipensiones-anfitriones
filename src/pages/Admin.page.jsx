@@ -7,6 +7,7 @@ import Sidebar from "../components/Sidebar.component";
 import { AuthContext } from "../context/authContext";
 import { getAllAdvertsAnfitrionByUserId } from "../firebase/collections/querys/anfitriones";
 import { NotResultsEmpty } from "../components/NotResults.component";
+import { COLOR } from "../utils/Constants/Color";
 
 const AvisoPage = () => {
   const [documentAdvert, setDocumentAdvert] = useState(null);
@@ -65,9 +66,8 @@ const AvisoPage = () => {
         </Box>
       </Box>
       <Divider
-        color={"blue.900"}
         height={2}
-        bg={"blue.400"}
+        bg={COLOR.GREEN}
         borderRadius={35}
         display={{ base: "none", md: "block" }}
       />

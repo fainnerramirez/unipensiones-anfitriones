@@ -21,6 +21,7 @@ import { MdWorkspacePremium } from "react-icons/md";
 import { AuthContext } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import imagePensionSide from "../assets/pensionside.jpeg";
+import { COLOR } from "../utils/Constants/Color";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -32,9 +33,9 @@ const Sidebar = () => {
     <>
       <Button
         marginLeft={"20px"}
-        colorScheme="blue"
         onClick={onOpen}
         padding={"20px"}
+        variant={"green-up"}
       >
         <CgMenu fontSize={"30px"} />
       </Button>
@@ -85,7 +86,12 @@ const Sidebar = () => {
               </Heading>
             </Box>
             <Box>
-              <Text as="h4" textAlign={"center"} fontWeight={"bold"}>
+              <Text
+                as="h4"
+                textAlign={"center"}
+                fontWeight={"bold"}
+                color={COLOR.BLACK}
+              >
                 Bienvenido Anfitrión
               </Text>
               <Box marginTop={10}>
@@ -102,7 +108,7 @@ const Sidebar = () => {
                   />
                 </Box>
                 <Box marginTop={5}>
-                  <Text textAlign={"left"}>
+                  <Text textAlign={"left"} color={COLOR.BLACK}>
                     Publica tu anuncio y cuentales a los estudiantes porque tu
                     pensión es el lugar ideal para su vida universitaria
                   </Text>
@@ -110,7 +116,12 @@ const Sidebar = () => {
               </Box>
             </Box>
             <Box>
-              <Text fontWeight={"bold"} marginTop={40} textAlign={"center"}>
+              <Text
+                fontWeight={"bold"}
+                marginTop={40}
+                textAlign={"center"}
+                color={COLOR.BLACK}
+              >
                 Una comunidad de estudiantes que comparten el mismo viaje que tú
               </Text>
             </Box>
@@ -120,7 +131,9 @@ const Sidebar = () => {
             display={"flex"}
             justifyContent={"center"}
           >
-            <Heading size={"md"}>Unipensiones</Heading>
+            <Heading size={"md"} color={COLOR.BLACK}>
+              Unipensiones
+            </Heading>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
