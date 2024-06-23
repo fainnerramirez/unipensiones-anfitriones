@@ -5,6 +5,7 @@ import {
   Divider,
   Flex,
   FormControl,
+  FormHelperText,
   HStack,
   Image,
   Input,
@@ -35,6 +36,7 @@ import { createAnfitrion } from "../firebase/collections/querys/anfitriones";
 import { errorManagment } from "../firebase/errors/errorManagmentUser";
 import { LoadFileProfileUser } from "../firebase/references/users/profiles";
 import SingInUser from "./SingIn.component";
+import { LuEye, LuEyeOff } from "react-icons/lu";
 
 const RegisterNew = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -141,7 +143,7 @@ const RegisterNew = () => {
       {showConfetti2 && <Confetti gravity={1} />}
       <form onSubmit={handleSubmitForm}>
         <Stack spacing={4}>
-          <Flex justifyContent={"center"} alignItems={"end"}>
+          {/* <Flex justifyContent={"center"} alignItems={"end"}>
             <Image
               borderRadius="full"
               objectFit={"cover"}
@@ -158,7 +160,7 @@ const RegisterNew = () => {
               style={{ display: "none" }}
               onChange={handleFileProfileChange}
             />
-          </Flex>
+          </Flex> */}
           <HStack
             spacing={"5px"}
             flexDir={{ base: "column" }}
@@ -180,6 +182,10 @@ const RegisterNew = () => {
                   onChange={(e) => setUserEmail(e.target.value)}
                 />
               </InputGroup>
+              <FormHelperText color={"whiteAlpha.900"}>
+                Escribe un correo válido, tendrás que verificar el correo
+                después de creada la cuenta
+              </FormHelperText>
             </FormControl>
             <br />
             <FormControl isRequired>
@@ -195,23 +201,28 @@ const RegisterNew = () => {
                   onChange={(e) => setUserPassword(e.target.value)}
                 />
                 <InputRightElement
-                  width="4.5rem"
+                  width="auto"
                   display={"flex"}
                   justifyContent={"center"}
                   alignItems={"center"}
+                  marginTop={1}
+                  paddingRight={2}
                 >
                   <Button size="sm" onClick={handleClick}>
-                    {show ? "Ocultar" : "Mostrar"}
+                    {show ? <LuEye /> : <LuEyeOff />}
                   </Button>
                 </InputRightElement>
               </InputGroup>
+              <FormHelperText color={"whiteAlpha.900"}>
+                La contraseña debe tener como mínimo 7 caracteres
+              </FormHelperText>
             </FormControl>
           </HStack>
         </Stack>
         <Box mt={5} display={"flex"} justifyContent={"center"}>
           <Button
             size={"lg"}
-            colorScheme="blue"
+            variant={"green-up"}
             type="submit"
             isLoading={isLoading}
           >
@@ -228,7 +239,7 @@ const RegisterNew = () => {
           <Button
             size={{ base: "sm", md: "md", lg: "lg" }}
             leftIcon={<FcGoogle />}
-            variant={"outline"}
+            variant={"solid"}
             onClick={handleGoogle}
           >
             Google

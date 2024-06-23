@@ -6,6 +6,7 @@ import ModalAnuncio from "../components/ModalAnuncio";
 import Sidebar from "../components/Sidebar.component";
 import { AuthContext } from "../context/authContext";
 import { getAllAdvertsAnfitrionByUserId } from "../firebase/collections/querys/anfitriones";
+import { NotResultsEmpty } from "../components/NotResults.component";
 
 const AvisoPage = () => {
   const [documentAdvert, setDocumentAdvert] = useState(null);
@@ -46,7 +47,7 @@ const AvisoPage = () => {
               display={"flex"}
               textTransform={"capitalize"}
             >
-              Bienvenido de nuevo {userAuth && userAuth?.displayName}
+              Mi perfil
               {isSuperanfitrion && (
                 <Box bg={"#e6b219"} ml={1} borderRadius={5}>
                   <MdWorkspacePremium ml={3} />
@@ -75,9 +76,9 @@ const AvisoPage = () => {
           Tus anuncios
         </Heading>
       ) : (
-        <Heading as="h4" marginTop={10} size={"lg"} textAlign={"center"}>
-          Publica tu primer anuncio
-        </Heading>
+        <Box>
+          <NotResultsEmpty />
+        </Box>
       )}
       <Box display={"flex"} justifyContent={"start"} marginTop={10}>
         {documentAdvert != null && (

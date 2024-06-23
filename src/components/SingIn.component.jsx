@@ -162,8 +162,7 @@ const SingInUser = () => {
     <>
       <Button
         size={{ base: "sm", md: "md", lg: "lg" }}
-        colorScheme="blue"
-        variant={"outline"}
+        variant={"green-outline-up"}
         width={"full"}
         onClick={onOpen}
       >

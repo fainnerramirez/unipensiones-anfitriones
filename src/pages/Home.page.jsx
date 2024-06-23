@@ -15,7 +15,7 @@ const Homepage = () => {
       height={{ base: "auto", md: "100vh" }}
     >
       <Box
-        bgGradient="linear(to-l, #87C4FF, #0174BE)"
+        bg={"#01c380"}
         height={"100%"}
         width={{ base: "100%", md: "50%" }}
         display={"flex"}
@@ -50,7 +50,13 @@ const Homepage = () => {
           </Text>
         </Box>
       </Box>
-      <Box height={"100%"} width={{ base: "100%", md: "50%" }}>
+      <Box
+        height={"100%"}
+        width={{ base: "100%", md: "50%" }}
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
         <Box pr={{ base: 5, md: 20 }} pl={{ base: 5, md: 20 }}>
           <Heading
             width={"100%"}
