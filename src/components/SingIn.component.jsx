@@ -266,7 +266,7 @@ const SingInUser = () => {
                   </Text>
                   <Box color={"blue.600"} fontSize={18}>
                     <Button
-                      size={{ base: "sm", md: "md", lg: "lg" }}
+                      size={{ base: "md", md: "md", lg: "lg" }}
                       leftIcon={<FcGoogle />}
                       variant={"solid"}
                       onClick={handleGoogle}

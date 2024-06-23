@@ -248,7 +248,7 @@ const RegisterNew = () => {
         </Box>
         <Box mt={30} position="relative" padding="6">
           <Divider />
-          <AbsoluteCenter bg={COLOR.BLUE} px="2">
+          <AbsoluteCenter bg={COLOR.BLUE} px="2" textAlign={"center"}>
             ¿Ya tienes una cuenta?
           </AbsoluteCenter>
         </Box>
