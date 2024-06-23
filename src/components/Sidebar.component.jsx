@@ -22,6 +22,7 @@ import { AuthContext } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import imagePensionSide from "../assets/pensionside.jpeg";
 import { COLOR } from "../utils/Constants/Color";
+import imageResults from "../assets/results.png";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ const Sidebar = () => {
         onClose={onClose}
       >
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent bg={COLOR.BLUE} color={COLOR.WHITE}>
           <DrawerCloseButton />
           <DrawerHeader borderBottomWidth="1px">Mi Cuenta UP</DrawerHeader>
           <DrawerBody>
@@ -85,13 +86,8 @@ const Sidebar = () => {
                 {userAuth?.displayName}
               </Heading>
             </Box>
-            <Box>
-              <Text
-                as="h4"
-                textAlign={"center"}
-                fontWeight={"bold"}
-                color={COLOR.BLACK}
-              >
+            <Box marginTop={20}>
+              <Text as="h4" textAlign={"center"} fontWeight={"bold"}>
                 Bienvenido Anfitrión
               </Text>
               <Box marginTop={10}>
@@ -101,27 +97,22 @@ const Sidebar = () => {
                   alignItems={"center"}
                 >
                   <Image
-                    src={imagePensionSide}
-                    width={"90%"}
-                    height={"90%"}
+                    src={imageResults}
+                    width={"60%"}
+                    height={"60%"}
                     borderRadius={10}
                   />
                 </Box>
                 <Box marginTop={5}>
-                  <Text textAlign={"left"} color={COLOR.BLACK}>
-                    Publica tu anuncio y cuentales a los estudiantes porque tu
+                  <Text textAlign={"left"}>
+                    Publica tu anuncio y diles a los estudiantes porque tu
                     pensión es el lugar ideal para su vida universitaria
                   </Text>
                 </Box>
               </Box>
             </Box>
             <Box>
-              <Text
-                fontWeight={"bold"}
-                marginTop={40}
-                textAlign={"center"}
-                color={COLOR.BLACK}
-              >
+              <Text fontWeight={"bold"} marginTop={40} textAlign={"center"}>
                 Una comunidad de estudiantes que comparten el mismo viaje que tú
               </Text>
             </Box>
@@ -131,7 +122,7 @@ const Sidebar = () => {
             display={"flex"}
             justifyContent={"center"}
           >
-            <Heading size={"md"} color={COLOR.BLACK}>
+            <Heading size={"md"} color={COLOR.GREEN}>
               Unipensiones
             </Heading>
           </DrawerFooter>
