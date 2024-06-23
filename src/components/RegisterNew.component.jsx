@@ -37,6 +37,7 @@ import { errorManagment } from "../firebase/errors/errorManagmentUser";
 import { LoadFileProfileUser } from "../firebase/references/users/profiles";
 import SingInUser from "./SingIn.component";
 import { LuEye, LuEyeOff } from "react-icons/lu";
+import { COLOR } from "../utils/Constants/Color";
 
 const RegisterNew = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -231,13 +232,13 @@ const RegisterNew = () => {
         </Box>
         <Box mt={50} position="relative" padding="6">
           <Divider />
-          <AbsoluteCenter bg="transparent" px="4">
+          <AbsoluteCenter bg={COLOR.BLUE} px="2" textAlign={"center"}>
             Ó crea una cuenta con
           </AbsoluteCenter>
         </Box>
         <Box display={"flex"} justifyContent={"center"}>
           <Button
-            size={{ base: "sm", md: "md", lg: "lg" }}
+            size={"lg"}
             leftIcon={<FcGoogle />}
             variant={"solid"}
             onClick={handleGoogle}
@@ -247,7 +248,7 @@ const RegisterNew = () => {
         </Box>
         <Box mt={30} position="relative" padding="6">
           <Divider />
-          <AbsoluteCenter bg="transparent" px="4">
+          <AbsoluteCenter bg={COLOR.BLUE} px="2">
             ¿Ya tienes una cuenta?
           </AbsoluteCenter>
         </Box>

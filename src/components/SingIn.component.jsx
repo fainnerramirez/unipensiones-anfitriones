@@ -171,7 +171,7 @@ const SingInUser = () => {
   return (
     <>
       <Button
-        size={{ base: "sm", md: "md", lg: "lg" }}
+        size={{ base: "md", md: "md", lg: "lg" }}
         variant={"green-outline-up"}
         width={"full"}
         onClick={onOpen}
