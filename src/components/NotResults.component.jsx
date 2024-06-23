@@ -5,11 +5,15 @@ import EmptyResults from "../assets/notresults.png";
 export const NotResultsEmpty = () => {
   return (
     <Stack display={"flex"} justifyContent={"center"} alignItems={"center"}>
-      <Box marginTop={20}>
-        <Image src={EmptyResults} width={300} height={300} />
+      <Box marginTop={{ base: 10, md: 20 }}>
+        <Image
+          src={EmptyResults}
+          width={{ base: 200, md: 300 }}
+          height={{ base: 200, md: 300 }}
+        />
       </Box>
       <Box>
-        <Heading>Aún no tienes publicaciones</Heading>
+        <Heading textAlign={"center"}>Aún no tienes publicaciones</Heading>
       </Box>
     </Stack>
   );
