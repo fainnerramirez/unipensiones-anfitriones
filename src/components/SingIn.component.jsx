@@ -53,6 +53,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { getAnfitrionByUserId } from "../firebase/collections/querys/anfitriones";
 import { AuthContext } from "../context/authContext";
 import LogoUP from "../assets/logoUP.png";
+import { COLOR } from "../utils/Constants/Color";
 
 const SingInUser = () => {
   const { auth } = useContext(AuthContext);
@@ -158,6 +159,15 @@ const SingInUser = () => {
       });
   };
 
+  const handleGoogle = async () => {
+    try {
+      const Google = new GoogleAuthProvider();
+      await signInWithPopup(auth, Google);
+    } catch (error) {
+      errorManagment(error.code);
+    }
+  };
+
   return (
     <>
       <Button
@@ -170,20 +180,26 @@ const SingInUser = () => {
       </Button>
       <Modal isOpen={isOpen} size={"xl"} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
           <form onSubmit={handleSubmitFormUser}>
             <ModalHeader pt={5} pb={5}>
               <Box display={"flex"} justifyContent={"center"}>
                 <Image src={LogoUP} height={50} width={50} borderRadius={5} />
               </Box>
-              <Heading textAlign={"center"}>Bienvenido a Unipensiones</Heading>
+              <Heading textAlign={"center"} color={COLOR.BLACK}>
+                Bienvenido a Unipensiones
+              </Heading>
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <Stack spacing={4} mt="5">
                 <VStack spacing={"20px"} mt={"10px"}>
                   <FormControl width={"90%"} isRequired>
-                    <FormLabel>Correo electrónico</FormLabel>
+                    <FormLabel color={COLOR.BLUE}>Correo electrónico</FormLabel>
                     <InputGroup>
                       <InputLeftElement pointerEvents="none">
                         <BiUser color="gray.300" />
@@ -195,12 +211,13 @@ const SingInUser = () => {
                         size="lg"
                         autoComplete="true"
                         onChange={(e) => setEmail(e.target.value)}
+                        color={COLOR.BLACK}
                       />
                     </InputGroup>
                   </FormControl>
 
                   <FormControl width={"90%"} isRequired>
-                    <FormLabel>Contraseña</FormLabel>
+                    <FormLabel color={COLOR.BLUE}>Contraseña</FormLabel>
                     <InputGroup>
                       <InputLeftElement pointerEvents="none">
                         <MdPassword color="gray.300" />
@@ -210,6 +227,7 @@ const SingInUser = () => {
                         variant={"filled"}
                         placeholder="Contraseña"
                         size="lg"
+                        color={COLOR.BLACK}
                         onChange={(e) => setPassword(e.target.value)}
                       />
                       <InputRightElement width="4.5rem">
@@ -224,8 +242,37 @@ const SingInUser = () => {
                       </InputRightElement>
                     </InputGroup>
                   </FormControl>
-                  <Box color={"blue.600"} fontSize={18}>
+                  <Box color={COLOR.GREEN} fontSize={18}>
                     <a href="/resetpassword">¿Olvidaste tu contraseña?</a>
+                  </Box>
+                  <Box
+                    width={"100%"}
+                    display={"flex"}
+                    justifyContent={"center"}
+                  >
+                    <Button
+                      width={{ base: "full", md: "50%" }}
+                      isLoading={isLoading2}
+                      loadingText="Cargando"
+                      mt={3}
+                      variant={"blue-up"}
+                      type="submit"
+                    >
+                      Iniciar Sesión
+                    </Button>
+                  </Box>
+                  <Text textAlign={"center"} color={COLOR.BLACK}>
+                    Ó continua
+                  </Text>
+                  <Box color={"blue.600"} fontSize={18}>
+                    <Button
+                      size={{ base: "sm", md: "md", lg: "lg" }}
+                      leftIcon={<FcGoogle />}
+                      variant={"solid"}
+                      onClick={handleGoogle}
+                    >
+                      Google
+                    </Button>
                   </Box>
                 </VStack>
               </Stack>
@@ -236,20 +283,11 @@ const SingInUser = () => {
               alignItems={"center"}
               flexDir={"column"}
             >
-              <Button
-                width={{ base: "full", md: "50%" }}
-                isLoading={isLoading2}
-                colorScheme="blue"
-                loadingText="Cargando"
-                mt={3}
-                type="submit"
-              >
-                Iniciar Sesión
-              </Button>
               <Text
                 fontSize={12}
                 width={{ base: "90%", md: "50%" }}
                 textAlign={"center"}
+                color={COLOR.BLUE}
               >
                 Si continúas, aceptas los{" "}
                 <Text fontWeight={"bold"}>Términos del servicio;</Text>y

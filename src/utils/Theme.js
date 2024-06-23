@@ -31,6 +31,10 @@ const theme = extendTheme({
           borderColor: COLOR.GREEN,
           boxShadow: `0 0 2px 2px ${COLOR.GREEN}`,
         },
+        "blue-up": {
+          bg: COLOR.BLUE,
+          color: COLOR.WHITE,
+        },
       },
     },
     FormHelperText: {
